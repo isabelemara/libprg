@@ -1,42 +1,37 @@
 #include <libprg/libprg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#define TAMANHO 10
 
-int criar(lista_t *lista){
-    lista->vetor = (int *)
-    calloc(lista->tamanho, sizeof(int));
-    if(lista->vetor == NULL){
-        return 1;
+typedef struct lista{
+    int *vetor;
+    int capacidade;
+    int tamanho;
+    bool ordenada;
+} lista_t;
+//elementos que compoe uma fila
+
+
+lista_t* criar(){
+   lista_t *lista = (lista_t*)malloc(sizeof (lista_t));//malloc retornar void, por isso o (lista_t*)
+    lista->vetor = (int*) malloc(sizeof (int)*TAMANHO);
+    lista->tamanho = 0;
+    lista->ordenada = false;
+};
+
+
+void inserir(lista_t *lista, int elemento){
+
+    int n;
+    printf("digite valor: ");
+    scanf("%d",&n);
+    for (int i = 0; i < n; ++i) {
+
     }
-    return 0;
-}
-
-void povoar_nao_ord(lista_t *lista){
 
 
 }
+void busca(lista_t *lista);
 
-void povoar_ord(lista_t *lista){
-
-
-}
-
-int inserir_nao_ord(lista_t *lista, int elemento){
-
-
-}
-
-int inserir_ord(lista_t *lista, int elemento){
-
-
-}
-
-int remover_ord(lista_t *lista, int elemento){
-
-
-}
-
-int remover_nao_ord(lista_t *lista, int elemento){
-
-
-}
+void excluir();
