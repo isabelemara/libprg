@@ -6,6 +6,9 @@ typedef struct lista lista_t;
 
 lista_t* criar();
 void inserir(lista_t *lista, int elemento);
+int busca_linear(lista_t *lista, int elemento);
+int busca_bin_it(lista_t *lista, int elemento);
+int busca_bin_rec(lista_t *lista, int elemento, int inicio, int fim);
 
 
 // inserir
