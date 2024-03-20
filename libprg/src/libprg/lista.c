@@ -47,7 +47,7 @@ int busca_linear(lista_t *lista, int elemento){
             return i; //vai retornar o i atual
         }
     }
-return false;//elemento nao encontrado
+return -1;//elemento nao encontrado
 };
 
 int busca_bin_it(lista_t *lista, int elemento){
@@ -66,7 +66,7 @@ int busca_bin_it(lista_t *lista, int elemento){
             fim=meio-1;
         }
     }
-    return false;
+    return -1;
 }
 
 int busca_bin_rec(lista_t *lista, int elemento, int inicio, int fim){
@@ -80,10 +80,43 @@ int busca_bin_rec(lista_t *lista, int elemento, int inicio, int fim){
             return 1;
         } else
         if(lista->vetor[meio]>elemento){
-            return busca_bin_rec(lista,  elemento, inicio, meio-1);
+            return busca_bin_rec(lista, elemento, inicio, meio-1);
         }
     }
-
+    return -1;
 
 }
-void excluir();
+void excluir(lista_t* lista, int elemento){
+
+    if (lista->ordenada){
+        int verificar= busca_bin_it(lista, elemento);
+        if (verificar != -1){
+            for (int i = verificar; i < lista->tamanho ; ++i) {
+            lista->vetor[i]=lista->vetor[i+1];
+            }
+            lista->tamanho--;
+            printf("o elemento %d foi removido", elemento);
+            return;
+        }
+
+    }
+    else
+    {
+    int verificar = busca_linear(lista, elemento);
+        if (verificar != -1){
+            for (int i = verificar; i < lista->tamanho ; ++i) {
+                lista->vetor[i]=lista->vetor[i+1];
+            }
+            lista->tamanho--;
+            printf("o elemento %d foi removido", elemento);
+            return;
+    }
+
+        printf("não foi achado");
+}};
+
+int imprimir(lista_t* lista){
+
+    printf("*d",lista);
+    return 0;
+}
