@@ -117,6 +117,10 @@ void excluir(lista_t* lista, int elemento){
 
 int imprimir(lista_t* lista){
 
-    printf("*d",lista);
+    for (int i = 0; i < lista->tamanho; ++i) {
+
+        printf("%d",lista->vetor[i]);
+    }
     return 0;
 }
+
