@@ -2,8 +2,9 @@
 #define LIBPRG_LIBPRG_H
 
 typedef struct lista lista_t;
+typedef struct fila fila_t;
 
-
+//lista
 lista_t* criar();
 void inserir(lista_t *lista, int elemento);
 int busca_linear(lista_t *lista, int elemento);
@@ -11,6 +12,11 @@ int busca_bin_it(lista_t *lista, int elemento);
 int busca_bin_rec(lista_t *lista, int elemento, int inicio, int fim);
 void excluir(lista_t *lista, int elemento);
 int imprimir(lista_t *lista);
+
+//fila
+fila_t* criar_fila();
+void inserir_fila(fila_t* fila, int elemento);
+void excluir_fila(fila_t *fila, int elemento);
 
 
 // inserir
