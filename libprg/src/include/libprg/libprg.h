@@ -1,6 +1,8 @@
 #ifndef LIBPRG_LIBPRG_H
 #define LIBPRG_LIBPRG_H
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 typedef struct lista lista_t;
 typedef struct fila fila_t;
 
@@ -14,10 +16,15 @@ void excluir(lista_t *lista, int elemento);
 int imprimir(lista_t *lista);
 
 //fila
-fila_t* criar_fila();
+fila_t* criar_fila(int elemento);
 void inserir_fila(fila_t* fila, int elemento);
-void excluir_fila(fila_t *fila, int elemento);
-
+int excluir_fila(fila_t *fila);
+int inicio(fila_t* fila);
+int final(fila_t* fila);
+int tamanho(fila_t* fila);
+bool vazia(fila_t* fila);
+bool cheia(fila_t* fila);
+int imprimir_fila(fila_t* fila);
 
 // inserir
 //void povoar_nao_ord(lista_t *lista);
