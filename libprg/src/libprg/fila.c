@@ -80,7 +80,7 @@ bool vazia(fila_t* fila){
     {return false;}
 }
 
-int imprimir_fila(fila_t* fila){
+void imprimir_fila(fila_t* fila){
     int i= fila->inicio;
     for (int contador = 0;contador < fila->tamanho; ++contador) {
 
@@ -88,5 +88,5 @@ int imprimir_fila(fila_t* fila){
         i= (i+1)%fila->capacidade;
     }
     printf("\n");
-    return 0;
+
 }

@@ -24,7 +24,7 @@ int final(fila_t* fila);
 int tamanho(fila_t* fila);
 bool vazia(fila_t* fila);
 bool cheia(fila_t* fila);
-int imprimir_fila(fila_t* fila);
+void imprimir_fila(fila_t* fila);
 
 // inserir
 //void povoar_nao_ord(lista_t *lista);
