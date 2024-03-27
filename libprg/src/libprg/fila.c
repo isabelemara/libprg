@@ -25,7 +25,7 @@ void inserir_fila(fila_t* fila, int elemento){
         fila->tamanho++;
         fila->fim=(fila->fim+1)%fila->capacidade;
     }else
-    if (fila->tamanho > fila->capacidade) {
+    {
         //  Esta parte verifica se o tamanho atual da fila excede a capacidade atual. Se sim, significa que não há espaço suficiente para inserir um novo elemento. Nesse caso, dobramos a capacidade da lista realocando o vetor interno para acomodar mais elementos.
         printf("esta fila já está cheia");
     }
