@@ -14,7 +14,9 @@ typedef struct fila{
 fila_t* criar_fila(int capacidade){
      fila_t *fila = (fila_t*)malloc(sizeof (fila_t));//malloc retorna void, por isso o (fila_t*)
     fila->elemento = (int*) malloc(sizeof (int)*capacidade);
+    fila->capacidade = capacidade;
     fila->tamanho = 0;
+    return fila;
 }
 
 void inserir_fila(fila_t* fila, int elemento){
