@@ -35,15 +35,16 @@ void inserir_fila(fila_t* fila, int elemento){
 
 int excluir_fila(fila_t *fila){
 
-    int posicao = fila->inicio;
+
     // Inserir o novo elemento na posição correta e disponivel
 
     //tamanho++ fala que colocamos um elemento nesta lista, vaipara o proximo espaço vazio da lista
 
-    fila->inicio=(fila->inicio+1)%fila->capacidade;
+
     fila->tamanho--;
     int excluido=fila->elemento[fila->inicio];
     printf("o elemento excluido foi: %d", excluido);
+    fila->inicio=(fila->inicio+1)%fila->capacidade;
     return excluido;
 
 };
