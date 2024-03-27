@@ -41,8 +41,9 @@ int excluir_fila(fila_t *fila){
     //tamanho++ fala que colocamos um elemento nesta lista, vaipara o proximo espaço vazio da lista
     fila->tamanho--;
     fila->inicio=(fila->inicio+1)%fila->capacidade;
-
-    return fila->elemento[fila->inicio];
+    int excluido=fila->elemento[fila->inicio];
+    printf("o elemento excluido foi: %d", excluido);
+    return excluido;
 
 };
 
