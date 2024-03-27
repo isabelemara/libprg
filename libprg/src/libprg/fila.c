@@ -19,11 +19,9 @@ fila_t* criar_fila(int capacidade){
 
 void inserir_fila(fila_t* fila, int elemento){
 
-    if (fila->fim < fila->capacidade) {
-        int posicao = fila->fim;
-        // Inserir o novo elemento na posição correta e disponivel
+    if (fila->tamanho < fila->capacidade) {
 
-        //tamanho++ fala que colocamos um elemento nesta lista, vaipara o proximo espaço vazio da lista
+        fila->elemento[fila->fim]=elemento;
         fila->tamanho++;
         fila->fim=(fila->fim+1)%fila->capacidade;
     }else
