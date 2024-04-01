@@ -5,6 +5,13 @@
 #include <stdbool.h>
 typedef struct lista lista_t;
 typedef struct fila fila_t;
+typedef struct lista lista_p;
+typedef struct contato contato_t;
+
+//lista projeto
+lista_p* criar_p(int elemento);
+void inserir_p(lista_t *lista, contato_t* elemento);
+
 
 //lista
 lista_t* criar();
