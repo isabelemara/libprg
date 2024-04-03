@@ -29,19 +29,24 @@ lista_p* criar_p(int capacidade){
 
 void inserir_p(lista_t *lista, contato_t* elemento){
     if (lista->tamanho >= lista->capacidade) {
+        lista->capacidade*=2;
         //  Esta parte verifica se o tamanho atual da lista excede a capacidade atual. Se sim, significa que não há espaço suficiente para inserir um novo elemento. Nesse caso, dobramos a capacidade da lista realocando o elemento interno para acomodar mais elementos.
-        lista->elemento = (contato_t *)realloc(lista->elemento, lista->capacidade * sizeof(int));
+        lista->elemento = (struct contatos *)malloc(lista->capacidade*sizeof (struct contato*));
+        if (lista->elemento==NULL){
+            printf("Erro");
+            exit(EXIT_FAILURE);
+        }
     }
 
     int posicao = lista->tamanho; //Esta variável será usada para encontrar a posição correta para inserir o novo elemento.
-    while (posicao > 0 && lista->elemento[posicao - 1] > lista->tamanho) {
+    while (posicao > 0 && strcmp(lista->elemento[posicao - 1].nome, elemento->nome) > 0) {
         // enquanto a posição é maior que zero e o elemento na posição anterior é maior que o elemento a ser inserido,Isso é feito para encontrar a posição correta para o novo elemento
         lista->elemento[posicao] = lista->elemento[posicao - 1];
         posicao--;
     }
 
     // Inserir o novo elemento na posição correta e disponivel
-    lista->elemento[posicao] = elemento;
+    lista->elemento[posicao] = *elemento;
     //tamanho++ fala que colocamos um elemento nesta lista
     lista->tamanho++;
 }
@@ -83,8 +88,18 @@ int buscar_lista(lista_p* lista, char *elemento){
 }
 
 void excluir_p(lista_p *lista, char* elemento){
+int buscar = buscar_lista(lista,elemento);
 
+    // assim após a busca, ele exclui o desejado
+    for (int i = buscar; i < lista->tamanho - 1; i++) {
+        lista->elemento[i] = lista->elemento[i + 1];
+    }
 
+    lista->tamanho--; // Reduz o tamanho da lista após a exclusão
+    if (buscar==-1){
+        printf("elemento não encontrado");
+        return;
+    }
 
 };
 
