@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 typedef struct contato{
     char nome[50];
@@ -33,7 +34,7 @@ void inserir_p(lista_t *lista, contato_t* elemento){
     }
 
     int posicao = lista->tamanho; //Esta variável será usada para encontrar a posição correta para inserir o novo elemento.
-    while (posicao > 0 && lista->elemento[posicao - 1] > elemento) {
+    while (posicao > 0 && lista->elemento[posicao - 1] > lista->tamanho) {
         // enquanto a posição é maior que zero e o elemento na posição anterior é maior que o elemento a ser inserido,Isso é feito para encontrar a posição correta para o novo elemento
         lista->elemento[posicao] = lista->elemento[posicao - 1];
         posicao--;
@@ -44,6 +45,48 @@ void inserir_p(lista_t *lista, contato_t* elemento){
     //tamanho++ fala que colocamos um elemento nesta lista
     lista->tamanho++;
 }
+
+int imprimir_p(lista_p* lista){
+    printf("Lista de contatos: \n");
+    for (int i = 0; i < lista->tamanho; ++i) {
+
+        printf("Nome: %s\n", lista->elemento[i].nome);
+        printf("Telefone: %s\n", lista->elemento[i].telefone);
+        printf("Email: %s\n", lista->elemento[i].email);
+        printf("\n");
+    }
+    printf("\n");
+    return 0;
+}
+
+int buscar_lista(lista_p* lista, char *elemento){
+    int inicio=0;
+    int fim = lista->tamanho -1;
+    int meio;//meio da lista
+
+    while (inicio<=fim){
+        int meio=(inicio+fim)/2;
+        int comparar = strcmp(lista->elemento[meio].nome, elemento);
+        if (comparar==0){
+           return meio;//retorna o meio da lista exato
+        }else
+            if (comparar<0){
+                return meio + 1;//o elemento meio está a direita
+                 } else if (comparar>0){
+                return meio - 1;//o elemento está a esquerda
+            }
+            else{
+                printf("nome não encontrado");
+                return -1;
+            }
+    }
+}
+
+void excluir_p(lista_p *lista, char* elemento){
+
+
+
+};
 
 
 
