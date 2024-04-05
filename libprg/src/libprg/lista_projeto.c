@@ -97,10 +97,19 @@ void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
         return;
     }
 
-    strcpy(lista->elemento[posicao].nome, novo_contato->nome);
-    strcpy(lista->elemento[posicao].telefone, novo_contato->telefone);
-    strcpy(lista->elemento[posicao].email, novo_contato->email);
+    // Copiar o nome
+    strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
+    lista->elemento[posicao].nome[sizeof(lista->elemento[posicao].nome) - 1] = '\0'; // Garantir terminação nula
+
+    // Copiar o telefone
+    strncpy(lista->elemento[posicao].telefone, novo_contato->telefone, sizeof(lista->elemento[posicao].telefone) - 1);
+    lista->elemento[posicao].telefone[sizeof(lista->elemento[posicao].telefone) - 1] = '\0'; // Garantir terminação nula
+
+    // Copiar o email
+    strncpy(lista->elemento[posicao].email, novo_contato->email, sizeof(lista->elemento[posicao].email) - 1);
+    lista->elemento[posicao].email[sizeof(lista->elemento[posicao].email) - 1] = '\0'; // Garantir terminação nula
 
     printf("Contato %s editado com sucesso.\n", lista->elemento[posicao].nome);
 }
+
 
