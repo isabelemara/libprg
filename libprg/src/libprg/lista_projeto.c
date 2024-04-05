@@ -29,10 +29,12 @@ void inserir_p(lista_p *lista, contato_t *elemento) {
         lista->capacidade *= 2;
         lista->elemento = (contato_t*)realloc(lista->elemento, sizeof(contato_t) * lista->capacidade);
         if (lista->elemento == NULL) {
-            printf("Erro");
+            printf("Erro ao realocar memória.\n");
             exit(EXIT_FAILURE);
         }
     }
+
+    printf("Inserindo contato: %s\n", elemento->nome); // Adicionando log de depuração
 
     int posicao = lista->tamanho;
     while (posicao > 0 && strcmp(lista->elemento[posicao - 1].nome, elemento->nome) > 0) {
@@ -42,6 +44,8 @@ void inserir_p(lista_p *lista, contato_t *elemento) {
 
     lista->elemento[posicao] = *elemento;
     lista->tamanho++;
+
+    printf("Contato inserido com sucesso.\n"); // Adicionando log de depuração
 }
 
 int imprimir_p(lista_p *lista) {
@@ -97,31 +101,10 @@ void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
         return;
     }
 
-    // Atualizar o nome
-    if (strlen(novo_contato->nome) < sizeof(lista->elemento[posicao].nome)) {
-        strcpy(lista->elemento[posicao].nome, novo_contato->nome);
-    } else {
-        printf("Novo nome muito longo.\n");
-        return;
-    }
-
-    // Atualizar o telefone
-    if (strlen(novo_contato->telefone) < sizeof(lista->elemento[posicao].telefone)) {
-        strcpy(lista->elemento[posicao].telefone, novo_contato->telefone);
-    } else {
-        printf("Novo telefone muito longo.\n");
-        return;
-    }
-
-    // Atualizar o email
-    if (strlen(novo_contato->email) < sizeof(lista->elemento[posicao].email)) {
-        strcpy(lista->elemento[posicao].email, novo_contato->email);
-    } else {
-        printf("Novo email muito longo.\n");
-        return;
-    }
+    strcpy(lista->elemento[posicao].nome, novo_contato->nome);
+    strcpy(lista->elemento[posicao].telefone, novo_contato->telefone);
+    strcpy(lista->elemento[posicao].email, novo_contato->email);
 
     printf("Contato %s editado com sucesso.\n", lista->elemento[posicao].nome);
 }
-
 
