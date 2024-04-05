@@ -42,7 +42,8 @@ void inserir_p(lista_p *lista, contato_t *elemento) {
 
     lista->elemento[posicao] = *elemento;
     lista->tamanho++;
-    printf("contatos adicionados");
+    printf("contato adicionado\n");
+    printf("\n");
 }
 
 int imprimir_p(lista_p *lista) {
