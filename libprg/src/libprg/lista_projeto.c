@@ -114,3 +114,17 @@ void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
     printf("Contato %s editado com sucesso.\n", lista->elemento[posicao].nome);
 }
 
+//void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
+//    int posicao = buscar_lista(lista, nome);
+//
+//    if (posicao == -1) {
+//        printf("Contato não encontrado.\n");
+//        return;
+//    }
+//
+//    strcpy(lista->elemento[posicao].nome, novo_contato->nome);
+//    strcpy(lista->elemento[posicao].telefone, novo_contato->telefone);
+//    strcpy(lista->elemento[posicao].email, novo_contato->email);
+//
+//    printf("Contato %c editado com sucesso.\n", lista->elemento[posicao].nome);
+//}
