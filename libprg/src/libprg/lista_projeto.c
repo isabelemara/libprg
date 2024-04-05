@@ -97,17 +97,29 @@ void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
         return;
     }
 
-    // Copiar o nome
-    strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
-    lista->elemento[posicao].nome[sizeof(lista->elemento[posicao].nome) - 1] = '\0'; // Garantir terminação nula
+    // Atualizar o nome
+    if (strlen(novo_contato->nome) < sizeof(lista->elemento[posicao].nome)) {
+        strcpy(lista->elemento[posicao].nome, novo_contato->nome);
+    } else {
+        printf("Novo nome muito longo.\n");
+        return;
+    }
 
-    // Copiar o telefone
-    strncpy(lista->elemento[posicao].telefone, novo_contato->telefone, sizeof(lista->elemento[posicao].telefone) - 1);
-    lista->elemento[posicao].telefone[sizeof(lista->elemento[posicao].telefone) - 1] = '\0'; // Garantir terminação nula
+    // Atualizar o telefone
+    if (strlen(novo_contato->telefone) < sizeof(lista->elemento[posicao].telefone)) {
+        strcpy(lista->elemento[posicao].telefone, novo_contato->telefone);
+    } else {
+        printf("Novo telefone muito longo.\n");
+        return;
+    }
 
-    // Copiar o email
-    strncpy(lista->elemento[posicao].email, novo_contato->email, sizeof(lista->elemento[posicao].email) - 1);
-    lista->elemento[posicao].email[sizeof(lista->elemento[posicao].email) - 1] = '\0'; // Garantir terminação nula
+    // Atualizar o email
+    if (strlen(novo_contato->email) < sizeof(lista->elemento[posicao].email)) {
+        strcpy(lista->elemento[posicao].email, novo_contato->email);
+    } else {
+        printf("Novo email muito longo.\n");
+        return;
+    }
 
     printf("Contato %s editado com sucesso.\n", lista->elemento[posicao].nome);
 }
