@@ -29,12 +29,10 @@ void inserir_p(lista_p *lista, contato_t *elemento) {
         lista->capacidade *= 2;
         lista->elemento = (contato_t*)realloc(lista->elemento, sizeof(contato_t) * lista->capacidade);
         if (lista->elemento == NULL) {
-            printf("Erro ao realocar memória.\n");
+            printf("Erro");
             exit(EXIT_FAILURE);
         }
     }
-
-    printf("Inserindo contato: %s\n", elemento->nome); // Adicionando log de depuração
 
     int posicao = lista->tamanho;
     while (posicao > 0 && strcmp(lista->elemento[posicao - 1].nome, elemento->nome) > 0) {
@@ -44,8 +42,7 @@ void inserir_p(lista_p *lista, contato_t *elemento) {
 
     lista->elemento[posicao] = *elemento;
     lista->tamanho++;
-
-    printf("Contato inserido com sucesso.\n"); // Adicionando log de depuração
+    printf("contatos adicionados");
 }
 
 int imprimir_p(lista_p *lista) {
@@ -101,9 +98,17 @@ void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
         return;
     }
 
-    strcpy(lista->elemento[posicao].nome, novo_contato->nome);
-    strcpy(lista->elemento[posicao].telefone, novo_contato->telefone);
-    strcpy(lista->elemento[posicao].email, novo_contato->email);
+    // Atualizar o nome
+    strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
+    lista->elemento[posicao].nome[sizeof(lista->elemento[posicao].nome) - 1] = '\0'; // Garantir terminação nula
+
+    // Atualizar o telefone
+    strncpy(lista->elemento[posicao].telefone, novo_contato->telefone, sizeof(lista->elemento[posicao].telefone) - 1);
+    lista->elemento[posicao].telefone[sizeof(lista->elemento[posicao].telefone) - 1] = '\0'; // Garantir terminação nula
+
+    // Atualizar o email
+    strncpy(lista->elemento[posicao].email, novo_contato->email, sizeof(lista->elemento[posicao].email) - 1);
+    lista->elemento[posicao].email[sizeof(lista->elemento[posicao].email) - 1] = '\0'; // Garantir terminação nula
 
     printf("Contato %s editado com sucesso.\n", lista->elemento[posicao].nome);
 }
