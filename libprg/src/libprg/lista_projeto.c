@@ -162,7 +162,7 @@ void editar_p(lista_p *lista, char *nome, int pos_lista) {
     printf("~~EDITAR~~\n");
 
     // Limpa o buffer de entrada
-    while (getchar() != '\n');
+    fflush(stdin);
 
     printf("Nome : ");
     fgets(novo_nome, sizeof(novo_nome), stdin);
@@ -181,6 +181,7 @@ void editar_p(lista_p *lista, char *nome, int pos_lista) {
     strcpy(lista->elemento[posicao].email, novo_email);
     printf("Contato %s editado com sucesso.\n", lista->elemento[posicao].nome);
 }
+
 
 
 void excluir_p(lista_p *lista, char *elemento) {
