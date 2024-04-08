@@ -160,23 +160,28 @@ void editar_p(lista_p *lista, char *nome, int pos_lista) {
     char novo_email[50];
     char novo_tele[20];
     printf("~~EDITAR~~\n");
+
+    // Limpa o buffer de entrada
+    while (getchar() != '\n');
+
     printf("Nome : ");
-    scanf(" %[^\n]", novo_nome);
-    getchar(); // Consumir o caractere de nova linha restante no buffer de entrada
+    fgets(novo_nome, sizeof(novo_nome), stdin);
+    novo_nome[strcspn(novo_nome, "\n")] = '\0'; // Remove a nova linha se presente
 
     printf("Email : ");
-    scanf(" %[^\n]", novo_email);
-    getchar(); // Consumir o caractere de nova linha restante no buffer de entrada
+    fgets(novo_email, sizeof(novo_email), stdin);
+    novo_email[strcspn(novo_email, "\n")] = '\0'; // Remove a nova linha se presente
 
     printf("Telefone : ");
-    scanf(" %[^\n]", novo_tele);
-    getchar(); // Consumir o caractere de nova linha restante no buffer de entrada
+    fgets(novo_tele, sizeof(novo_tele), stdin);
+    novo_tele[strcspn(novo_tele, "\n")] = '\0'; // Remove a nova linha se presente
 
     strcpy(lista->elemento[posicao].nome, novo_nome);
     strcpy(lista->elemento[posicao].telefone, novo_tele);
     strcpy(lista->elemento[posicao].email, novo_email);
     printf("Contato %s editado com sucesso.\n", lista->elemento[posicao].nome);
 }
+
 
 void excluir_p(lista_p *lista, char *elemento) {
     int buscar = buscar_lista(lista, elemento);
