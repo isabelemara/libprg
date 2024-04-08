@@ -20,7 +20,7 @@ typedef struct lista {
 
 //lista projeto
 lista_p* criar_p(int elemento);
-void inserir_p(lista_p *lista, contato_t* elemento);
+int inserir_p(lista_p *lista, contato_t* elemento);
 int imprimir_p(lista_p* lista);
 int buscar_lista(lista_p* lista, char *elemento);
 void excluir_p(lista_p *lista, char* elemento);

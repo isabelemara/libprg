@@ -15,14 +15,16 @@ lista_p* criar_p(int capacidade) {
 
 
 
-void inserir_p(lista_p *lista, contato_t *elemento) {
+int inserir_p(lista_p *lista, contato_t *elemento) {
     if (lista->tamanho >= lista->capacidade) {
         lista->capacidade *= 2;
         lista->elemento = (contato_t*)realloc(lista->elemento, sizeof(contato_t) * lista->capacidade);
         if (lista->elemento == NULL) {
-            printf("Erro");
+
             exit(EXIT_FAILURE);
+            return -1;
         }
+        return 1;
     }
 
     int posicao = lista->tamanho;
@@ -33,8 +35,7 @@ void inserir_p(lista_p *lista, contato_t *elemento) {
 
     lista->elemento[posicao] = *elemento;
     lista->tamanho++;
-    printf("contato adicionado\n");
-    printf("\n");
+
 }
 
 int imprimir_p(lista_p *lista) {
