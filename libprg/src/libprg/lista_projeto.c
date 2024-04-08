@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <libprg/libprg.h>
 
 typedef struct contato {
     char nome[50];
@@ -41,11 +42,11 @@ void inserir_p(lista_p *lista, contato_t *elemento) {
 
     lista->elemento[posicao] = *elemento;
     lista->tamanho++;
-    printf("Contato adicionado\n");
+    printf("contato adicionado\n");
     printf("\n");
 }
 
-void imprimir_p(lista_p *lista) {
+int imprimir_p(lista_p *lista) {
     printf("Lista de contatos:\n");
     for (int i = 0; i < lista->tamanho; ++i) {
         printf("Nome: %s\n", lista->elemento[i].nome);
@@ -91,30 +92,39 @@ void excluir_p(lista_p *lista, char *elemento) {
     lista->tamanho--;
 }
 
-void editar_p(lista_p *lista, char *nome, int pos_lista) {
+void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
     int posicao = buscar_lista(lista, nome);
     if (posicao == -1) {
         printf("Contato não encontrado.\n");
         return;
     }
 
-    char novo_nome[100];
-    char novo_email[50];
-    char novo_tele[20];
-    printf("~~EDITAR~~\n");
+    // Atualizar o nome
+    strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
+    lista->elemento[posicao].nome[sizeof(lista->elemento[posicao].nome) - 1] = '\0'; // Garantir terminação nula
 
-    printf("Nome : ");
-    scanf(" %[^\n]", novo_nome);
+    // Atualizar o telefone
+    strncpy(lista->elemento[posicao].telefone, novo_contato->telefone, sizeof(lista->elemento[posicao].telefone) - 1);
+    lista->elemento[posicao].telefone[sizeof(lista->elemento[posicao].telefone) - 1] = '\0'; // Garantir terminação nula
 
-    printf("Email : ");
-    scanf(" %[^\n]", novo_email);
+    // Atualizar o email
+    strncpy(lista->elemento[posicao].email, novo_contato->email, sizeof(lista->elemento[posicao].email) - 1);
+    lista->elemento[posicao].email[sizeof(lista->elemento[posicao].email) - 1] = '\0'; // Garantir terminação nula
 
-    printf("Telefone : ");
-    scanf(" %[^\n]", novo_tele);
-
-    strcpy(lista->elemento[posicao].nome, novo_nome);
-    strcpy(lista->elemento[posicao].telefone, novo_tele);
-    strcpy(lista->elemento[posicao].email, novo_email);
     printf("Contato %s editado com sucesso.\n", lista->elemento[posicao].nome);
 }
 
+//void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
+//    int posicao = buscar_lista(lista, nome);
+//
+//    if (posicao == -1) {
+//        printf("Contato não encontrado.\n");
+//        return;
+//    }
+//
+//    strcpy(lista->elemento[posicao].nome, novo_contato->nome);
+//    strcpy(lista->elemento[posicao].telefone, novo_contato->telefone);
+//    strcpy(lista->elemento[posicao].email, novo_contato->email);
+//
+//    printf("Contato %c editado com sucesso.\n", lista->elemento[posicao].nome);
+//}
