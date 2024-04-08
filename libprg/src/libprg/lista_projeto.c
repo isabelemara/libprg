@@ -24,7 +24,7 @@ lista_p* criar_p(int capacidade) {
     lista->capacidade = capacidade;
     return lista;
 }
-int opcao(lista_p *lista, contato_t* elemento){
+void opcao(lista_p *lista){
     int capacidade_inicial = 10; // Capacidade inicial da lista
 
     lista = criar_p(capacidade_inicial); // Cria a lista
@@ -96,7 +96,7 @@ int opcao(lista_p *lista, contato_t* elemento){
 
     free(lista);
 
-    return 0;
+    return;
 
 };
 
