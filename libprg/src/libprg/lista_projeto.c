@@ -176,11 +176,11 @@ void opcao(lista_p *lista){
                 break;
             }
             case 6: {
-                printf("Saindo...\n");
+                printf("Saindo...\n\n");
                 break;
             }
             default:
-                printf("Opção inválida. Tente novamente.\n");
+                printf("Opção inválida. Tente novamente.\n\n");
         }
 
     } while (opcao != 6);
