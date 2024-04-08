@@ -143,7 +143,7 @@ void opcao(lista_p *lista){
                 scanf(" %[^\n]", novo_contato->telefone);
                 printf("Email: ");
                 scanf(" %[^\n]", novo_contato->email);
-                inserir_p(lista, &novo_contato); // Passa a variável diretamente, sem usar &
+                inserir_p(lista, novo_contato); // Passa a variável diretamente, sem usar &
                 break;
             }
 
