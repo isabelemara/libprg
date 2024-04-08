@@ -92,26 +92,25 @@ void excluir_p(lista_p *lista, char *elemento) {
     lista->tamanho--;
 }
 
-void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
+void editar_p(lista_p *lista, char *nome,int pos_lista){
+    getchar();
     int posicao = buscar_lista(lista, nome);
-    if (posicao == -1) {
-        printf("Contato não encontrado.\n");
-        return;
-    }
+    int op = 0 ;
+    char novo_nome[100];
+    char novo_email[50];
+    char novo_tele[20];
+    printf("---EDITE---\n");
+    printf(" Nome : ");
+    fgets(novo_nome,100,stdin);
+    printf("Email : ");
+    fgets(novo_email,50,stdin);
+    printf("telefone : ");
+    fgets(novo_tele,20,stdin);
 
-    // Atualizar o nome
-    strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
-    lista->elemento[posicao].nome[sizeof(lista->elemento[posicao].nome) - 1] = '\0'; // Garantir terminação nula
-
-    // Atualizar o telefone
-    strncpy(lista->elemento[posicao].telefone, novo_contato->telefone, sizeof(lista->elemento[posicao].telefone) - 1);
-    lista->elemento[posicao].telefone[sizeof(lista->elemento[posicao].telefone) - 1] = '\0'; // Garantir terminação nula
-
-    // Atualizar o email
-    strncpy(lista->elemento[posicao].email, novo_contato->email, sizeof(lista->elemento[posicao].email) - 1);
-    lista->elemento[posicao].email[sizeof(lista->elemento[posicao].email) - 1] = '\0'; // Garantir terminação nula
-
-    printf("Contato %s editado com sucesso.\n", lista->elemento[posicao].nome);
+    strcpy(lista->elemento[pos_lista].nome,novo_nome);
+    strcpy(lista->elemento[pos_lista].telefone,novo_tele);
+    strcpy(lista->elemento[pos_lista].email,novo_email);
+    printf("Contato %c editado com sucesso.\n", lista->elemento[posicao].nome);
 }
 
 //void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
