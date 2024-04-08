@@ -93,26 +93,35 @@ void excluir_p(lista_p *lista, char *elemento) {
     lista->tamanho--;
 }
 
-void editar_p(lista_p *lista, char *nome,int pos_lista){
-    getchar();
+void editar_p(lista_p *lista, char *nome, int pos_lista) {
     int posicao = buscar_lista(lista, nome);
-    int op = 0 ;
+    if (posicao == -1) {
+        printf("Contato não encontrado.\n");
+        return;
+    }
+
     char novo_nome[100];
     char novo_email[50];
     char novo_tele[20];
-    printf("---EDITE---\n");
-    printf(" Nome : ");
-    fgets(novo_nome,100,stdin);
-    printf("Email : ");
-    fgets(novo_email,50,stdin);
-    printf("telefone : ");
-    fgets(novo_tele,20,stdin);
+    printf("~~EDITAR~~\n");
+    printf("Nome : ");
+    fgets(novo_nome, sizeof(novo_nome), stdin);
+    novo_nome[strcspn(novo_nome, "\n")] = '\0'; // Remove a nova linha se presente
 
-    strcpy(lista->elemento[pos_lista].nome,novo_nome);
-    strcpy(lista->elemento[pos_lista].telefone,novo_tele);
-    strcpy(lista->elemento[pos_lista].email,novo_email);
-    printf("Contato %c editado com sucesso.\n", lista->elemento[posicao].nome);
+    printf("Email : ");
+    fgets(novo_email, sizeof(novo_email), stdin);
+    novo_email[strcspn(novo_email, "\n")] = '\0'; // Remove a nova linha se presente
+
+    printf("telefone : ");
+    fgets(novo_tele, sizeof(novo_tele), stdin);
+    novo_tele[strcspn(novo_tele, "\n")] = '\0'; // Remove a nova linha se presente
+
+    strcpy(lista->elemento[posicao].nome, novo_nome);
+    strcpy(lista->elemento[posicao].telefone, novo_tele);
+    strcpy(lista->elemento[posicao].email, novo_email);
+    printf("Contato %s editado com sucesso.\n", lista->elemento[posicao].nome);
 }
+
 
 int opcao(lista_p *lista, contato_t* elemento){
     int capacidade_inicial = 10; // Capacidade inicial da lista
