@@ -195,82 +195,14 @@ void opcao(lista_p *lista){
 //#include <stdlib.h>
 //#include <stdbool.h>
 //#include <string.h>
-//#include <libprg/libprg.h> // Substitua "seu_arquivo.h" pelo nome do seu arquivo de cabeçalho
+//#include <libprg/libprg.h>
 //
 //
 //int main() {
-//    lista_p *lista = NULL;
-//    int capacidade_inicial = 10; // Capacidade inicial da lista
-//
-//    lista = criar_p(capacidade_inicial); // Cria a lista
-//
-//    int opcao;
-//    char nome_busca[50];
-//
-//    do {
-//        printf("1. Inserir contato\n");
-//        printf("2. Buscar contato\n");
-//        printf("3. Excluir contato\n");
-//        printf("4. Editar contato\n");
-//        printf("5. Imprimir lista de contatos\n");
-//        printf("6. Sair\n");
-//        printf("Escolha uma opção: ");
-//        scanf("%d", &opcao);
-//
-//        switch (opcao) {
-//            case 1: {
-//                contato_t novo_contato; // Declaração de uma variável, não um ponteiro
-//                printf("Nome: ");
-//                scanf(" %[^\n]", novo_contato.nome);
-//                printf("Telefone: ");
-//                scanf(" %[^\n]", novo_contato.telefone);
-//                printf("Email: ");
-//                scanf(" %[^\n]", novo_contato.email);
-//                inserir_p(lista, &novo_contato); // Passa a variável diretamente, sem usar &
-//                break;
-//            }
-//
-//            case 2: {
-//                printf("Digite o nome do contato a ser buscado: ");
-//                scanf(" %[^\n]", nome_busca);
-//                int posicao = buscar_lista(lista, nome_busca);
-//                if (posicao != -1) {
-//                    printf("Contato encontrado na posição %d\n", posicao);
-//                }
-//                break;
-//            }
-//            case 3: {
-//                printf("Digite o nome do contato a ser excluído: ");
-//                scanf(" %[^\n]", nome_busca);
-//                excluir_p(lista, nome_busca);
-//                break;
-//            }
-//            case 4: {
-//                printf("Digite o nome do contato a ser editado: ");
-//                scanf(" %[^\n]", nome_busca);
-//                int posicao = buscar_lista(lista, nome_busca);
-//                if (posicao != -1) {
-//                    editar_p(lista, nome_busca, posicao);
-//                }
-//                break;
-//            }
-//            case 5: {
-//                imprimir_p(lista);
-//                break;
-//            }
-//            case 6: {
-//                printf("Saindo...\n");
-//                break;
-//            }
-//            default:
-//                printf("Opção inválida. Tente novamente.\n");
-//        }
-//
-//    } while (opcao != 6);
-//
-//
-//    free(lista);
+//    lista_p * lista = criar_p(10);
+//    opcao(lista);
 //
 //    return 0;
 //}
-//
+
+
