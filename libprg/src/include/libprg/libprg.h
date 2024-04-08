@@ -15,6 +15,7 @@ int imprimir_p(lista_p* lista);
 int buscar_lista(lista_p* lista, char *elemento);
 void excluir_p(lista_p *lista, char* elemento);
 void editar_p(lista_p *lista, char *nome,int pos_lista);
+int opcao(lista_p *lista, contato_t* elemento);
 //lista
 lista_t* criar();
 void inserir(lista_t *lista, int elemento);
