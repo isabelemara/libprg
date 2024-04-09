@@ -3,6 +3,18 @@
 #include <stdbool.h>
 #include <string.h>
 #include <libprg/libprg.h>
+typedef struct contato {
+    char nome[50];
+    char telefone[15];
+    char email[50];
+    char novo_contato;
+} contato_t;
+
+typedef struct lista {
+    int capacidade;
+    int tamanho;
+    contato_t *elemento;
+} lista_p;
 
 
 lista_p* criar_p(int capacidade) {
