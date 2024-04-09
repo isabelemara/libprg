@@ -38,16 +38,7 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
 
 }
 
-int imprimir_p(lista_p *lista) {
-    printf("Lista de contatos:\n");
-    for (int i = 0; i < lista->tamanho; ++i) {
-        printf("Nome: %s\n", lista->elemento[i].nome);
-        printf("Telefone: %s\n", lista->elemento[i].telefone);
-        printf("Email: %s\n", lista->elemento[i].email);
-        printf("\n");
-    }
-    printf("\n");
-}
+
 
 int buscar_lista(lista_p *lista, char *elemento) {
     int inicio = 0;
@@ -66,16 +57,13 @@ int buscar_lista(lista_p *lista, char *elemento) {
         }
     }
 
-    printf("Nome não encontrado\n");
+
     return -1;
 }
 
 void excluir_p(lista_p *lista, char *elemento) {
     int buscar = buscar_lista(lista, elemento);
-    if (buscar == -1) {
-        printf("Elemento não encontrado\n");
-        return;
-    }
+
 
     for (int i = buscar; i < lista->tamanho - 1; i++) {
         lista->elemento[i] = lista->elemento[i + 1];
@@ -86,10 +74,7 @@ void excluir_p(lista_p *lista, char *elemento) {
 
 void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
     int posicao = buscar_lista(lista, nome);
-    if (posicao == -1) {
-        printf("Contato não encontrado.\n");
-        return;
-    }
+
 
     // Atualizar o nome
     strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
@@ -103,83 +88,9 @@ void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
     strncpy(lista->elemento[posicao].email, novo_contato->email, sizeof(lista->elemento[posicao].email) - 1);
     lista->elemento[posicao].email[sizeof(lista->elemento[posicao].email) - 1] = '\0'; // Garantir terminação nula
 
-    printf("Contato %s editado com sucesso.\n", lista->elemento[posicao].nome);
+
 }
-void opcao(lista_p *lista){
 
-
-    lista= criar_p(lista->capacidade);// Cria a lista
-
-    int opcao;
-    char nome_busca[50];
-
-    do {
-        printf("1. Inserir contato\n");
-        printf("2. Buscar contato\n");
-        printf("3. Excluir contato\n");
-        printf("4. Editar contato\n");
-        printf("5. Imprimir lista de contatos\n");
-        printf("6. Sair\n");
-        printf("Escolha uma opção: ");
-        scanf("%d", &opcao);
-
-        switch (opcao) {
-            case 1: {
-                contato_t *novo_contato; // Declaração de uma variável, não um ponteiro
-                printf("Nome: ");
-                scanf(" %[^\n]", novo_contato->nome);
-                printf("Telefone: ");
-                scanf(" %[^\n]", novo_contato->telefone);
-                printf("Email: ");
-                scanf(" %[^\n]", novo_contato->email);
-                inserir_p(lista, novo_contato); // Passa a variável diretamente, sem usar &
-                break;
-            }
-
-            case 2: {
-                printf("Digite o nome do contato a ser buscado: ");
-                scanf(" %[^\n]", nome_busca);
-                int posicao = buscar_lista(lista, nome_busca);
-                if (posicao != -1) {
-                    printf("Contato encontrado na posição %d\n", posicao);
-                }
-                break;
-            }
-            case 3: {
-                printf("Digite o nome do contato a ser excluído: ");
-                scanf(" %[^\n]", nome_busca);
-                excluir_p(lista, nome_busca);
-                break;
-            }
-            case 4: {
-                printf("Digite o nome do contato a ser editado: ");
-                scanf(" %[^\n]", nome_busca);
-                int posicao = buscar_lista(lista, nome_busca);
-                if (posicao != -1) {
-                    editar_p(lista, nome_busca, (contato_t *) posicao);
-                }
-                break;
-            }
-            case 5: {
-                imprimir_p(lista);
-                break;
-            }
-            case 6: {
-                printf("Saindo...\n\n");
-                break;
-            }
-            default:
-                printf("Opção inválida. Tente novamente.\n\n");
-        }
-
-    } while (opcao != 6);
-
-
-    free(lista);
-
-    return;
-
-};
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <stdbool.h>
