@@ -74,7 +74,7 @@ bool excluir_p(lista_p *lista, char *elemento) {
     lista->tamanho--;
 }
 
-void editar_contato(lista_p *lista, int posicao, contato_t *novo_contato) {
+void editar_p(lista_p *lista, int posicao, contato_t *novo_contato) {
     // Verificar se a posição é válida
     if (posicao < 0 || posicao >= lista->tamanho) {
         printf("Posição inválida.\n");
