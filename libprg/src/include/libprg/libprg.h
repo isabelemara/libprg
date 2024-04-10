@@ -23,7 +23,7 @@ int inserir_p(lista_p *lista, contato_t* elemento);
 int imprimir_p(lista_p* lista);
 int buscar_lista(lista_p* lista, char *elemento);
 bool excluir_p(lista_p *lista, char* elemento);
-void editar_p(lista_p *lista, int posicao, char * nome);
+void editar_contato(lista_p *lista, int posicao, contato_t *novo_contato);
 //void opcao(lista_p *lista);
 
 //lista
