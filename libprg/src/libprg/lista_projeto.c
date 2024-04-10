@@ -46,7 +46,7 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
 //    return -1;
 //}
 
-int buscar_contato(lista_p  * lista, char nome[100]) {
+int buscar_lista(lista_p  * lista, char nome[100]) {
 
     int contagem = 0;
 
