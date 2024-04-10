@@ -53,16 +53,17 @@ bool excluir_p(lista_p *lista, char *elemento) {
     }
     lista->tamanho--;
 }
-void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * email){   // Verificar se a posição é válida
+void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * email) {   // Verificar se a posição é válida
     if (posicao < 0 || posicao >= lista->tamanho) {
         printf("Posição inválida.\n");
         return;
     }
 
     // Atualizar o nome
-    strcpy(lista->elemento[posicao].nome,nome);
-    strcpy(lista->elemento[posicao].telefone,telefone);
-    strcpy(lista->elemento[posicao].email,email);
+    strcpy(lista->elemento[posicao].nome, nome);
+    strcpy(lista->elemento[posicao].telefone, telefone);
+    strcpy(lista->elemento[posicao].email, email);
+}
 //    strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
 //    lista->elemento[posicao].nome[sizeof(lista->elemento[posicao].nome) - 1] = '\0'; // Garantir terminação nula
 //    // Atualizar o nome[
