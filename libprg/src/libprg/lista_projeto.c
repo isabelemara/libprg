@@ -77,6 +77,11 @@ bool excluir_p(lista_p *lista, char *elemento) {
 void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
     int posicao = buscar_lista(lista, nome);
 
+    // Verificar se o contato foi encontrado
+    if (posicao == -1) {
+        printf("Contato não encontrado.\n");
+        return;
+    }
 
     // Atualizar o nome
     strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
@@ -89,9 +94,8 @@ void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
     // Atualizar o email
     strncpy(lista->elemento[posicao].email, novo_contato->email, sizeof(lista->elemento[posicao].email) - 1);
     lista->elemento[posicao].email[sizeof(lista->elemento[posicao].email) - 1] = '\0'; // Garantir terminação nula
-
-
 }
+
 
 //#include <stdio.h>
 //#include <stdlib.h>
