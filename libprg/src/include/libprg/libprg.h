@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <strings.h>
 typedef struct lista lista_t;
 typedef struct fila fila_t;
 typedef struct contato {
