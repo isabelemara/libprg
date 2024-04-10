@@ -53,22 +53,35 @@ bool excluir_p(lista_p *lista, char *elemento) {
     }
     lista->tamanho--;
 }
-
-
-    void editar_p(lista_p *lista, int posicao, contato_t *novo_contato) {
-        // Verificar se a posição é válida
-        if (posicao < 0 || posicao >= lista->tamanho) {
-            printf("Posição inválida.\n");
-            return;
-        }
-        // Atualizar o nome
-        strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
-        lista->elemento[posicao].nome[sizeof(lista->elemento[posicao].nome) - 1] = '\0'; // Garantir terminação nula
-        // Atualizar o telefone
-        strncpy(lista->elemento[posicao].telefone, novo_contato->telefone, sizeof(lista->elemento[posicao].telefone) - 1);
-        lista->elemento[posicao].telefone[sizeof(lista->elemento[posicao].telefone) - 1] = '\0'; // Garantir terminação nula
-        // Atualizar o email
-        strncpy(lista->elemento[posicao].email, novo_contato->email, sizeof(lista->elemento[posicao].email) - 1);
-        lista->elemento[posicao].email[sizeof(lista->elemento[posicao].email) - 1] = '\0'; // Garantir terminação nula
+void editar_p(lista_p *lista, int posicao, contato_t *novo_contato) {
+    // Verificar se a posição é válida
+    if (posicao < 0 || posicao >= lista->tamanho) {
+        printf("Posição inválida.\n");
+        return;
     }
-//#include <stdio.h>
+
+    // Atualizar o nome
+    strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
+    lista->elemento[posicao].nome[sizeof(lista->elemento[posicao].nome) - 1] = '\0'; // Garantir terminação nula
+    // Atualizar o nome[
+
+    // Atualizar o telefone
+    strncpy(lista->elemento[posicao].telefone, novo_contato->telefone, sizeof(lista->elemento[posicao].telefone) - 1);
+    lista->elemento[posicao].telefone[sizeof(lista->elemento[posicao].telefone) - 1] = '\0'; // Garantir terminação nula
+
+    // Atualizar o email
+    strncpy(lista->elemento[posicao].email, novo_contato->email, sizeof(lista->elemento[posicao].email) - 1);
+    lista->elemento[posicao].email[sizeof(lista->elemento[posicao].email) - 1] = '\0'; // Garantir terminação nula
+//    strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
+//    lista->elemento[posicao].nome[sizeof(lista->elemento[posicao].nome) - 1] = '\0'; // Garantir terminação nula
+
+    strcpy(lista->elemento[posicao].nome,novo_contato->nome);
+    // Atualizar o telefone
+//    strncpy(lista->elemento[posicao].telefone, novo_contato->telefone, sizeof(lista->elemento[posicao].telefone) - 1);
+//    lista->elemento[posicao].telefone[sizeof(lista->elemento[posicao].telefone) - 1] = '\0'; // Garantir terminação nula
+//
+//    // Atualizar o email
+//    strncpy(lista->elemento[posicao].email, novo_contato->email, sizeof(lista->elemento[posicao].email) - 1);
+//    lista->elemento[posicao].email[sizeof(lista->elemento[posicao].email) - 1] = '\0'; // Garantir terminação nula
+}
+
