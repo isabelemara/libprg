@@ -74,15 +74,14 @@ bool excluir_p(lista_p *lista, char *elemento) {
     lista->tamanho--;
 }
 
-void editar_p(lista_p *lista, int posicao, contato_t *novo_contato) {
+void editar_p(lista_p *lista, int posicao, char * nome){
     // Verificar se a posição é válida
     // Atualizar o nome[
 
 
 //    strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
 //    lista->elemento[posicao].nome[sizeof(lista->elemento[posicao].nome) - 1] = '\0'; // Garantir terminação nula
-    posicao = buscar_lista(lista,novo_contato->nome);
-    strcpy(lista->elemento[posicao].nome,novo_contato->nome);
+    strcpy(lista->elemento[posicao].nome,nome);
     // Atualizar o telefone
 //    strncpy(lista->elemento[posicao].telefone, novo_contato->telefone, sizeof(lista->elemento[posicao].telefone) - 1);
 //    lista->elemento[posicao].telefone[sizeof(lista->elemento[posicao].telefone) - 1] = '\0'; // Garantir terminação nula
