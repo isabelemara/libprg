@@ -62,12 +62,13 @@ int buscar_lista(lista_p *lista, char *elemento) {
     return -1;
 }
 
-void excluir_p(lista_p *lista, char *elemento) {
+bool excluir_p(lista_p *lista, char *elemento) {
     int buscar = buscar_lista(lista, elemento);
 
 
     for (int i = buscar; i < lista->tamanho - 1; i++) {
         lista->elemento[i] = lista->elemento[i + 1];
+        return true;
     }
 
     lista->tamanho--;
