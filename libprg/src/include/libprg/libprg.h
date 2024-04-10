@@ -6,9 +6,9 @@
 typedef struct lista lista_t;
 typedef struct fila fila_t;
 typedef struct contato {
-    char nome[50];
-    char telefone[15];
-    char email[50];
+    char nome[100];
+    char telefone[50];
+    char email[100];
     char novo_contato;
 } contato_t;
 
