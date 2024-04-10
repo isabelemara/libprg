@@ -81,26 +81,30 @@ void editar_p(lista_p *lista, char *nome, contato_t *novo_contato) {
     if (posicao == -1) {
         printf("Contato não encontrado.\n");
         return;
-    }
+    }else {
 
-    printf("Antes da atualização:\n");
-    printf("Nome: %s, Telefone: %s, Email: %s\n", lista->elemento[posicao].nome, lista->elemento[posicao].telefone, lista->elemento[posicao].email);
+        printf("Antes da atualização:\n");
+        printf("Nome: %s, Telefone: %s, Email: %s\n", lista->elemento[posicao].nome, lista->elemento[posicao].telefone,
+               lista->elemento[posicao].email);
 
-    // Atualizar o nome
-    strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
-    lista->elemento[posicao].nome[sizeof(lista->elemento[posicao].nome) - 1] = '\0'; // Garantir terminação nula
+        // Atualizar o nome
+        strncpy(lista->elemento[posicao].nome, novo_contato->nome, sizeof(lista->elemento[posicao].nome) - 1);
+        lista->elemento[posicao].nome[sizeof(lista->elemento[posicao].nome) - 1] = '\0'; // Garantir terminação nula
 
-    // Atualizar o telefone
-    strncpy(lista->elemento[posicao].telefone, novo_contato->telefone, sizeof(lista->elemento[posicao].telefone) - 1);
-    lista->elemento[posicao].telefone[sizeof(lista->elemento[posicao].telefone) - 1] = '\0'; // Garantir terminação nula
+        // Atualizar o telefone
+        strncpy(lista->elemento[posicao].telefone, novo_contato->telefone,
+                sizeof(lista->elemento[posicao].telefone) - 1);
+        lista->elemento[posicao].telefone[sizeof(lista->elemento[posicao].telefone) -
+                                          1] = '\0'; // Garantir terminação nula
 
-    // Atualizar o email
-    strncpy(lista->elemento[posicao].email, novo_contato->email, sizeof(lista->elemento[posicao].email) - 1);
-    lista->elemento[posicao].email[sizeof(lista->elemento[posicao].email) - 1] = '\0'; // Garantir terminação nula
+        // Atualizar o email
+        strncpy(lista->elemento[posicao].email, novo_contato->email, sizeof(lista->elemento[posicao].email) - 1);
+        lista->elemento[posicao].email[sizeof(lista->elemento[posicao].email) - 1] = '\0'; // Garantir terminação nula
 
-    printf("Após a atualização:\n");
-    printf("Nome: %s, Telefone: %s, Email: %s\n", lista->elemento[posicao].nome, lista->elemento[posicao].telefone, lista->elemento[posicao].email);
-}
+        printf("Após a atualização:\n");
+        printf("Nome: %s, Telefone: %s, Email: %s\n", lista->elemento[posicao].nome, lista->elemento[posicao].telefone,
+               lista->elemento[posicao].email);
+    }}
 
 
 
