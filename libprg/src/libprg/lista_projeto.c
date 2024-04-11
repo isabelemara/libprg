@@ -3,15 +3,13 @@
 #include <stdbool.h>
 #include <string.h>
 #include <libprg/libprg.h>
-
 lista_p* criar_p(int capacidade) {
     lista_p *lista = (lista_p*)malloc(sizeof(lista_p));
     lista->elemento = (contato_t*)malloc(sizeof(contato_t) * capacidade);
     lista->tamanho = 0;
-    lista->capacidade = capacidade;
+    lista->capacidade = 10;
     return lista;
 }
-
 int inserir_p(lista_p *lista, contato_t *elemento) {
     if (lista->tamanho >= lista->capacidade) {
         lista->capacidade *= 2;
@@ -30,69 +28,38 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
     lista->elemento[posicao] = *elemento;
     lista->tamanho++;
 }
-
-
-
-
-
-int* buscar_contato(lista_p *lista, char *nome, int *contagem) {
-    int *resultados = malloc(5 * sizeof(int));
-    *contagem = 0;
-    for (int i = 0; i < lista->tamanho; ++i) {
-        if (strstr(lista->elemento[i].nome, nome) != NULL) {
-            resultados[(*contagem)++] = i;
+int buscar_lista(lista_p *lista, char *elemento) {
+    int inicio = 0;
+    int fim = lista->tamanho - 1;
+    int meio;
+    while (inicio <= fim) {
+        meio = (inicio + fim) / 2;
+        int comparar = strcmp(lista->elemento[meio].nome, elemento);
+        if (comparar == 0) {
+            return meio;
+        } else if (comparar < 0) {
+            inicio = meio + 1;
+        } else {
+            fim = meio - 1;
         }
     }
-    return resultados;
+    return -1;
 }
-//int buscar_lista(lista_p *lista, char *elemento) {
-//    int inicio = 0;
-//    int fim = lista->tamanho - 1;
-//    int meio;
-//    while (inicio <= fim) {
-//        meio = (inicio + fim) / 2;
-//        int comparar = strcmp(lista->elemento[meio].nome, elemento);
-//        if (comparar == 0) {
-//            return meio;
-//        } else if (comparar < 0) {
-//            inicio = meio + 1;
-//        } else {
-//            fim = meio - 1;
-//        }
-//    }
-//    return -1;
-//}
-
 bool excluir_p(lista_p *lista, char *elemento) {
-    int contagem;
-    int *indices_encontrados = buscar_contato(lista, elemento, &contagem);
-
-    if (contagem > 0) {
-
-        for (int i = 0; i < contagem; i++) {
-            int posicao = indices_encontrados[i];
-
-            for (int j = posicao; j < lista->tamanho - 1; j++) {
-                lista->elemento[j] = lista->elemento[j + 1];
-            }
-            lista->tamanho--;
-        }
-        free(indices_encontrados); // Liberar memória alocada para os índices encontrados
+    int buscar = buscar_lista(lista, elemento);
+    for (int i = buscar; i < lista->tamanho - 1; i++) {
+        lista->elemento[i] = lista->elemento[i + 1];
         return true;
-    } else {
-
-        free(indices_encontrados); // Liberar memória alocada para os índices encontrados
-        return false;
     }
-
+    lista->tamanho--;
 }
-
-void editar_p(lista_p *lista, int posicao, char *nome, char *telefone, char *email) {
+void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * email) {   // Verificar se a posição é válida
     if (posicao < 0 || posicao >= lista->tamanho) {
         printf("Posição inválida.\n");
         return;
     }
 
+    // Atualizar o nome
     strcpy(lista->elemento[posicao].nome, nome);
     strcpy(lista->elemento[posicao].telefone, telefone);
     strcpy(lista->elemento[posicao].email, email);
