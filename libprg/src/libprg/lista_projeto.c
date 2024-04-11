@@ -35,7 +35,7 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
 
 
 
-int buscar_contato(lista_p *lista, char *nome) {
+int buscar_contato(lista_p *lista, char *nome, int *pInt) {
     int contagem = 0;
     for (int i = 0; i < lista->tamanho; ++i) {
         // Verifica se o nome fornecido é uma substring do nome do contato
@@ -45,26 +45,26 @@ int buscar_contato(lista_p *lista, char *nome) {
     }
     return contagem;
 }
-//int buscar_lista(lista_p *lista, char *elemento) {
-//    int inicio = 0;
-//    int fim = lista->tamanho - 1;
-//    int meio;
-//    while (inicio <= fim) {
-//        meio = (inicio + fim) / 2;
-//        int comparar = strcmp(lista->elemento[meio].nome, elemento);
-//        if (comparar == 0) {
-//            return meio;
-//        } else if (comparar < 0) {
-//            inicio = meio + 1;
-//        } else {
-//            fim = meio - 1;
-//        }
-//    }
-//    return -1;
-//}
+int buscar_lista(lista_p *lista, char *elemento) {
+    int inicio = 0;
+    int fim = lista->tamanho - 1;
+    int meio;
+    while (inicio <= fim) {
+        meio = (inicio + fim) / 2;
+        int comparar = strcmp(lista->elemento[meio].nome, elemento);
+        if (comparar == 0) {
+            return meio;
+        } else if (comparar < 0) {
+            inicio = meio + 1;
+        } else {
+            fim = meio - 1;
+        }
+    }
+    return -1;
+}
 
 bool excluir_p(lista_p *lista, char *elemento) {
-    int buscar = buscar_contato(lista, elemento);
+    int buscar = buscar_contato(lista, elemento, NULL);
     for (int i = buscar; i < lista->tamanho - 1; i++) {
         lista->elemento[i] = lista->elemento[i + 1];
         return true;
