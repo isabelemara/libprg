@@ -89,12 +89,27 @@ int* buscar_contato(lista_p *lista, char *nome, int *contagem) {
 //}
 
 bool excluir_p(lista_p *lista, char *elemento) {
-    int buscar = buscar_contato(lista, elemento);
-    for (int i = buscar; i < lista->tamanho - 1; i++) {
-        lista->elemento[i] = lista->elemento[i + 1];
-        return true;
+    // Buscar os índices dos contatos a serem excluídos
+    int contagem;
+    int *indices_encontrados = buscar_contato(lista, elemento, &contagem);
+
+    // Se nenhum contato foi encontrado, retornar falso
+    if (contagem == 0) {
+        free(indices_encontrados);
+        return false;
     }
-    lista->tamanho--;
+
+    // Remover os contatos encontrados
+    for (int i = 0; i < contagem; i++) {
+        int posicao = indices_encontrados[i];
+        for (int j = posicao; j < lista->tamanho - 1; j++) {
+            lista->elemento[j] = lista->elemento[j + 1];
+        }
+        lista->tamanho--;
+    }
+
+    free(indices_encontrados);
+    return true;
 }
 
 void editar_p(lista_p *lista, int posicao, char *nome, char *telefone, char *email) {
