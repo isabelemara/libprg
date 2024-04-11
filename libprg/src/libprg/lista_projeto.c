@@ -2,18 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <libprg/libprg.h>
 
-typedef struct contato {
-    char nome[50];
-    char telefone[15];
-    char email[50];
-} contato_t;
-
-typedef struct lista {
-    int capacidade;
-    int tamanho;
-    contato_t *elemento;
-} lista_p;
 
 int buscar_contato(lista_p *lista, char nome[100]) {
     int contagem = 0;
