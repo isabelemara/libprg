@@ -34,37 +34,42 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
 
 
 
-
 int* buscar_contato(lista_p *lista, char *nome, int *contagem) {
-    int *indices_encontrados = NULL;
-    *contagem = 0;
+    *contagem = 0; // Inicializamos o contador de contatos encontrados
+    int capacidade = 10; // Capacidade inicial do vetor de índices
+    int *indices_encontrados = malloc(capacidade * sizeof(int)); // Alocamos memória para o vetor de índices
 
-    // Primeiro, contamos quantos contatos correspondem ao nome fornecido
-    for (int i = 0; i < lista->tamanho; ++i) {
-        if (strstr(lista->elemento[i].nome, nome) != NULL) {
-            (*contagem)++;
-        }
+    if (indices_encontrados == NULL) {
+        // Se houver erro na alocação de memória, retornamos NULL
+        return NULL;
     }
 
-    // Se encontramos contatos correspondentes, alocamos espaço para armazenar os índices
-    if (*contagem > 0) {
-        indices_encontrados = (int*)malloc(sizeof(int) * (*contagem));
-        if (indices_encontrados == NULL) {
-            fprintf(stderr, "Erro ao alocar memória para os índices dos contatos encontrados\n");
-            exit(EXIT_FAILURE);
-        }
+    // Iteramos sobre os contatos na lista
+    for (int i = 0; i < lista->tamanho; ++i) {
+        // Verificamos se o nome fornecido é uma substring do nome do contato
+        if (strstr(lista->elemento[i].nome, nome) != NULL) {
+            // Se sim, adicionamos o índice do contato encontrado ao vetor
+            indices_encontrados[*contagem] = i;
+            (*contagem)++; // Incrementamos o contador de contatos encontrados
 
-        // Agora, preenchemos o vetor de índices com os índices dos contatos encontrados
-        int index = 0;
-        for (int i = 0; i < lista->tamanho; ++i) {
-            if (strstr(lista->elemento[i].nome, nome) != NULL) {
-                indices_encontrados[index++] = i;
+            // Se o vetor estiver cheio, dobramos sua capacidade
+            if (*contagem >= capacidade) {
+                capacidade *= 2;
+                int *temp = realloc(indices_encontrados, capacidade * sizeof(int));
+                if (temp == NULL) {
+                    // Se houver erro no realocamento de memória, liberamos a memória alocada
+                    free(indices_encontrados);
+                    return NULL;
+                }
+                indices_encontrados = temp;
             }
         }
     }
 
     return indices_encontrados;
 }
+
+
 //int buscar_lista(lista_p *lista, char *elemento) {
 //    int inicio = 0;
 //    int fim = lista->tamanho - 1;
