@@ -35,33 +35,53 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
 
 
 
-int buscar_contato(lista_p *lista, char *nome) {
-    int contagem = 0;
+int* buscar_contato(lista_p *lista, char *nome, int *contagem) {
+    int *indices_encontrados = NULL;
+    *contagem = 0;
+
+    // Primeiro, contamos quantos contatos correspondem ao nome fornecido
     for (int i = 0; i < lista->tamanho; ++i) {
-        // Verifica se o nome fornecido é uma substring do nome do contato
         if (strstr(lista->elemento[i].nome, nome) != NULL) {
-            contagem++;
+            (*contagem)++;
         }
     }
-    return contagem;
-}
-int buscar_lista(lista_p *lista, char *elemento) {
-    int inicio = 0;
-    int fim = lista->tamanho - 1;
-    int meio;
-    while (inicio <= fim) {
-        meio = (inicio + fim) / 2;
-        int comparar = strcmp(lista->elemento[meio].nome, elemento);
-        if (comparar == 0) {
-            return meio;
-        } else if (comparar < 0) {
-            inicio = meio + 1;
-        } else {
-            fim = meio - 1;
+
+    // Se encontramos contatos correspondentes, alocamos espaço para armazenar os índices
+    if (*contagem > 0) {
+        indices_encontrados = (int*)malloc(sizeof(int) * (*contagem));
+        if (indices_encontrados == NULL) {
+            fprintf(stderr, "Erro ao alocar memória para os índices dos contatos encontrados\n");
+            exit(EXIT_FAILURE);
+        }
+
+        // Agora, preenchemos o vetor de índices com os índices dos contatos encontrados
+        int index = 0;
+        for (int i = 0; i < lista->tamanho; ++i) {
+            if (strstr(lista->elemento[i].nome, nome) != NULL) {
+                indices_encontrados[index++] = i;
+            }
         }
     }
-    return -1;
+
+    return indices_encontrados;
 }
+//int buscar_lista(lista_p *lista, char *elemento) {
+//    int inicio = 0;
+//    int fim = lista->tamanho - 1;
+//    int meio;
+//    while (inicio <= fim) {
+//        meio = (inicio + fim) / 2;
+//        int comparar = strcmp(lista->elemento[meio].nome, elemento);
+//        if (comparar == 0) {
+//            return meio;
+//        } else if (comparar < 0) {
+//            inicio = meio + 1;
+//        } else {
+//            fim = meio - 1;
+//        }
+//    }
+//    return -1;
+//}
 
 bool excluir_p(lista_p *lista, char *elemento) {
     int buscar = buscar_contato(lista, elemento);
