@@ -36,15 +36,13 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
 
 
 int* buscar_contato(lista_p *lista, char *nome, int *contagem) {
-    int *resultados = malloc(lista->tamanho * sizeof(int));
+    int *resultados = malloc(5 * sizeof(int));
     *contagem = 0;
     for (int i = 0; i < lista->tamanho; ++i) {
         if (strstr(lista->elemento[i].nome, nome) != NULL) {
-            resultados[*contagem + 1] = i;
-            (*contagem)++;
+            resultados[(*contagem)++] = i;
         }
     }
-    resultados[0] = *contagem; // Quantidade de registros encontrados.
     return resultados;
 }
 //int buscar_lista(lista_p *lista, char *elemento) {
@@ -66,12 +64,27 @@ int* buscar_contato(lista_p *lista, char *nome, int *contagem) {
 //}
 
 bool excluir_p(lista_p *lista, char *elemento) {
-    int buscar = buscar_contato(lista, elemento);
-    for (int i = buscar; i < lista->tamanho - 1; i++) {
-        lista->elemento[i] = lista->elemento[i + 1];
+    int contagem;
+    int *indices_encontrados = buscar_contato(lista, elemento, &contagem);
+
+    if (contagem > 0) {
+
+        for (int i = 0; i < contagem; i++) {
+            int posicao = indices_encontrados[i];
+
+            for (int j = posicao; j < lista->tamanho - 1; j++) {
+                lista->elemento[j] = lista->elemento[j + 1];
+            }
+            lista->tamanho--;
+        }
+        free(indices_encontrados); // Liberar memória alocada para os índices encontrados
         return true;
+    } else {
+
+        free(indices_encontrados); // Liberar memória alocada para os índices encontrados
+        return false;
     }
-    lista->tamanho--;
+
 }
 
 void editar_p(lista_p *lista, int posicao, char *nome, char *telefone, char *email) {
