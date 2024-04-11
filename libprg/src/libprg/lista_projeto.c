@@ -34,42 +34,19 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
 
 
 
+
 int* buscar_contato(lista_p *lista, char *nome, int *contagem) {
-    *contagem = 0; // Inicializamos o contador de contatos encontrados
-    int capacidade = 10; // Capacidade inicial do vetor de índices
-    int *indices_encontrados = malloc(capacidade * sizeof(int)); // Alocamos memória para o vetor de índices
-
-    if (indices_encontrados == NULL) {
-        // Se houver erro na alocação de memória, retornamos NULL
-        return NULL;
-    }
-
-    // Iteramos sobre os contatos na lista
+    int *resultados = malloc(lista->tamanho * sizeof(int));
+    *contagem = 0;
     for (int i = 0; i < lista->tamanho; ++i) {
-        // Verificamos se o nome fornecido é uma substring do nome do contato
         if (strstr(lista->elemento[i].nome, nome) != NULL) {
-            // Se sim, adicionamos o índice do contato encontrado ao vetor
-            indices_encontrados[*contagem] = i;
-            (*contagem)++; // Incrementamos o contador de contatos encontrados
-
-            // Se o vetor estiver cheio, dobramos sua capacidade
-            if (*contagem >= capacidade) {
-                capacidade *= 2;
-                int *temp = realloc(indices_encontrados, capacidade * sizeof(int));
-                if (temp == NULL) {
-                    // Se houver erro no realocamento de memória, liberamos a memória alocada
-                    free(indices_encontrados);
-                    return NULL;
-                }
-                indices_encontrados = temp;
-            }
+            resultados[*contagem + 1] = i;
+            (*contagem)++;
         }
     }
-
-    return indices_encontrados;
+    resultados[0] = *contagem; // Quantidade de registros encontrados.
+    return resultados;
 }
-
-
 //int buscar_lista(lista_p *lista, char *elemento) {
 //    int inicio = 0;
 //    int fim = lista->tamanho - 1;
@@ -89,27 +66,12 @@ int* buscar_contato(lista_p *lista, char *nome, int *contagem) {
 //}
 
 bool excluir_p(lista_p *lista, char *elemento) {
-    // Buscar os índices dos contatos a serem excluídos
-    int contagem;
-    int *indices_encontrados = buscar_contato(lista, elemento, &contagem);
-
-    // Se nenhum contato foi encontrado, retornar falso
-    if (contagem == 0) {
-        free(indices_encontrados);
-        return false;
+    int buscar = buscar_contato(lista, elemento);
+    for (int i = buscar; i < lista->tamanho - 1; i++) {
+        lista->elemento[i] = lista->elemento[i + 1];
+        return true;
     }
-
-    // Remover os contatos encontrados
-    for (int i = 0; i < contagem; i++) {
-        int posicao = indices_encontrados[i];
-        for (int j = posicao; j < lista->tamanho - 1; j++) {
-            lista->elemento[j] = lista->elemento[j + 1];
-        }
-        lista->tamanho--;
-    }
-
-    free(indices_encontrados);
-    return true;
+    lista->tamanho--;
 }
 
 void editar_p(lista_p *lista, int posicao, char *nome, char *telefone, char *email) {
