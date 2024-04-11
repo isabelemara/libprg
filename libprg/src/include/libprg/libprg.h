@@ -6,23 +6,13 @@
 #include <strings.h>
 typedef struct lista lista_t;
 typedef struct fila fila_t;
-typedef struct contato {
-    char nome[100];
-    char telefone[50];
-    char email[100];
-    char novo_contato;
-} contato_t;
-
-typedef struct lista {
-    int capacidade;
-    int tamanho;
-    contato_t *elemento;
-} lista_p;
+typedef struct contato contato_t;
+typedef struct lista lista_p;
 //lista projeto
 lista_p* criar_p(int elemento);
 int inserir_p(lista_p *lista, contato_t* elemento);
 int imprimir_p(lista_p* lista);
-int buscar_lista(lista_p  * lista, char nome[100]);
+int buscar_lista(lista_p* lista, char *elemento);
 bool excluir_p(lista_p *lista, char* elemento);
 void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * email);
 //void opcao(lista_p *lista);
