@@ -18,6 +18,8 @@ typedef struct lista {
     int tamanho;
     contato_t *elemento;
 } lista_p;
+
+
 //lista projeto
 lista_p* criar_p(int elemento);
 int inserir_p(lista_p *lista, contato_t* elemento);
@@ -26,6 +28,16 @@ int buscar_lista(lista_p* lista, char *elemento);
 bool excluir_p(lista_p *lista, char* elemento);
 void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * email);
 //void opcao(lista_p *lista);
+
+//lista encadeada
+typedef struct no no_t;
+typedef struct lista_ord lista_ordenada;
+no_t* criar_e(int elemento);
+void adicionar(no_t ** inicio, int dado);
+no_t* buscar(no_t* inicio, int dado);
+bool remover(no_t ** inicio, int dado);
+void getelentos(no_t*)
+
 
 //lista
 lista_t* criar();
