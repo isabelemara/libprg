@@ -14,7 +14,8 @@ typedef struct lista_ordenada {
     struct no no_t;
 }lista_ord;
 
-
+no_t *cabeca = NULL;
+no_t *corrente = NULL;
 
 
 void adicionar(no_t** inicio, int dado){
@@ -23,8 +24,18 @@ novo->dado = dado;
 novo->proximo_t = *inicio;
 *inicio = novo;
 }
+int lista_vazia()
+{
+
+    if(cabeca == NULL)
+        return 1;
+    return 0;
+}
 no_t* buscar(no_t* inicio, int dado){
 
+    if(lista_vazia()==1){
+        return NULL;
+    }
 
 
 }
@@ -57,3 +68,6 @@ atual = prox;
 }
 *inicio = NULL;
 }
+
+
+
