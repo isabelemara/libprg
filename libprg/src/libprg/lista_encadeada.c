@@ -9,15 +9,17 @@ typedef struct no {
     struct no *proximo_t;
 } no_t;
 
-typedef struct lista_ordenada {
+typedef struct lista_t{
     bool ordenada;
     struct no no_t;
-} lista_ord;
-
-no_t *cabeca = NULL;
-no_t *corrente = NULL;
+} lista;
 
 
+
+no_t* criar_e(int elemento){
+    lista_ord
+
+}
 void adicionar(no_t **inicio, int dado) {
     no_t *novo = (no_t *) malloc(sizeof(no_t));
     novo->dado = dado;

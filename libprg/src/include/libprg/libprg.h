@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <strings.h>
-typedef struct lista lista_t;
+//typedef struct lista lista_t;
 typedef struct fila fila_t;
 typedef struct contato {
     char nome[100];
@@ -31,7 +31,7 @@ void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * em
 
 //lista encadeada
 typedef struct no no_t;
-typedef struct lista_ord lista_ordenada;
+typedef struct lista lista_t;
 
 no_t* criar_e(int elemento);
 void adicionar(no_t ** inicio, int dado);
