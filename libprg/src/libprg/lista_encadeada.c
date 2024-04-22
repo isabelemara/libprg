@@ -36,7 +36,38 @@ no_t* buscar(no_t* inicio, int dado){
     if(lista_vazia()==1){
         return NULL;
     }
+    no_t *p = cabeca;
 
+    no_t *aux_ant = NULL;
+
+    int achou = 0;
+
+
+    while(p != NULL)
+    {
+
+        if(p->dado == dado)
+        {
+            achou = 1;
+            break;
+        }
+
+        aux_ant = p;
+
+        p = p->proximo_t;
+    }
+
+
+    if(achou == 1)
+    {
+
+        if(inicio)
+            *inicio = aux_ant;
+        return p;
+    }
+
+    // se chegou aqui, então não achou
+    return NULL;
 
 }
 bool remover(no_t** inicio, int dado){
