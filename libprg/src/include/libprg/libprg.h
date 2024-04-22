@@ -38,8 +38,8 @@ void adicionar(no_t ** inicio, int dado);
 no_t* buscar(no_t* inicio, int dado);
 bool remover(no_t ** inicio, int dado);
 void getelentos(no_t*);
-void imprimir_lista();
-int lista_vazia();
+
+
 
 
 //lista
