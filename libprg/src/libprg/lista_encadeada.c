@@ -9,15 +9,18 @@ typedef struct no {
     struct no *proximo_t;
 } no_t;
 
-typedef struct lista_t{
-    bool ordenada;
+typedef struct lista_o{
+    int tamanho;
+    no_t *inicio;
+    no_t *fim;
     struct no no_t;
-} lista;
+} lista_enc;
 
 
 
-no_t* criar_e(int elemento){
-    lista_ord
+no_t* criar_e(lista_enc*lista){
+    lista= NULL;
+    lista.
 
 }
 void adicionar(no_t **inicio, int dado) {
