@@ -41,7 +41,7 @@ int buscar_lista(lista_p *lista, char *nome) {
 
 bool excluir_p(lista_p *lista, int pessoa) {
     if (pessoa < 0 || pessoa >= lista->tamanho) {
-        printf("Índice inválido.\n");
+
         return -1;
     }
 
@@ -52,7 +52,7 @@ bool excluir_p(lista_p *lista, int pessoa) {
 }
 void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * email) {   // Verificar se a posição é válida
     if (posicao < 0 || posicao >= lista->tamanho) {
-        printf("Posição inválida.\n");
+
         return;
     }
 
