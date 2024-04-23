@@ -28,30 +28,29 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
     lista->elemento[posicao] = *elemento;
     lista->tamanho++;
 }
-int buscar_lista(lista_p *lista, char *elemento) {
-    int inicio = 0;
-    int fim = lista->tamanho - 1;
-    int meio;
-    while (inicio <= fim) {
-        meio = (inicio + fim) / 2;
-        int comparar = strcmp(lista->elemento[meio].nome, elemento);
-        if (comparar == 0) {
-            return meio;
-        } else if (comparar < 0) {
-            inicio = meio + 1;
-        } else {
-            fim = meio - 1;
+int buscar_lista(lista_p * lista, char *elemento) {
+    int* resultados = malloc(5 * sizeof(int));;
+    int contagem = 0;
+    for (int i = 0; i < lista->tamanho; ++i) {
+        if (strcasestr(lista->elemento[i].nome, elemento) != NULL) {
+            resultados[contagem + 1] = i;
+            contagem++;
         }
     }
-    return -1;
+    // Quantidade de registros encontrados.
+    resultados[0] = contagem;
+    return *resultados;
 }
-bool excluir_p(lista_p *lista, char *elemento) {
-    int buscar = buscar_lista(lista, elemento);
-    for (int i = buscar; i < lista->tamanho - 1; i++) {
-        lista->elemento[i] = lista->elemento[i + 1];
-        return true;
+void excluir_p(lista_p *lista, int pessoa) {
+    if (pessoa < 0 || pessoa >= lista->tamanho) {
+        printf("Índice inválido.\n");
+        return;
     }
-    lista->tamanho--;
+
+    lista->tamanho = lista->tamanho - 1;
+    for (int i = pessoa; i < lista->tamanho; i++) {
+        lista->elemento[i] = lista->elemento[i + 1];
+    }
 }
 void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * email) {   // Verificar se a posição é válida
     if (posicao < 0 || posicao >= lista->tamanho) {
