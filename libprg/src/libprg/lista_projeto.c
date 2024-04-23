@@ -28,19 +28,17 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
     lista->elemento[posicao] = *elemento;
     lista->tamanho++;
 }
-int buscar_lista(lista_p * lista, char *elemento) {
-    int* resultados = malloc(5 * sizeof(int));;
-    int contagem = 0;
+int buscar_lista(lista_p *lista, char *nome) {
+    int posicao_encontrada = -1; // Inicializa com -1 para indicar que o nome não foi encontrado
     for (int i = 0; i < lista->tamanho; ++i) {
-        if (strcasestr(lista->elemento[i].nome, elemento) != NULL) {
-            resultados[contagem + 1] = i;
-            contagem++;
+        if (strcasestr(lista->elemento[i].nome, nome) != NULL) {
+            posicao_encontrada = i;
+            break; // Se encontrar, não há necessidade de continuar a busca
         }
     }
-    // Quantidade de registros encontrados.
-    resultados[0] = contagem;
-    return *resultados;
+    return posicao_encontrada;
 }
+
 bool excluir_p(lista_p *lista, int pessoa) {
     if (pessoa < 0 || pessoa >= lista->tamanho) {
         printf("Índice inválido.\n");
