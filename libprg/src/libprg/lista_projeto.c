@@ -28,15 +28,21 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
     lista->elemento[posicao] = *elemento;
     lista->tamanho++;
 }
-int buscar_lista(lista_p *lista, char *nome) {
-    int posicao_encontrada = -1; // Inicializa com -1 para indicar que o nome não foi encontrado
+int* buscar_lista(lista_p *lista, char *nome) {
+    int* posicoes_encontradas = malloc(lista->tamanho * sizeof(int)); // Aloca memória para armazenar todas as posições
+    int contagem = 0;
+
     for (int i = 0; i < lista->tamanho; ++i) {
         if (strcasestr(lista->elemento[i].nome, nome) != NULL) {
-            posicao_encontrada = i;
-            break; // Se encontrar, não há necessidade de continuar a busca
+            posicoes_encontradas[contagem] = i;
+            contagem++;
         }
     }
-    return posicao_encontrada;
+
+    // Armazena a quantidade de contatos encontrados na primeira posição
+    posicoes_encontradas[0] = contagem;
+
+    return posicoes_encontradas;
 }
 
 bool excluir_p(lista_p *lista, int pessoa) {
