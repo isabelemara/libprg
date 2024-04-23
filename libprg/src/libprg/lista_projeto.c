@@ -31,7 +31,7 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
 int* buscar_lista(lista_p *lista, char *nome) {
     int* posicoes_encontradas = malloc(lista->tamanho * sizeof(int)); // Aloca memória para armazenar todas as posições
     if (posicoes_encontradas == NULL) {
-        printf("Erro de alocação de memória.\n");
+
         exit(EXIT_FAILURE);
     }
 
