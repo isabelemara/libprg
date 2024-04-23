@@ -41,10 +41,10 @@ int buscar_lista(lista_p * lista, char *elemento) {
     resultados[0] = contagem;
     return *resultados;
 }
-void excluir_p(lista_p *lista, int pessoa) {
+bool excluir_p(lista_p *lista, int pessoa) {
     if (pessoa < 0 || pessoa >= lista->tamanho) {
         printf("Índice inválido.\n");
-        return;
+        return -1;
     }
 
     lista->tamanho = lista->tamanho - 1;
