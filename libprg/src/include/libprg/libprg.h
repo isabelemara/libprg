@@ -42,25 +42,25 @@ void getelentos(no_t*);
 
 
 
-//lista
-lista_t* criar();
-void inserir(lista_t *lista, int elemento);
-int busca_linear(lista_t *lista, int elemento);
-int busca_bin_it(lista_t *lista, int elemento);
-int busca_bin_rec(lista_t *lista, int elemento, int inicio, int fim);
-void excluir(lista_t *lista, int elemento);
-int imprimir(lista_t *lista);
-
-//fila
-fila_t* criar_fila(int elemento);
-void inserir_fila(fila_t* fila, int elemento);
-int excluir_fila(fila_t *fila);
-int inicio(fila_t* fila);
-int final(fila_t* fila);
-int tamanho(fila_t* fila);
-bool vazia(fila_t* fila);
-bool cheia(fila_t* fila);
-void imprimir_fila(fila_t* fila);
+////lista
+//lista_t* criar();
+//void inserir(lista_t *lista, int elemento);
+//int busca_linear(lista_t *lista, int elemento);
+//int busca_bin_it(lista_t *lista, int elemento);
+//int busca_bin_rec(lista_t *lista, int elemento, int inicio, int fim);
+//void excluir(lista_t *lista, int elemento);
+//int imprimir(lista_t *lista);
+//
+////fila
+//fila_t* criar_fila(int elemento);
+//void inserir_fila(fila_t* fila, int elemento);
+//int excluir_fila(fila_t *fila);
+//int inicio(fila_t* fila);
+//int final(fila_t* fila);
+//int tamanho(fila_t* fila);
+//bool vazia(fila_t* fila);
+//bool cheia(fila_t* fila);
+//void imprimir_fila(fila_t* fila);
 
 // inserir
 //void povoar_nao_ord(lista_t *lista);
