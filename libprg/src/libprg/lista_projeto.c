@@ -33,12 +33,12 @@ int buscar_lista(lista_p *lista, char *nome) {
     for (int i = 0; i < lista->tamanho; ++i) {
         if ((lista->elemento[i].nome[0])==nome[0]) {
             posicao_encontrada = i;
-            printf("Contato encontrado na posição %d\n\n", i);
+            printf("Contato encontrado na posição %d\n\n", i + 1);
             printf("Nome: %s\n", lista->elemento[i].nome);
             printf("Telefone: %s\n", lista->elemento[i].telefone);
             printf("Email: %s\n", lista->elemento[i].email);
             printf("\n");
-            break; // Se encontrar, não há necessidade de continuar a busca
+            // Se encontrar, não há necessidade de continuar a busca
         }
     }
     return posicao_encontrada;
