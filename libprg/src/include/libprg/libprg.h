@@ -29,15 +29,15 @@ bool excluir_p(lista_p *lista, int pessoa);
 void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * email);
 //void opcao(lista_p *lista);
 
-//lista encadeada
-typedef struct no no_t;
-typedef struct lista_enc lista_o;
-
-no_t* criar_e();
-void adicionar(no_t **inicio, int dado);
-no_t* buscar(no_t* inicio, int dado);
-bool remover(no_t **inicio, int dado);
-void getelentos(no_t*);
+////lista encadeada
+//typedef struct no no_t;
+//typedef struct lista_enc lista_o;
+//
+//no_t* criar_e();
+//void adicionar(no_t **inicio, int dado);
+//no_t* buscar(no_t* inicio, int dado);
+//bool remover(no_t **inicio, int dado);
+//void getelentos(no_t*);
 
 
 
