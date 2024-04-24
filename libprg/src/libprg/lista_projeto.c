@@ -39,8 +39,10 @@ int buscar_lista(lista_p *lista, char *nome) {
             printf("Email: %s\n", lista->elemento[i].email);
             printf("\n");
             // Se encontrar, não há necessidade de continuar a busca
-        }
+        }else{break;}
+
     }
+
     return posicao_encontrada;
 }
 
