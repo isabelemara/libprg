@@ -24,7 +24,7 @@ typedef struct lista {
 lista_p* criar_p(int elemento);
 int inserir_p(lista_p *lista, contato_t* elemento);
 int imprimir_p(lista_p* lista);
-void buscar_lista(lista_p *lista, char *nome) ;
+int buscar_lista(lista_p *lista, char *nome) ;
 bool excluir_p(lista_p *lista, int pessoa);
 void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * email);
 //void opcao(lista_p *lista);

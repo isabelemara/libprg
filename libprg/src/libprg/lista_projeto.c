@@ -29,14 +29,14 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
     lista->tamanho++;
 }
 
-void buscar_lista(lista_p *lista, char *nome){
-
-    for (int i = 0; i < lista->tamanho; ++i) {
+int buscar_lista(lista_p *lista, char *nome){
+    int i = 0;
+    for ( i ; i < lista->tamanho; ++i) {
         if ((lista->elemento[i].nome[1]==nome[1])){
             printf("%s", lista->elemento[i]);
         }
     }
-
+    return i;
 
 }
 
