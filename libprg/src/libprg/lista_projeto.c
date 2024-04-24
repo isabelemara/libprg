@@ -28,16 +28,28 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
     lista->elemento[posicao] = *elemento;
     lista->tamanho++;
 }
-int buscar_lista(lista_p *lista, char *nome) {
-    int posicao_encontrada = -1; // Inicializa com -1 para indicar que o nome não foi encontrado
+
+void buscar_lista(lista_p *lista, char *nome){
+
     for (int i = 0; i < lista->tamanho; ++i) {
-        if (strcasestr(lista->elemento[i].nome, nome) != NULL) {
-            posicao_encontrada = i;
-            break; // Se encontrar, não há necessidade de continuar a busca
+        if ((lista->elemento[i].nome[1]==nome[1])){
+            printf("%s", lista->elemento[i]);
         }
     }
-    return posicao_encontrada;
+
+
 }
+
+//int buscar_lista(lista_p *lista, char *nome) {
+//    int posicao_encontrada = -1; // Inicializa com -1 para indicar que o nome não foi encontrado
+//    for (int i = 0; i < lista->tamanho; ++i) {
+//        if (strcasestr(lista->elemento[i].nome, nome) != NULL) {
+//            posicao_encontrada = i;
+//            break; // Se encontrar, não há necessidade de continuar a busca
+//        }
+//    }
+//    return posicao_encontrada;
+//}
 
 
 
