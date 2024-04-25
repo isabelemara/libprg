@@ -50,21 +50,19 @@ int buscar_lista(lista_p *lista, char *nome) {
 
 
 
-bool excluir_p(lista_p *lista, int posicao) {
-    if (posicao < 0 || posicao >= lista->tamanho) {
-        // Retornar falso se a posição for inválida
-        return false;
+int excluir_p(lista_p *lista, char *nome) {
+    int posicao = buscar_lista(lista, nome); // Buscar a posição do contato pelo nome
+    if (posicao != -1) {
+        // Deslocar os elementos para preencher o espaço do elemento removido
+        for (int i = posicao; i < lista->tamanho - 1; i++) {
+            lista->elemento[i] = lista->elemento[i + 1];
+        }
+
+        // Reduzir o tamanho da lista
+        lista->tamanho--;
     }
 
-    // Deslocar os elementos para preencher o espaço do elemento removido
-    for (int i = posicao; i < lista->tamanho - 1; i++) {
-        lista->elemento[i] = lista->elemento[i + 1];
-    }
-
-    // Reduzir o tamanho da lista
-    lista->tamanho--;
-
-    return true;
+    return posicao; // Retornar a posição do contato removido (-1 se não encontrado)
 }
 
 
