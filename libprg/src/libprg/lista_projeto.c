@@ -29,22 +29,23 @@ int inserir_p(lista_p *lista, contato_t *elemento) {
     lista->tamanho++;
 }
 int buscar_lista(lista_p *lista, char *nome) {
-    int posicao_encontrada = -1; // Inicializa com -1 para indicar que o nome não foi encontrado
+    bool encontrado = false; // Para rastrear se pelo menos um contato foi encontrado
     for (int i = 0; i < lista->tamanho; ++i) {
-        if ((lista->elemento[i].nome)==0) {
-            posicao_encontrada = i;
+        if (strstr(lista->elemento[i].nome, nome) != NULL) {
+            encontrado = true;
             printf("Contato encontrado na posição %d\n\n", i + 1);
             printf("Nome: %s\n", lista->elemento[i].nome);
             printf("Telefone: %s\n", lista->elemento[i].telefone);
             printf("Email: %s\n", lista->elemento[i].email);
             printf("\n");
-            // Se encontrar, não há necessidade de continuar a busca
-            break;
         }
-
     }
 
-    return posicao_encontrada;
+    if (!encontrado) {
+        printf("Nenhum contato encontrado com o nome '%s'\n\n", nome);
+    }
+
+    return encontrado ? 0 : -1;
 }
 
 
