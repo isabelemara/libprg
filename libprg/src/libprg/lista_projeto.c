@@ -68,6 +68,7 @@ bool excluir_p(lista_p *lista, int posicao) {
 }
 
 
+
 void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * email) {   // Verificar se a posição é válida
     if (posicao < 0 || posicao >= lista->tamanho) {
 
