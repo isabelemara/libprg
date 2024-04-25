@@ -27,6 +27,8 @@ int imprimir_p(lista_p* lista);
 int buscar_lista(lista_p *lista, char *nome) ;
 int excluir_p(lista_p *lista, int posicao) ;
 void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * email);
+void salvar_binario(lista_p * lista);
+void carrega_contatos(lista_p * lista);
 //void opcao(lista_p *lista);
 
 ////lista encadeada

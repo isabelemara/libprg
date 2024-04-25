@@ -79,3 +79,28 @@ void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * em
     strcpy(lista->elemento[posicao].telefone, telefone);
     strcpy(lista->elemento[posicao].email, email);
 }
+
+    void salvar_binario(lista_p * lista){
+        FILE* arquivo = fopen("contatos.dat", "wb");
+        if (arquivo == NULL) {
+            printf("Erro ao abrir o arquivo.\n");
+            return;
+        }
+
+        fwrite(&lista->tamanho, sizeof(int), 1, arquivo);
+        fwrite(lista->elemento, sizeof(lista_p), lista->tamanho, arquivo);
+
+        fclose(arquivo);
+    }
+    void carregar_contatos(lista_p * lista){
+        FILE* arquivo = fopen("contatos.dat", "rb");
+        if (arquivo == NULL) {
+            printf("Arquivo %s nao encontrado ou vazio.\n");
+            return;
+        }
+
+        fread(&lista->tamanho, sizeof(int), 1, arquivo);
+        fread(lista->elemento, sizeof(lista_p), lista->tamanho, arquivo);
+
+        fclose(arquivo);
+    }
