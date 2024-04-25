@@ -50,14 +50,19 @@ int buscar_lista(lista_p *lista, char *nome) {
 
 bool excluir_p(lista_p *lista, int pessoa) {
     if (pessoa < 0 || pessoa >= lista->tamanho) {
-
-        return -1;
+        // Retornar falso se a posição for inválida
+        return false;
     }
 
-    lista->tamanho = lista->tamanho - 1;
-    for (int i = pessoa; i < lista->tamanho; i++) {
+    // Deslocar os elementos para preencher o espaço do elemento removido
+    for (int i = pessoa; i < lista->tamanho - 1; i++) {
         lista->elemento[i] = lista->elemento[i + 1];
     }
+
+    // Reduzir o tamanho da lista
+    lista->tamanho--;
+
+    return true;
 }
 void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * email) {   // Verificar se a posição é válida
     if (posicao < 0 || posicao >= lista->tamanho) {
