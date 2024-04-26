@@ -88,8 +88,8 @@ void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * em
         }
 
 
-        fwrite(&lista->capacidade, sizeof(int), 1, arquivo);
-        fwrite(lista->elemento, sizeof(contato_t), lista->capacidade, arquivo);
+        fwrite(&lista->tamanho, sizeof(int), 1, arquivo);
+        fwrite(lista->elemento, sizeof(contato_t), lista->tamanho, arquivo);
 
         fclose(arquivo);
     }
@@ -100,8 +100,8 @@ void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * em
             return;
         }
 
-        fread(&lista->capacidade, sizeof(int), 1, arquivo);
-        fread(lista->elemento, sizeof(contato_t), lista->capacidade, arquivo);
+        fread(&lista->tamanho, sizeof(int), 1, arquivo);
+        fread(lista->elemento, sizeof(contato_t), lista->tamanho, arquivo);
 
         fclose(arquivo);
     }
