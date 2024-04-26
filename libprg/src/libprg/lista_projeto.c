@@ -87,6 +87,7 @@ void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * em
             return;
         }
 
+
         fwrite(&lista->tamanho, sizeof(int), 1, arquivo);
         fwrite(lista->elemento, sizeof(lista_p), lista->tamanho, arquivo);
 
