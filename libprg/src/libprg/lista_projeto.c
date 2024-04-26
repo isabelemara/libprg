@@ -80,7 +80,7 @@ void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * em
     strcpy(lista->elemento[posicao].email, email);
 }
 
-    void salvar_binario(lista_p * lista){
+    void salvar_binario(lista_p * contato){
         FILE* arquivo = fopen("contatos.dat", "wb");
         if (arquivo == NULL) {
             printf("Erro ao abrir o arquivo.\n");
@@ -88,20 +88,20 @@ void editar_p(lista_p *lista, int posicao,char *  nome,char* telefone, char * em
         }
 
 
-        fwrite(&lista->tamanho, sizeof(int), 1, arquivo);
-        fwrite(lista->elemento, sizeof(contato_t), lista->tamanho, arquivo);
+        fwrite(&contato->tamanho, sizeof(int), 1, arquivo);
+        fwrite(contato->elemento, sizeof(contato_t), contato->tamanho, arquivo);
 
         fclose(arquivo);
     }
-    void carregar_contatos(lista_p * lista){
+    void carregar_contatos(lista_p * contato){
         FILE* arquivo = fopen("contatos.dat", "rb");
         if (arquivo == NULL) {
             printf("Arquivo %s nao encontrado ou vazio.\n");
             return;
         }
 
-        fread(&lista->tamanho, sizeof(int), 1, arquivo);
-        fread(lista->elemento, sizeof(contato_t), lista->tamanho, arquivo);
+        fread(&contato->tamanho, sizeof(int), 1, arquivo);
+        fread(contato->elemento, sizeof(contato_t), contato->tamanho, arquivo);
 
         fclose(arquivo);
     }
