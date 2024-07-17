@@ -52,3 +52,22 @@ int meio;
     }
  return vetor;
 }
+
+int main(void){
+    int vet[10];
+    srand(time(NULL));
+    for (int i = 0; i < 10; ++i) {
+        vet[i] = rand() % 100 ;
+    }
+
+    for (int i = 0; i < 10; ++i) {
+        printf("%d ",vet[i]);
+    }
+    int n = 10 ;
+    merge_sort(vet,0,n-1);
+
+    for (int i = 0; i < 10; ++i) {
+        printf("%d",vet[i]);
+    }
+
+}
