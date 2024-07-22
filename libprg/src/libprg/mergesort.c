@@ -3,7 +3,7 @@
 #include <time.h>
 
 
-void merge(int vetor[], int meio, int esquerda, int direita){
+void* merge(int* vetor, int meio, int esquerda, int direita){
     int aux_vet[direita-esquerda+1]; //criando vetor auxiliar vazio
 
     int i = esquerda;
@@ -25,7 +25,7 @@ void merge(int vetor[], int meio, int esquerda, int direita){
     while(i <= meio){
         aux_vet[k] = vetor[i];
         i++;
-        j++;
+        k++;
     }
 
     while(j <= direita){
@@ -33,41 +33,42 @@ void merge(int vetor[], int meio, int esquerda, int direita){
         j++;
         k++;
     }
-    for (int i = 0; esquerda < direita; ++i) {
-        vetor[i] = aux_vet[i - esquerda];
+    for (int l = esquerda; l <= direita; ++l) {
+        vetor[l] = aux_vet[l - esquerda];
     }
+
 }
 
 int* merge_sort(int *vetor, int esquerda, int direita){
-int meio;
-    while( esquerda < direita ){
-    meio = esquerda + (direita-esquerda)/2;
+
+    if( esquerda < direita ){
+        int meio = esquerda + ((direita - esquerda) / 2);
     //ordene as duas metades (conquista)
         merge_sort(vetor,esquerda,meio);
         merge_sort(vetor, meio + 1, direita);
 
         //mescle as metades (combinação)
 
-        merge(vetor, esquerda, meio, direita);
+        merge(vetor, meio, esquerda, direita);
     }
  return vetor;
 }
 
+//
+// Created by aluno on 22/07/24.
+//
 int main(void){
-    int vet[10];
+    int vet[10] = {1,4,34,7,8,23,12,3,5,2};
     srand(time(NULL));
-    for (int i = 0; i < 10; ++i) {
-        vet[i] = rand() % 100 ;
-    }
+
 
     for (int i = 0; i < 10; ++i) {
         printf("%d ",vet[i]);
-    }
+    }printf("\n");
     int n = 10 ;
     merge_sort(vet,0,n-1);
 
     for (int i = 0; i < 10; ++i) {
-        printf("%d",vet[i]);
+        printf("%d ",vet[i]);
     }
-
 }
