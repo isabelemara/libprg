@@ -28,24 +28,36 @@
 
 //projeto 2
 
-typedef struct tarefas {
-char tarefa[200];
-char nome[100];
-char id[10];
-char prioridade[100];
-int prazo;
-char nova_tarefa;
-}tarefas_t;
+#ifndef LISTA_TAREFAS_H
+#define LISTA_TAREFAS_H
 
-typedef struct lista {
-    int capacidade;
-    int tamanho;
-    tarefas_t *elemento;
-} lista_t;
+#define numero_descricao 1001
+#define prioridade_max 10
+#define tempo_max_prazo 20
+#define capacidade_inicial 10
 
+typedef struct tarefa tarefa_t;
 
-////projeto 2
-int inserir_t(lista_t *lista, tarefas_t *elemento);
+typedef struct lista lista_t;
+
+lista_t* criarListaTarefas();
+void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max], char prazo[tempo_max_prazo]);
+int buscaListaTarefasDes(lista_t *lista, char alvo[numero_descricao]);
+void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]);
+void buscarTarefasDescricao(lista_t *lista, char descricao[numero_descricao]);
+void buscarTarefasPrioridade(lista_t *lista, char prioridades[prioridade_max]);
+void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoNova[numero_descricao]);
+void editarPrio(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max]);
+void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[tempo_max_prazo]);
+void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]);
+void insertionSortDes(lista_t* lista, bool crescente);
+void insertionSortPrio(lista_t* lista, bool crescente);
+void insertionSortPrazo(lista_t* lista, bool crescente);
+void insertionSortConclusao(lista_t* lista, bool crescente);
+void buscarTarefaPrazo(const lista_t* lista, const char* data, const char* criterio);
+void buscarTarefaConclusao(const lista_t* lista, const char* data, const char* criterio);
+void destruirListaTarefas(lista_t *lista);
+
 
 
 //arvore
