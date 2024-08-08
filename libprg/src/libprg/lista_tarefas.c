@@ -25,14 +25,14 @@ typedef struct lista {
 lista_t* criarListaTarefas() {
     lista_t *lista = (lista_t*)malloc(sizeof(lista_t));
     if (lista == NULL) {
-        printf("Erro de alocação de memória\n");
+        printf("Erro de alocação de memoria\n");
         exit(1);
     }
     lista->tamanho = 0;
     lista->capacidade = capacidade_inicial;
     lista->elemento = (struct tarefa*)malloc(lista->capacidade * sizeof(struct tarefa));
     if (lista->elemento == NULL) {
-        printf("Erro de alocação de memória\n");
+        printf("Erro de alocação de memoria\n");
         exit(1);
     }
     return lista;
@@ -43,7 +43,7 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char 
         lista->capacidade *= 2;
         lista->elemento = (struct tarefa*)realloc(lista->elemento, sizeof(struct tarefa) * lista->capacidade);
         if (lista->elemento == NULL) {
-            printf("Erro de realocação de memória\n");
+            printf("Erro de realocação de memoria\n");
             exit(1);
         }
     }
@@ -53,7 +53,7 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char 
     strncpy(nova_tarefa.prioridade, prioridade, prioridade_max);
     strncpy(nova_tarefa.prazo, prazo, tempo_max_prazo);
     nova_tarefa.ID = lista->tamanho > 0 ? lista->elemento[lista->tamanho - 1].ID + 1 : 0;
-    strcpy(nova_tarefa.conclusao, "99/99/99");
+    strcpy(nova_tarefa.conclusao, "Ainda não esta concluida");
 
     lista->elemento[lista->tamanho] = nova_tarefa;
     lista->tamanho++;
@@ -84,7 +84,7 @@ void buscarTarefasDescricao(lista_t *lista, char descricao[numero_descricao]) {
     int encontrados = 0;
     for (int i = 0; i < lista->tamanho; i++) {
         if (strstr(lista->elemento[i].descricao, descricao) != NULL) {
-            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusão: %s\n",
+            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nconclusao: %s\n",
                     lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
                     lista->elemento[i].prazo, lista->elemento[i].conclusao);
             encontrados++;
@@ -99,7 +99,7 @@ void buscarTarefasPrioridade(lista_t *lista, char prioridades[prioridade_max]) {
     int encontrados = 0;
     for (int i = 0; i < lista->tamanho; i++) {
         if (strstr(lista->elemento[i].prioridade, prioridades) != NULL) {
-            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusão: %s\n",
+            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nconclusao: %s\n",
                     lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
                     lista->elemento[i].prazo, lista->elemento[i].conclusao);
             encontrados++;
@@ -201,7 +201,7 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conc
         return;
     }
     strncpy(lista->elemento[indice].conclusao, conclusao, tempo_max_prazo);
-    printf("\nConclusão alterada!\n");
+    printf("\nconclusao alterada!\n");
 }
 
 void insertionSortConclusao(lista_t* lista, bool crescente) {
@@ -223,7 +223,7 @@ void insertionSortConclusao(lista_t* lista, bool crescente) {
 
 void exibirTarefas(lista_t *lista) {
     for (int i = 0; i < lista->tamanho; i++) {
-        printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusão: %s\n",
+        printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nconclusao: %s\n",
                lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
                lista->elemento[i].prazo, lista->elemento[i].conclusao);
     }
