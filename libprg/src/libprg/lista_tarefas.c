@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <libprg.h>
 
 #define numero_descricao 1001
 #define prioridade_max 10
@@ -53,7 +54,8 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char 
     strncpy(nova_tarefa.prioridade, prioridade, prioridade_max);
     strncpy(nova_tarefa.prazo, prazo, tempo_max_prazo);
     nova_tarefa.ID = lista->tamanho > 0 ? lista->elemento[lista->tamanho - 1].ID + 1 : 0;
-    strcpy(nova_tarefa.conclusao, "Ainda nao esta concluida. \n\n");
+    strcpy(nova_tarefa.conclusao, "Ainda nao esta concluida.");
+    printf("\n\n");
 
     lista->elemento[lista->tamanho] = nova_tarefa;
     lista->tamanho++;
@@ -143,57 +145,6 @@ void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[te
     }
 }
 
-int compararData(const char* data1, const char* data2, bool crescente) {
-    return crescente ? (strcmp(data1, data2)) : (strcmp(data2, data1));
-}
-
-void insertionSortPrazo(lista_t* lista, bool crescente) {
-    int j;
-    struct tarefa chave;
-    for (int i = 1; i < lista->tamanho; i++) {
-        chave = lista->elemento[i];
-        j = i - 1;
-
-        while (j >= 0 && compararData(lista->elemento[j].prazo, chave.prazo, crescente) > 0) {
-            lista->elemento[j + 1] = lista->elemento[j];
-            j = j - 1;
-        }
-        lista->elemento[j + 1] = chave;
-    }
-}
-
-void insertionSortPrio(lista_t* lista, bool crescente) {
-    int j;
-    struct tarefa chave;
-    for (int i = 1; i < lista->tamanho; i++) {
-        chave = lista->elemento[i];
-        j = i - 1;
-
-        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].prioridade, chave.prioridade) > 0
-                                    : strcmp(lista->elemento[j].prioridade, chave.prioridade) < 0)) {
-            lista->elemento[j + 1] = lista->elemento[j];
-            j = j - 1;
-        }
-        lista->elemento[j + 1] = chave;
-    }
-}
-
-void insertionSortDes(lista_t* lista, bool crescente) {
-    int j;
-    struct tarefa chave;
-    for (int i = 1; i < lista->tamanho; i++) {
-        chave = lista->elemento[i];
-        j = i - 1;
-
-        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].descricao, chave.descricao) > 0
-                                    : strcmp(lista->elemento[j].descricao, chave.descricao) < 0)) {
-            lista->elemento[j + 1] = lista->elemento[j];
-            j = j - 1;
-        }
-        lista->elemento[j + 1] = chave;
-    }
-}
-
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]) {
     int indice = buscaListaTarefasDes(lista, descricao);
     if (indice < 0) {
@@ -201,7 +152,16 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conc
         return;
     }
     strncpy(lista->elemento[indice].conclusao, conclusao, tempo_max_prazo);
-    printf("\nconclusao alterada!\n");
+    printf("\nConclusao alterada!\n");
+}
+
+int compararData(const char *data1, const char *data2, bool crescente) {
+    // Comparação simples de strings de data no formato "AAAA-MM-DD"
+    if (crescente) {
+        return strcmp(data1, data2);
+    } else {
+        return strcmp(data2, data1);
+    }
 }
 
 void insertionSortConclusao(lista_t* lista, bool crescente) {
@@ -213,7 +173,6 @@ void insertionSortConclusao(lista_t* lista, bool crescente) {
         j = i - 1;
 
         while (j >= 0 && compararData(lista->elemento[j].conclusao, chave.conclusao, crescente) > 0) {
-            lista->elemento;
             lista->elemento[j + 1] = lista->elemento[j];
             j = j - 1;
         }
@@ -223,7 +182,7 @@ void insertionSortConclusao(lista_t* lista, bool crescente) {
 
 void exibirTarefas(lista_t *lista) {
     for (int i = 0; i < lista->tamanho; i++) {
-        printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nconclusao: %s\n",
+        printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
                lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
                lista->elemento[i].prazo, lista->elemento[i].conclusao);
     }
