@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <strings.h>
+
 //typedef struct lista lista_t;
 // typedef struct fila fila_t;
 // typedef struct contato {
@@ -43,20 +44,21 @@ typedef struct lista lista_t;
 // Funções para manipular a lista de tarefas
 lista_t* criarListaTarefas();
 void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max], char prazo[tempo_max_prazo]);
-int buscaListaTarefasDes(lista_t *lista, char alvo[numero_descricao]);
 void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]);
 void buscarTarefasDescricao(lista_t *lista, char descricao[numero_descricao]);
-void buscarTarefasPrioridade(lista_t *lista, char prioridades[prioridade_max]);
-void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoNova[numero_descricao]);
-void editarPrio(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max]);
-void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[tempo_max_prazo]);
-void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]);
-void insertionSortDes(lista_t* lista, bool crescente);
-void insertionSortPrio(lista_t* lista, bool crescente);
-void insertionSortPrazo(lista_t* lista, bool crescente);
-void insertionSortConclusao(lista_t* lista, bool crescente);
+void buscarTarefasPrioridade(lista_t *lista, char prioridade[prioridade_max]);
+void editarDes(lista_t *lista, char descricao[numero_descricao], char novaDescricao[numero_descricao]);
+void editarPrio(lista_t *lista, char descricao[numero_descricao], char novaPrioridade[prioridade_max]);
+void editarPrazo(lista_t *lista, char descricao[numero_descricao], char novoPrazo[tempo_max_prazo]);
+void editarConclusao(lista_t *lista, char descricao[numero_descricao], char novaConclusao[tempo_max_prazo]);
 void exibirTarefas(lista_t *lista);
-void destruirListaTarefas(lista_t *lista);
+
+// Funções de ordenação
+void insertionSortDes(lista_t *lista, bool crescente);
+void insertionSortPrio(lista_t *lista, bool crescente);
+void insertionSortPrazo(lista_t *lista, bool crescente);
+void insertionSortConclusao(lista_t *lista, bool crescente);
+
 #endif
 //arvore
 // no_t *criar_no(int valor);
