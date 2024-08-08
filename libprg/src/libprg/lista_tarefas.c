@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <libprg.h>
+#include <libprg/libprg.h>
 
 #define numero_descricao 1001
 #define prioridade_max 10

@@ -36,19 +36,9 @@
 #define tempo_max_prazo 11
 #define capacidade_inicial 10
 
-struct tarefa {
-    int ID;
-    char descricao[numero_descricao];
-    char prioridade[prioridade_max];
-    char prazo[tempo_max_prazo];
-    char conclusao[tempo_max_prazo];
-};
+typedef struct tarefa tarefa_t;
 
-typedef struct {
-    struct tarefa *elemento;
-    int tamanho;
-    int capacidade;
-} lista_t;
+typedef struct lista lista_t;
 
 // Funções para manipular a lista de tarefas
 lista_t* criarListaTarefas();
