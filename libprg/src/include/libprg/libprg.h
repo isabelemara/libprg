@@ -48,7 +48,7 @@ void buscarTarefasDescricao(lista_t *lista, char descricao[numero_descricao]);
 void buscarTarefasPrioridade(lista_t *lista, char prioridades[prioridade_max]);
 void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoNova[numero_descricao]);
 void editarPrio(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max]);
-void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[tempo_max_prazo]);
+void editarPrazo(lista_t *lista,char descricao[numero_descricao], char prazo[prioridade_max]);
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]);
 void insertionSortDes(lista_t* lista, bool crescente);
 void insertionSortPrio(lista_t* lista, bool crescente);
@@ -57,9 +57,9 @@ void insertionSortConclusao(lista_t* lista, bool crescente);
 void buscarTarefaPrazo(const lista_t* lista, const char* data, const char* criterio);
 void buscarTarefaConclusao(const lista_t* lista, const char* data, const char* criterio);
 void destruirListaTarefas(lista_t *lista);
+void exibirMenu(lista_t *lista);
 
-
-
+#endif
 //arvore
 // no_t *criar_no(int valor);
 // void destruir_no(no_t*no);
