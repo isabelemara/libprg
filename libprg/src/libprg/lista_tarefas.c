@@ -6,7 +6,7 @@
 
 #define numero_descricao 1001
 #define prioridade_max 10
-#define tempo_max_prazo 20
+#define tempo_max_prazo 30
 #define capacidade_inicial 10
 
 typedef struct tarefa {
