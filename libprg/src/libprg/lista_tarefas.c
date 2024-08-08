@@ -265,18 +265,6 @@ void destruirListaTarefas(lista_t *lista) {
 
 
 
-void exibirMenu() {
-    printf("\n--- Menu ---\n");
-    printf("1. Adicionar Tarefa\n");
-    printf("2. Editar Tarefa\n");
-    printf("3. Buscar Tarefa\n");
-    printf("4. Remover Tarefa\n");
-    printf("5. Ordenar Tarefas\n");
-    printf("6. Buscar por Prazo\n");
-    printf("7. Buscar por Conclusão\n");
-    printf("8. Sair\n");
-    printf("Escolha uma opção: ");
-}
 
 void adicionarTarefa(lista_t *lista) {
     char descricao[numero_descricao];
