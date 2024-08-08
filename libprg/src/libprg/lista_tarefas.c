@@ -23,17 +23,19 @@ typedef struct lista {
     int capacidade;
 } lista_t;
 
+
+
 lista_t* criarListaTarefas() {
     lista_t *lista = (lista_t*)malloc(sizeof(lista_t));
     if (lista == NULL) {
-        printf("Erro de alocação de memoria\n");
+        printf("Erro de alocacao de memoria\n");
         exit(1);
     }
     lista->tamanho = 0;
     lista->capacidade = capacidade_inicial;
     lista->elemento = (struct tarefa*)malloc(lista->capacidade * sizeof(struct tarefa));
     if (lista->elemento == NULL) {
-        printf("Erro de alocação de memoria\n");
+        printf("Erro de alocacao de memoria\n");
         exit(1);
     }
     return lista;
@@ -44,7 +46,7 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char 
         lista->capacidade *= 2;
         lista->elemento = (struct tarefa*)realloc(lista->elemento, sizeof(struct tarefa) * lista->capacidade);
         if (lista->elemento == NULL) {
-            printf("Erro de realocação de memoria\n");
+            printf("Erro de realocacao de memoria\n");
             exit(1);
         }
     }
@@ -55,7 +57,6 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char 
     strncpy(nova_tarefa.prazo, prazo, tempo_max_prazo);
     nova_tarefa.ID = lista->tamanho > 0 ? lista->elemento[lista->tamanho - 1].ID + 1 : 0;
     strcpy(nova_tarefa.conclusao, "Ainda nao esta concluida.");
-    printf("\n\n");
 
     lista->elemento[lista->tamanho] = nova_tarefa;
     lista->tamanho++;
@@ -74,7 +75,7 @@ void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]) {
     int indice = buscaListaTarefasDes(lista, alvo);
 
     if (indice < 0 || indice >= lista->tamanho) {
-        printf("\nÍndice fora dos limites da lista\n");
+        printf("\nIndice fora dos limites da lista\n");
         return;
     }
 
@@ -86,109 +87,73 @@ void buscarTarefasDescricao(lista_t *lista, char descricao[numero_descricao]) {
     int encontrados = 0;
     for (int i = 0; i < lista->tamanho; i++) {
         if (strstr(lista->elemento[i].descricao, descricao) != NULL) {
-            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nconclusao: %s\n",
-                    lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-                    lista->elemento[i].prazo, lista->elemento[i].conclusao);
+            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
+                   lista->elemento[i].ID, lista->elemento[i].descricao,
+                   lista->elemento[i].prioridade, lista->elemento[i].prazo,
+                   lista->elemento[i].conclusao);
             encontrados++;
         }
     }
     if (encontrados == 0) {
-        printf("Nenhuma tarefa encontrada para '%s'\n", descricao);
+        printf("Nenhuma tarefa encontrada com a descricao '%s'\n", descricao);
     }
 }
 
-void buscarTarefasPrioridade(lista_t *lista, char prioridades[prioridade_max]) {
+void buscarTarefasPrioridade(lista_t *lista, char prioridade[prioridade_max]) {
     int encontrados = 0;
     for (int i = 0; i < lista->tamanho; i++) {
-        if (strstr(lista->elemento[i].prioridade, prioridades) != NULL) {
-            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nconclusao: %s\n",
-                    lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-                    lista->elemento[i].prazo, lista->elemento[i].conclusao);
+        if (strcmp(lista->elemento[i].prioridade, prioridade) == 0) {
+            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
+                   lista->elemento[i].ID, lista->elemento[i].descricao,
+                   lista->elemento[i].prioridade, lista->elemento[i].prazo,
+                   lista->elemento[i].conclusao);
             encontrados++;
         }
     }
     if (encontrados == 0) {
-        printf("Nenhuma tarefa encontrada para '%s'\n", prioridades);
+        printf("Nenhuma tarefa encontrada com a prioridade '%s'\n", prioridade);
     }
 }
 
-void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoNova[numero_descricao]) {
+void editarDes(lista_t *lista, char descricao[numero_descricao], char novaDescricao[numero_descricao]) {
     int indice = buscaListaTarefasDes(lista, descricao);
-    if (indice < 0) {
-        printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
-        return;
-    } else {
-        strncpy(lista->elemento[indice].descricao, descricaoNova, numero_descricao);
-        printf("\nDescricao alterada!\n");
+    if (indice != -1) {
+        strncpy(lista->elemento[indice].descricao, novaDescricao, numero_descricao);
     }
 }
 
-void editarPrio(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max]) {
+void editarPrio(lista_t *lista, char descricao[numero_descricao], char novaPrioridade[prioridade_max]) {
     int indice = buscaListaTarefasDes(lista, descricao);
-    if (indice < 0) {
-        printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
-        return;
-    } else {
-        strncpy(lista->elemento[indice].prioridade, prioridade, prioridade_max);
-        printf("\nPrioridade alterada!\n");
+    if (indice != -1) {
+        strncpy(lista->elemento[indice].prioridade, novaPrioridade, prioridade_max);
     }
 }
 
-void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[tempo_max_prazo]) {
+void editarPrazo(lista_t *lista, char descricao[numero_descricao], char novoPrazo[tempo_max_prazo]) {
     int indice = buscaListaTarefasDes(lista, descricao);
-    if (indice < 0) {
-        printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
-        return;
-    } else {
-        strncpy(lista->elemento[indice].prazo, prazo, tempo_max_prazo);
-        printf("\nPrazo alterado!\n");
+    if (indice != -1) {
+        strncpy(lista->elemento[indice].prazo, novoPrazo, tempo_max_prazo);
     }
 }
 
-void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]) {
+void editarConclusao(lista_t *lista, char descricao[numero_descricao], char novaConclusao[tempo_max_prazo]) {
     int indice = buscaListaTarefasDes(lista, descricao);
-    if (indice < 0) {
-        printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
-        return;
-    }
-    strncpy(lista->elemento[indice].conclusao, conclusao, tempo_max_prazo);
-    printf("\nConclusao alterada!\n");
-}
-
-int compararData(const char *data1, const char *data2, bool crescente) {
-    // Comparação simples de strings de data no formato "AAAA-MM-DD"
-    if (crescente) {
-        return strcmp(data1, data2);
-    } else {
-        return strcmp(data2, data1);
-    }
-}
-
-void insertionSortConclusao(lista_t* lista, bool crescente) {
-    int j;
-    struct tarefa chave;
-
-    for (int i = 1; i < lista->tamanho; i++) {
-        chave = lista->elemento[i];
-        j = i - 1;
-
-        while (j >= 0 && compararData(lista->elemento[j].conclusao, chave.conclusao, crescente) > 0) {
-            lista->elemento[j + 1] = lista->elemento[j];
-            j = j - 1;
-        }
-        lista->elemento[j + 1] = chave;
+    if (indice != -1) {
+        strncpy(lista->elemento[indice].conclusao, novaConclusao, tempo_max_prazo);
     }
 }
 
 void exibirTarefas(lista_t *lista) {
     for (int i = 0; i < lista->tamanho; i++) {
         printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
-               lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-               lista->elemento[i].prazo, lista->elemento[i].conclusao);
+               lista->elemento[i].ID, lista->elemento[i].descricao,
+               lista->elemento[i].prioridade, lista->elemento[i].prazo,
+               lista->elemento[i].conclusao);
     }
 }
 
-void destruirListaTarefas(lista_t *lista) {
-    free(lista->elemento);
-    free(lista);
-}
+// Implementar suas funções de ordenação aqui
+void insertionSortDes(lista_t *lista, bool crescente);
+void insertionSortPrio(lista_t *lista, bool crescente);
+void insertionSortPrazo(lista_t *lista, bool crescente);
+void insertionSortConclusao(lista_t *lista, bool crescente);
