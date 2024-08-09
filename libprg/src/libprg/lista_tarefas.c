@@ -148,19 +148,20 @@ int compararData(const char* data1, const char* data2, bool crescente) {
 }
 
 void insertionSortPrazo(lista_t* lista, bool crescente) {
-    int j;
-    struct tarefa chave;
     for (int i = 1; i < lista->tamanho; i++) {
-        chave = lista->elemento[i];
-        j = i - 1;
+        struct tarefa chave = lista->elemento[i];
+        int j = i - 1;
 
-        while (j >= 0 && compararData(lista->elemento[j].prazo, chave.prazo, crescente) > 0) {
+        // Comparação baseada na ordem solicitada
+        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].prazo, chave.prazo) > 0
+                                    : strcmp(lista->elemento[j].prazo, chave.prazo) < 0)) {
             lista->elemento[j + 1] = lista->elemento[j];
             j = j - 1;
-        }
+                                    }
         lista->elemento[j + 1] = chave;
     }
 }
+
 
 
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]) {
@@ -176,11 +177,13 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conc
 
 void exibirTarefas(lista_t *lista) {
     for (int i = 0; i < lista->tamanho; i++) {
-        printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nconclusao: %s\n",
-               lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-               lista->elemento[i].prazo, lista->elemento[i].conclusao);
+        printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
+               lista->elemento[i].ID, lista->elemento[i].descricao,
+               lista->elemento[i].prioridade, lista->elemento[i].prazo,
+               lista->elemento[i].conclusao);
     }
 }
+
 
 void destruirListaTarefas(lista_t *lista) {
     free(lista->elemento);
