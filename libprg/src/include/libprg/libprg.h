@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <strings.h>
+
 //typedef struct lista lista_t;
 // typedef struct fila fila_t;
 // typedef struct contato {
@@ -12,41 +13,33 @@
 //     char email[100];
 //     char novo_contato;
 // } contato_t;
-
 // typedef struct lista {
 //     int capacidade;
 //     int tamanho;
 //     contato_t *elemento;
 // } lista_p;
-
 //arvore
 // typedef struct no {
 //     int valor;
 //     struct no*esquerda;
 //     struct no*direita;
 // } no_t;
-
 //projeto 2
-
 #ifndef LISTA_TAREFAS_H
 #define LISTA_TAREFAS_H
-
 #define numero_descricao 100
 #define prioridade_max 10
 #define tempo_max_prazo 11
 #define capacidade_inicial 10
-
 typedef struct tarefa tarefa_t;
-
 typedef struct lista lista_t;
-
 // Funções para manipular a lista de tarefas
 lista_t* criarListaTarefas();
 void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max], char prazo[tempo_max_prazo]);
 int buscaListaTarefasDes(lista_t *lista, char alvo[numero_descricao]);
 void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]);
 void buscarTarefasDescricao(lista_t *lista, char descricao[numero_descricao]);
-void buscaTarefasPrioridade(lista_t *lista, const char *prioridade);
+void buscarTarefasPrioridade(lista_t *lista, char prioridades[prioridade_max]);
 void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoNova[numero_descricao]);
 void editarPrio(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max]);
 void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[tempo_max_prazo]);
@@ -55,8 +48,20 @@ void insertionSortDes(lista_t* lista, bool crescente);
 void insertionSortPrio(lista_t* lista, bool crescente);
 void insertionSortPrazo(lista_t* lista, bool crescente);
 void insertionSortConclusao(lista_t* lista, bool crescente);
+void buscarTarefasPrioridade(lista_t *lista, char prioridade[prioridade_max]);
+void editarDes(lista_t *lista, char descricao[numero_descricao], char novaDescricao[numero_descricao]);
+void editarPrio(lista_t *lista, char descricao[numero_descricao], char novaPrioridade[prioridade_max]);
+void editarPrazo(lista_t *lista, char descricao[numero_descricao], char novoPrazo[tempo_max_prazo]);
+void editarConclusao(lista_t *lista, char descricao[numero_descricao], char novaConclusao[tempo_max_prazo]);
 void exibirTarefas(lista_t *lista);
 void destruirListaTarefas(lista_t *lista);
+
+// Funções de ordenação
+void insertionSortDes(lista_t *lista, bool crescente);
+void insertionSortPrio(lista_t *lista, bool crescente);
+void insertionSortPrazo(lista_t *lista, bool crescente);
+void insertionSortConclusao(lista_t *lista, bool crescente);
+
 #endif
 //arvore
 // no_t *criar_no(int valor);
@@ -75,7 +80,6 @@ void destruirListaTarefas(lista_t *lista);
 // void salvar_binario(lista_p * contato);
 // void carregar_contatos(lista_p * contato);
 //void opcao(lista_p *contato);
-
 ////lista encadeada
 //typedef struct no no_t;
 //typedef struct lista_enc lista_o;
@@ -85,10 +89,6 @@ void destruirListaTarefas(lista_t *lista);
 //no_t* buscar(no_t* inicio, int dado);
 //bool remover(no_t **inicio, int dado);
 //void getelentos(no_t*);
-
-
-
-
 ////lista
 //lista_t* criar();
 //void inserir(lista_t *lista, int elemento);
@@ -108,7 +108,6 @@ void destruirListaTarefas(lista_t *lista);
 //bool vazia(fila_t* fila);
 //bool cheia(fila_t* fila);
 //void imprimir_fila(fila_t* fila);
-
 // inserir
 //void povoar_nao_ord(lista_t *lista);
 ////irá povoar o  setor das não ordenadas(ele vai inserir)
@@ -129,8 +128,4 @@ void destruirListaTarefas(lista_t *lista);
 //int busca_binaria_recur(lista_t *lista, int elemento);
 ////busca binaria no vetor de forma recursiva
 //int libera_mem(lista_t *lista)
-
-
-
-
 #endif
