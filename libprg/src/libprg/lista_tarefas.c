@@ -162,37 +162,6 @@ void insertionSortPrazo(lista_t* lista, bool crescente) {
     }
 }
 
-void insertionSortPrio(lista_t* lista, bool crescente) {
-    int j;
-    struct tarefa chave;
-    for (int i = 1; i < lista->tamanho; i++) {
-        chave = lista->elemento[i];
-        j = i - 1;
-
-        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].prioridade, chave.prioridade) > 0
-                                    : strcmp(lista->elemento[j].prioridade, chave.prioridade) < 0)) {
-            lista->elemento[j + 1] = lista->elemento[j];
-            j = j - 1;
-        }
-        lista->elemento[j + 1] = chave;
-    }
-}
-
-void insertionSortDes(lista_t* lista, bool crescente) {
-    int j;
-    struct tarefa chave;
-    for (int i = 1; i < lista->tamanho; i++) {
-        chave = lista->elemento[i];
-        j = i - 1;
-
-        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].descricao, chave.descricao) > 0
-                                    : strcmp(lista->elemento[j].descricao, chave.descricao) < 0)) {
-            lista->elemento[j + 1] = lista->elemento[j];
-            j = j - 1;
-        }
-        lista->elemento[j + 1] = chave;
-    }
-}
 
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]) {
     int indice = buscaListaTarefasDes(lista, descricao);
@@ -204,22 +173,6 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conc
     printf("\nconclusao alterada!\n");
 }
 
-void insertionSortConclusao(lista_t* lista, bool crescente) {
-    int j;
-    struct tarefa chave;
-
-    for (int i = 1; i < lista->tamanho; i++) {
-        chave = lista->elemento[i];
-        j = i - 1;
-
-        while (j >= 0 && compararData(lista->elemento[j].conclusao, chave.conclusao, crescente) > 0) {
-            lista->elemento;
-            lista->elemento[j + 1] = lista->elemento[j];
-            j = j - 1;
-        }
-        lista->elemento[j + 1] = chave;
-    }
-}
 
 void exibirTarefas(lista_t *lista) {
     for (int i = 0; i < lista->tamanho; i++) {

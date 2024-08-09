@@ -44,10 +44,7 @@ void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoN
 void editarPrio(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max]);
 void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[tempo_max_prazo]);
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]);
-void insertionSortDes(lista_t* lista, bool crescente);
-void insertionSortPrio(lista_t* lista, bool crescente);
 void insertionSortPrazo(lista_t* lista, bool crescente);
-void insertionSortConclusao(lista_t* lista, bool crescente);
 void buscarTarefasPrioridade(lista_t *lista, char prioridade[prioridade_max]);
 void editarDes(lista_t *lista, char descricao[numero_descricao], char novaDescricao[numero_descricao]);
 void editarPrio(lista_t *lista, char descricao[numero_descricao], char novaPrioridade[prioridade_max]);
