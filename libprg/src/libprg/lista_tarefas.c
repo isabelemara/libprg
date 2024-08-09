@@ -16,10 +16,10 @@ typedef struct tarefa {
     char conclusao[tempo_max_prazo];
 } tarefa_t;
 
-typedef struct lista {
-    struct tarefa *elemento;
-    int tamanho;
-    int capacidade;
+typedef struct {
+    tarefa_t *elemento; // Supondo que a lista contém um array de tarefas
+    int tamanho;        // Número de elementos na lista
+    int capacidade;     // Capacidade atual do array
 } lista_t;
 
 lista_t* criarListaTarefas() {
