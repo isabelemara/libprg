@@ -95,7 +95,7 @@ void buscarTarefasDescricao(lista_t *lista, char descricao[numero_descricao]) {
     }
 }
 
-void buscaTarefasPorPrioridade(lista_t *lista, const char *prioridade) {
+void buscaTarefasPrioridade(lista_t *lista, const char *prioridade) {
     tarefa_t *tarefa;
     int encontrada = 0;
 
