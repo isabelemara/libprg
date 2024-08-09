@@ -95,20 +95,28 @@ void buscarTarefasDescricao(lista_t *lista, char descricao[numero_descricao]) {
     }
 }
 
-void buscarTarefasPrioridade(lista_t *lista, char prioridades[prioridade_max]) {
-    int encontrados = 0;
+void buscaTarefasPorPrioridade(lista_t *lista, const char *prioridade) {
+    tarefa_t *tarefa;
+    int encontrada = 0;
+
+    // Percorre a lista de tarefas
     for (int i = 0; i < lista->tamanho; i++) {
-        if (strstr(lista->elemento[i].prioridade, prioridades) != NULL) {
+        tarefa = &lista->elemento[i];
+
+        // Compara a prioridade da tarefa atual com a prioridade desejada
+        if (strcmp(tarefa->prioridade, prioridade) == 0) {
+            // Imprime a tarefa se a prioridade corresponder
             printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nconclusao: %s\n",
-                    lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-                    lista->elemento[i].prazo, lista->elemento[i].conclusao);
-            encontrados++;
+                   tarefa->ID, tarefa->descricao, tarefa->prioridade, tarefa->prazo, tarefa->conclusao);
+            encontrada = 1;
         }
     }
-    if (encontrados == 0) {
-        printf("Nenhuma tarefa encontrada para '%s'\n", prioridades);
+
+    if (!encontrada) {
+        printf("Nenhuma tarefa com a prioridade '%s' foi encontrada.\n", prioridade);
     }
 }
+
 
 void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoNova[numero_descricao]) {
     int indice = buscaListaTarefasDes(lista, descricao);
