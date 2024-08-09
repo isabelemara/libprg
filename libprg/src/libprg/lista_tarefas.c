@@ -196,24 +196,7 @@ void salvar_binario(lista_t * tarefa){
         fclose(arquivo);
     }
 
-int verificarValidade(const char* prazo, const char* dataAtual) {
-    struct tm prazo_tm = {0};
-    struct tm dataAtual_tm = {0};
 
-    sscanf(prazo, "%d/%d/%d", &prazo_tm.tm_mday, &prazo_tm.tm_mon, &prazo_tm.tm_year);
-    sscanf(dataAtual, "%d/%d/%d", &dataAtual_tm.tm_mday, &dataAtual_tm.tm_mon, &dataAtual_tm.tm_year);
-
-    prazo_tm.tm_mon -= 1;  // Em struct tm, janeiro é 0
-    prazo_tm.tm_year -= 1900;  // Ano é contado a partir de 1900
-
-    dataAtual_tm.tm_mon -= 1;
-    dataAtual_tm.tm_year -= 1900;
-
-    time_t prazoTime = mktime(&prazo_tm);
-    time_t atualTime = mktime(&dataAtual_tm);
-
-    return difftime(prazoTime, atualTime) < 0;  // Retorna 1 se o prazo já passou, 0 caso contrário
-}
 void destruirListaTarefas(lista_t *lista) {
     free(lista->elemento);
     free(lista);
