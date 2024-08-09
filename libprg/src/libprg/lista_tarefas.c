@@ -25,7 +25,7 @@ typedef struct lista {
 lista_t* criarListaTarefas() {
     lista_t *lista = (lista_t*)malloc(sizeof(lista_t));
     if (lista == NULL) {
-        printf("Erro de alocação de memória\n");
+        printf("Erro de alocação de memoria\n");
         exit(1);
     }
     lista->tamanho = 0;
@@ -53,7 +53,7 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char 
     strncpy(nova_tarefa.prioridade, prioridade, prioridade_max);
     strncpy(nova_tarefa.prazo, prazo, tempo_max_prazo);
     nova_tarefa.ID = lista->tamanho > 0 ? lista->elemento[lista->tamanho - 1].ID + 1 : 0;
-    strcpy(nova_tarefa.conclusao, "Ainda não esta concluida");
+    strcpy(nova_tarefa.conclusao, "nao concluida");
 
     lista->elemento[lista->tamanho] = nova_tarefa;
     lista->tamanho++;
@@ -72,7 +72,7 @@ void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]) {
     int indice = buscaListaTarefasDes(lista, alvo);
 
     if (indice < 0 || indice >= lista->tamanho) {
-        printf("\nÍndice fora dos limites da lista\n");
+        printf("\nIndice fora dos limites da lista\n");
         return;
     }
 
