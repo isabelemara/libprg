@@ -52,12 +52,8 @@ void editarPrazo(lista_t *lista, char descricao[numero_descricao], char novoPraz
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char novaConclusao[tempo_max_prazo]);
 void exibirTarefas(lista_t *lista);
 void destruirListaTarefas(lista_t *lista);
-
-// Funções de ordenação
-void insertionSortDes(lista_t *lista, bool crescente);
-void insertionSortPrio(lista_t *lista, bool crescente);
 void insertionSortPrazo(lista_t *lista, bool crescente);
-void insertionSortConclusao(lista_t *lista, bool crescente);
+
 
 #endif
 //arvore

@@ -162,8 +162,6 @@ void insertionSortPrazo(lista_t* lista, bool crescente) {
     }
 }
 
-
-
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]) {
     int indice = buscaListaTarefasDes(lista, descricao);
     if (indice < 0) {
