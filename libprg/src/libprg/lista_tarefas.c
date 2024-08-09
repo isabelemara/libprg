@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <libprg/libprg.h>
 
 #define numero_descricao 1001
 #define prioridade_max 10
@@ -26,7 +25,7 @@ typedef struct lista {
 lista_t* criarListaTarefas() {
     lista_t *lista = (lista_t*)malloc(sizeof(lista_t));
     if (lista == NULL) {
-        printf("Erro de alocação de memória\n");
+        printf("Erro de alocação de memoria\n");
         exit(1);
     }
     lista->tamanho = 0;
@@ -44,7 +43,7 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char 
         lista->capacidade *= 2;
         lista->elemento = (struct tarefa*)realloc(lista->elemento, sizeof(struct tarefa) * lista->capacidade);
         if (lista->elemento == NULL) {
-            printf("Erro de realocação de memoria\n");
+            printf("Erro de realocacao de memoria\n");
             exit(1);
         }
     }
@@ -73,7 +72,7 @@ void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]) {
     int indice = buscaListaTarefasDes(lista, alvo);
 
     if (indice < 0 || indice >= lista->tamanho) {
-        printf("\nÍndice fora dos limites da lista\n");
+        printf("\nIndice fora dos limites da lista\n");
         return;
     }
 
@@ -204,6 +203,7 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conc
     strncpy(lista->elemento[indice].conclusao, conclusao, tempo_max_prazo);
     printf("\nConclusao alterada!\n");
 }
+
 
 void destruirListaTarefas(lista_t *lista) {
     if (lista) {
