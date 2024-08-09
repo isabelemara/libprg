@@ -196,6 +196,3 @@ void salvar_binario(lista_t * tarefa){
         fclose(arquivo);
     }
 
-void liberar(lista_t *lista) {
-    free(lista->elemento);
-}
