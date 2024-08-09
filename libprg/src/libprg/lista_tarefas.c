@@ -181,7 +181,19 @@ void exibirTarefas(lista_t *lista) {
                lista->elemento[i].conclusao);
     }
 }
+void salvar_binario(lista_t * tarefa){
+        FILE* arquivo = fopen("contatos.dat", "wb");
+        if (arquivo == NULL) {
+            printf("Erro ao abrir o arquivo.\n");
+            return;
+        }
 
+
+        fwrite(&tarefa->tamanho, sizeof(int), 1, arquivo);
+        fwrite(tarefa->elemento, sizeof(tarefa_t), tarefa->tamanho, arquivo);
+
+        fclose(arquivo);
+    }
 
 void destruirListaTarefas(lista_t *lista) {
     free(lista->elemento);

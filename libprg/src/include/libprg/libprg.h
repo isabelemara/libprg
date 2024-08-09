@@ -53,7 +53,7 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char nova
 void exibirTarefas(lista_t *lista);
 void destruirListaTarefas(lista_t *lista);
 void insertionSortPrazo(lista_t *lista, bool crescente);
-
+void salvar_binario(lista_t * tarefa);
 
 #endif
 //arvore
