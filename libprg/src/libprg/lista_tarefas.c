@@ -25,7 +25,7 @@ typedef struct lista {
 lista_t* criarListaTarefas() {
     lista_t *lista = (lista_t*)malloc(sizeof(lista_t));
     if (lista == NULL) {
-        printf("Erro de alocação de memoria\n");
+        printf("Erro de alocação de memória\n");
         exit(1);
     }
     lista->tamanho = 0;
@@ -43,7 +43,7 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char 
         lista->capacidade *= 2;
         lista->elemento = (struct tarefa*)realloc(lista->elemento, sizeof(struct tarefa) * lista->capacidade);
         if (lista->elemento == NULL) {
-            printf("Erro de realocacao de memoria\n");
+            printf("Erro de realocação de memoria\n");
             exit(1);
         }
     }
@@ -72,7 +72,7 @@ void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]) {
     int indice = buscaListaTarefasDes(lista, alvo);
 
     if (indice < 0 || indice >= lista->tamanho) {
-        printf("\nIndice fora dos limites da lista\n");
+        printf("\nÍndice fora dos limites da lista\n");
         return;
     }
 
@@ -203,7 +203,6 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conc
     strncpy(lista->elemento[indice].conclusao, conclusao, tempo_max_prazo);
     printf("\nConclusao alterada!\n");
 }
-
 
 void destruirListaTarefas(lista_t *lista) {
     if (lista) {
