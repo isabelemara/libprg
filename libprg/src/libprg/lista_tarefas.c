@@ -196,7 +196,6 @@ void salvar_binario(lista_t * tarefa){
         fclose(arquivo);
     }
 
-
 void destruirListaTarefas(lista_t *lista) {
     free(lista->elemento);
     free(lista);
