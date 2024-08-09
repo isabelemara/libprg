@@ -195,6 +195,10 @@ void salvar_binario(lista_t * tarefa){
         fclose(arquivo);
     }
 
+int verificarValidade(const char* prazo, const char* dataAtual) {
+    return compararData(prazo, dataAtual, true) < 0; // Retorna 1 se o prazo já passou, 0 caso contrário
+}
+
 void destruirListaTarefas(lista_t *lista) {
     free(lista->elemento);
     free(lista);
