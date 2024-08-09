@@ -51,7 +51,7 @@ void editarPrio(lista_t *lista, char descricao[numero_descricao], char novaPrior
 void editarPrazo(lista_t *lista, char descricao[numero_descricao], char novoPrazo[tempo_max_prazo]);
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char novaConclusao[tempo_max_prazo]);
 void exibirTarefas(lista_t *lista);
-void destruirListaTarefas(lista_t *lista);
+void liberar(lista_t *lista);
 void insertionSortPrazo(lista_t *lista, bool crescente);
 void salvar_binario(lista_t * tarefa);
 
