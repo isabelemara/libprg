@@ -182,17 +182,28 @@ void exibirTarefas(lista_t *lista) {
                lista->elemento[i].conclusao);
     }
 }
-void salvar_binario(lista_t * tarefa){
-        FILE* arquivo = fopen("contatos.dat", "wb");
-        if (arquivo == NULL) {
-            printf("Erro ao abrir o arquivo.\n");
-            return;
-        }
 
-
-        fwrite(&tarefa->tamanho, sizeof(int), 1, arquivo);
-        fwrite(tarefa->elemento, sizeof(tarefa_t), tarefa->tamanho, arquivo);
-
-        fclose(arquivo);
+void salvar_binario(lista_t * Tarefas){
+    FILE* arquivo = fopen("tarefa.dat", "wb");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
     }
 
+    fwrite(&Tarefas->tamanho, sizeof(int), 1, arquivo);
+    fwrite(Tarefas->elemento, sizeof(tarefa_t),Tarefas->tamanho, arquivo);
+
+    fclose(arquivo);
+}
+void carregar_tarefas(lista_t * Tarefas ){
+    FILE* arquivo = fopen("Tarefas.dat", "rb");
+    if (arquivo == NULL) {
+        printf("Arquivo %s nao encontrado ou vazio.\n");
+        return;
+    }
+
+    fread(&Tarefas->tamanho, sizeof(int), 1, arquivo);
+    fread(Tarefas->elemento, sizeof(tarefa_t), Tarefas->tamanho, arquivo);
+
+    fclose(arquivo);
+}
