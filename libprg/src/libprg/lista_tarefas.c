@@ -211,9 +211,9 @@ void carregar_tarefas(lista_t *Tarefas) {
 
 void liberarListaTarefas(lista_t *lista) {
     if (lista == NULL) {
-        return; // Se a lista for NULL, não há nada a liberar
+        return;
     }
 
-    free(lista->elemento); // Libera o array de tarefas
-    free(lista);           // Libera a estrutura da lista em si
+    free(lista->elemento);
+    free(lista);
 }
