@@ -183,7 +183,7 @@ void exibirTarefas(lista_t *lista) {
     }
 }
 
-void salvar_bionario(lista_t * Tarefas){
+void salvar_binario(lista_t * Tarefas){
     FILE* arquivo = fopen("tarefa.dat", "wb");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo.\n");
