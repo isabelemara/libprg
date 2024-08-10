@@ -18,9 +18,9 @@ typedef struct tarefa {
 } tarefa_t;
 
 typedef struct lista {
-    tarefa_t *elemento; // Supondo que a lista contém um array de tarefas
-    int tamanho;        // Número de elementos na lista
-    int capacidade;     // Capacidade atual do array
+    tarefa_t *elemento;
+    int tamanho;
+    int capacidade;
 } lista_t;
 
 lista_t* criarListaTarefas() {
@@ -183,22 +183,23 @@ void exibirTarefas(lista_t *lista) {
     }
 }
 
-void salvar_binario(lista_t * Tarefas){
-    FILE* arquivo = fopen("tarefa.dat", "wb");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo.\n");
-        return;
+void salvar_binario(lista_t * tarefa){
+        FILE* arquivo = fopen("tarefa.dat", "wb");
+        if (arquivo == NULL) {
+            printf("Erro ao abrir o arquivo.\n");
+            return;
+        }
+
+
+        fwrite(&tarefa->tamanho, sizeof(int), 1, arquivo);
+        fwrite(tarefa->elemento, sizeof(tarefa_t), tarefa->tamanho, arquivo);
+
+        fclose(arquivo);
     }
-
-    fwrite(&Tarefas->tamanho, sizeof(int), 1, arquivo);
-    fwrite(Tarefas->elemento, sizeof(tarefa_t),Tarefas->tamanho, arquivo);
-
-    fclose(arquivo);
-}
-void carregar_tarefas(lista_t * Tarefas ){
-    FILE* arquivo = fopen("Tarefas.dat", "rb");
+void carregar_tarefas(lista_t *Tarefas) {
+    FILE* arquivo = fopen("tarefa.dat", "rb");
     if (arquivo == NULL) {
-        printf("Arquivo %s nao encontrado ou vazio.\n");
+        printf("Arquivo %s nao encontrado ou vazio.\n", "tarefa.dat");
         return;
     }
 
