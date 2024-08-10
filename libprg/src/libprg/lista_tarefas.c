@@ -169,9 +169,8 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conc
         printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
         return;
     }
-    strncpy(lista->elemento[indice].conclusao, conclusao, tempo_max_prazo - 1);
-    lista->elemento[indice].conclusao[tempo_max_prazo - 1] = '\0'; // Garante que a string seja terminada com '\0'
-    printf("\nConclusao alterada!\n");
+    strncpy(lista->elemento[indice].conclusao, conclusao, tempo_max_prazo);
+    printf("\nconclusao alterada!\n");
 }
 
 
