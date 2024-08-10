@@ -54,6 +54,8 @@ void exibirTarefas(lista_t *lista);
 void insertionSortPrazo(lista_t *lista, bool crescente);
 void salvar_binario(lista_t * tarefa);
 void carregar_tarefas(lista_t * Tarefas );
+void liberarListaTarefas(lista_t *lista);
+
 #endif
 //arvore
 // no_t *criar_no(int valor);

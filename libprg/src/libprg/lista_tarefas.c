@@ -207,3 +207,12 @@ void carregar_tarefas(lista_t * Tarefas ){
 
     fclose(arquivo);
 }
+
+void liberarListaTarefas(lista_t *lista) {
+    if (lista == NULL) {
+        return; // Se a lista for NULL, não há nada a liberar
+    }
+
+    free(lista->elemento); // Libera o array de tarefas
+    free(lista);           // Libera a estrutura da lista em si
+}
