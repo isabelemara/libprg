@@ -31,7 +31,7 @@ lista_t* criarListaTarefas() {
     }
     lista->tamanho = 0;
     lista->capacidade = capacidade_inicial;
-    lista->elemento = (tarefa_t*)malloc(lista->capacidade * sizeof(tarefa_t));
+    lista->elemento = (struct tarefa*)malloc(lista->capacidade * sizeof(struct tarefa));
     if (lista->elemento == NULL) {
         printf("Erro de alocação de memoria\n");
         exit(1);
@@ -42,14 +42,14 @@ lista_t* criarListaTarefas() {
 void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max], char prazo[tempo_max_prazo]) {
     if (lista->tamanho >= lista->capacidade) {
         lista->capacidade *= 2;
-        lista->elemento = (tarefa_t*)realloc(lista->elemento, sizeof(tarefa_t) * lista->capacidade);
+        lista->elemento = (struct tarefa*)realloc(lista->elemento, sizeof(struct tarefa) * lista->capacidade);
         if (lista->elemento == NULL) {
             printf("Erro de realocação de memoria\n");
             exit(1);
         }
     }
 
-    tarefa_t nova_tarefa;
+    struct tarefa nova_tarefa;
     strncpy(nova_tarefa.descricao, descricao, numero_descricao);
     strncpy(nova_tarefa.prioridade, prioridade, prioridade_max);
     strncpy(nova_tarefa.prazo, prazo, tempo_max_prazo);
@@ -85,7 +85,7 @@ void buscarTarefasDescricao(lista_t *lista, char descricao[numero_descricao]) {
     int encontrados = 0;
     for (int i = 0; i < lista->tamanho; i++) {
         if (strstr(lista->elemento[i].descricao, descricao) != NULL) {
-            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
+            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nconclusao: %s\n",
                     lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
                     lista->elemento[i].prazo, lista->elemento[i].conclusao);
             encontrados++;
@@ -100,7 +100,7 @@ void buscarTarefasPrioridade(lista_t *lista, char prioridades[prioridade_max]) {
     int encontrados = 0;
     for (int i = 0; i < lista->tamanho; i++) {
         if (strstr(lista->elemento[i].prioridade, prioridades) != NULL) {
-            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
+            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nconclusao: %s\n",
                     lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
                     lista->elemento[i].prazo, lista->elemento[i].conclusao);
             encontrados++;
@@ -144,6 +144,25 @@ void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[te
     }
 }
 
+int compararData(const char* data1, const char* data2, bool crescente) {
+    return crescente ? (strcmp(data1, data2)) : (strcmp(data2, data1));
+}
+
+void insertionSortPrazo(lista_t* lista, bool crescente) {
+    for (int i = 1; i < lista->tamanho; i++) {
+        struct tarefa chave = lista->elemento[i];
+        int j = i - 1;
+
+        // Comparação baseada na ordem solicitada
+        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].prazo, chave.prazo) > 0
+                                    : strcmp(lista->elemento[j].prazo, chave.prazo) < 0)) {
+            lista->elemento[j + 1] = lista->elemento[j];
+            j = j - 1;
+                                    }
+        lista->elemento[j + 1] = chave;
+    }
+}
+
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]) {
     int indice = buscaListaTarefasDes(lista, descricao);
     if (indice < 0) {
@@ -151,8 +170,9 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conc
         return;
     }
     strncpy(lista->elemento[indice].conclusao, conclusao, tempo_max_prazo);
-    printf("\nConclusao alterada!\n");
+    printf("\nconclusao alterada!\n");
 }
+
 
 void exibirTarefas(lista_t *lista) {
     for (int i = 0; i < lista->tamanho; i++) {
@@ -202,9 +222,9 @@ void carregar_tarefas(lista_t *Tarefas) {
 
 void liberarListaTarefas(lista_t *lista) {
     if (lista == NULL) {
-        return;
+        return; // Se a lista for NULL, não há nada a liberar
     }
 
-    free(lista->elemento);
-    free(lista);
+    free(lista->elemento); // Libera o array de tarefas
+    free(lista);           // Libera a estrutura da lista em si
 }
