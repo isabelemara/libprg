@@ -19,14 +19,12 @@
 //     contato_t *elemento;
 // } lista_p;
 //arvore
-// typedef struct no {
-//     int valor;
-//     struct no*esquerda;
-//     struct no*direita;
-// } no_t;
+typedef struct no {
+    int valor;
+    struct no*esquerda;
+    struct no*direita;
+} no_t;
 //projeto 2
-#ifndef LISTA_TAREFAS_H
-#define LISTA_TAREFAS_H
 #define numero_descricao 100
 #define prioridade_max 10
 #define tempo_max_prazo 11
@@ -56,13 +54,29 @@ void salvar_binario(lista_t * tarefa);
 void carregar_tarefas(lista_t * Tarefas );
 void liberarListaTarefas(lista_t *lista);
 
-#endif
-//arvore
-// no_t *criar_no(int valor);
-// void destruir_no(no_t*no);
-// no_t *inserir_valor(no_t *raiz, int valor);
-// bool busca(no_t *raiz, int valor);
-// no_t *remover_valor(no_t *raiz, int valor);
+
+////arvore
+// Função para obter a altura do nó
+// Declaração da estrutura do nó AVL
+typedef struct no_avl{
+    int valor ;
+    int altura;
+    struct  no_avl* esquerda ;
+    struct  no_avl* direita ;
+} no_avl_t;
+
+int altura(no_avl_t *v);
+int fator_balanceamento(no_avl_t *v);
+no_avl_t  * rotacao_esquerda(no_avl_t *v);
+no_avl_t *rotacao_direita(no_avl_t *v);
+no_avl_t *criar_no_arvore_avl(int valor);
+no_avl_t  * inserir_arvore_avl(no_avl_t *v, int valor);
+no_avl_t  * balancear(no_avl_t *v);
+no_avl_t *rotacao_dupla_direita(no_avl_t *v);
+no_avl_t *rotacao_dupla_esquerda(no_avl_t *v);
+no_avl_t *remover_arvore_avl(no_avl_t *v, int valor);
+
+
 //
 // //lista projeto
 // lista_p* criar_p(int elemento);
