@@ -163,14 +163,29 @@ void insertionSortPrazo(lista_t* lista, int crescente) {
         tarefa_t chave = lista->elemento[i];
         int j = i - 1;
 
-        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].prazo, chave.prazo) > 0
-                                    : strcmp(lista->elemento[j].prazo, chave.prazo) < 0)) {
-            lista->elemento[j + 1] = lista->elemento[j];
-            j--;
+        printf("Ordenando tarefa: %s\n", chave.prazo);
+
+        // Para ordenação crescente
+        if (crescente) {
+            while (j >= 0 && strcmp(lista->elemento[j].prazo, chave.prazo) > 0) {
+                printf("Trocando %s com %s\n", lista->elemento[j].prazo, chave.prazo);
+                lista->elemento[j + 1] = lista->elemento[j];
+                j--;
+            }
         }
+        // Para ordenação decrescente
+        else {
+            while (j >= 0 && strcmp(lista->elemento[j].prazo, chave.prazo) < 0) {
+                printf("Trocando %s com %s\n", lista->elemento[j].prazo, chave.prazo);
+                lista->elemento[j + 1] = lista->elemento[j];
+                j--;
+            }
+        }
+
         lista->elemento[j + 1] = chave;
     }
 }
+
 
 void listarTarefas(lista_t *lista) {
     for (int i = 0; i < lista->tamanho; i++) {
