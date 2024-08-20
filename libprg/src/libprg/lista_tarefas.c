@@ -195,35 +195,47 @@ void salvar_binario(lista_t *tarefa) {
 void carregar_tarefas(lista_t *tarefa) {
     FILE *arquivo = fopen("tarefa.dat", "rb");
     if (arquivo == NULL) {
-        printf("Arquivo não encontrado ou vazio.\n");
+        printf("Arquivo não encontrado ou não pode ser aberto.\n");
         return;
     }
 
     // Lê o tamanho da lista
-    fread(&tarefa->tamanho, sizeof(int), 1, arquivo);
+    int tamanho;
+    fread(&tamanho, sizeof(int), 1, arquivo);
 
     // Verifica se o tamanho lido é válido
-    if (tarefa->tamanho < 0) {
+    if (tamanho < 0) {
         printf("Tamanho inválido lido do arquivo.\n");
         fclose(arquivo);
         return;
     }
 
+    // Se o tamanho for zero, não há necessidade de realocar
+    if (tamanho == 0) {
+        tarefa->tamanho = 0;
+        tarefa->elemento = NULL;
+        fclose(arquivo);
+        return;
+    }
+
     // Realoca a memória para a lista de tarefas
-    tarefa_t *temp = (tarefa_t *)realloc(tarefa->elemento, sizeof(tarefa_t) * tarefa->tamanho);
+    tarefa_t *temp = (tarefa_t *)realloc(tarefa->elemento, sizeof(tarefa_t) * tamanho);
     if (temp == NULL) {
         printf("Erro ao realocar memória.\n");
         fclose(arquivo);
         return;
     }
     tarefa->elemento = temp;
+    tarefa->tamanho = tamanho;
 
     // Lê as tarefas do arquivo
-    fread(tarefa->elemento, sizeof(tarefa_t), tarefa->tamanho, arquivo);
+    size_t lido = fread(tarefa->elemento, sizeof(tarefa_t), tamanho, arquivo);
+    if (lido != tamanho) {
+        printf("Erro ao ler as tarefas do arquivo.\n");
+    }
 
     fclose(arquivo);
 }
-
 
 void liberarListaTarefas(lista_t *lista) {
     if (lista == NULL) {
