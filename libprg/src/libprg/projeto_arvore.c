@@ -25,24 +25,24 @@ int fator_balanceamento(no_avl_t *v){
         return altura(v->esquerda) - altura(v->direita);
     }
 }
-//  rotacao a esquerda
-no_avl_t  * rotacao_esquerda(no_avl_t *v){
-    no_avl_t  *u = v->direita ;
-    v->direita = u->esquerda ;
-    u->esquerda = v ;
-    v->altura = max(altura(v->esquerda),altura(v->direita)) +  1 ;
-    u->altura = max(altura(u->esquerda), altura(u->direita)) + 1;
-    return u ;
+no_avl_t *rotacao_esquerda(no_avl_t *v) {
+    no_avl_t *u = v->direita;
+    v->direita = u->esquerda;
+    u->esquerda = v;
+    v->altura = 1 + max(altura(v->esquerda), altura(v->direita));
+    u->altura = 1 + max(altura(u->esquerda), altura(u->direita));
+    return u;
 }
-// rotacao_direita
+
 no_avl_t *rotacao_direita(no_avl_t *v) {
     no_avl_t *u = v->esquerda;
     v->esquerda = u->direita;
     u->direita = v;
-    v->altura = max(altura(v->esquerda), altura(v->direita)) + 1;
-    u->altura = max(altura(u->esquerda), altura(u->direita)) + 1;
+    v->altura = 1 + max(altura(v->esquerda), altura(v->direita));
+    u->altura = 1 + max(altura(u->esquerda), altura(u->direita));
     return u;
 }
+
 //criar no
 no_avl_t *criar_no_arvore_avl(int valor){
     no_avl_t * no = (no_avl_t *)malloc(sizeof (no_avl_t));
@@ -52,40 +52,39 @@ no_avl_t *criar_no_arvore_avl(int valor){
     return  no ;
 }
 // inserir
-no_avl_t  * inserir_arvore_avl(no_avl_t *v, int valor){
-    if(v == NULL){
-        v = criar_no_arvore_avl(valor);
-    }else if(valor < v->valor){
-        v->direita = inserir_arvore_avl(v->direita,valor);
-    }else if(valor > v->valor){
-        v->direita = inserir_arvore_avl(v->direita,valor);
+no_avl_t *inserir_arvore_avl(no_avl_t *v, int valor) {
+    if (v == NULL) {
+        return criar_no_arvore_avl(valor);
+    } else if (valor < v->valor) {
+        v->esquerda = inserir_arvore_avl(v->esquerda, valor);
+    } else if (valor > v->valor) {
+        v->direita = inserir_arvore_avl(v->direita, valor);
+    } else {
+        return v; // Valor já existe na árvore
     }
+
     v->altura = 1 + max(altura(v->esquerda), altura(v->direita));
-    v = balancear(v);
-    return v;
+    return balancear(v);
 }
-//  balancear
-no_avl_t  * balancear(no_avl_t *v){
+
+no_avl_t *balancear(no_avl_t *v) {
     int fb = fator_balanceamento(v);
-    if (fb > 1){// nó desregulado tem filho desregulado à esquerda
+    if (fb > 1) {
         if (fator_balanceamento(v->esquerda) > 0) {
-// caso esquerda−esquerda
             return rotacao_direita(v);
         } else {
-// caso esquerda−direita
             return rotacao_dupla_direita(v);
         }
-    } else if (fb < -1) { // nó desregulado tem filho desregulado à direita
+    } else if (fb < -1) {
         if (fator_balanceamento(v->direita) < 0) {
-// caso direita−direita
             return rotacao_esquerda(v);
         } else {
-// caso direita−esquerda
             return rotacao_dupla_esquerda(v);
         }
     }
-    return v ;
+    return v;
 }
+
 // dupla_dirertria
 no_avl_t *rotacao_dupla_direita(no_avl_t *v){
 // rotação simples à esquerda no filho esquerdo de v
