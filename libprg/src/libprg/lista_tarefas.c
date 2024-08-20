@@ -21,7 +21,7 @@ typedef struct lista {
     int capacidade;
 } lista_t;
 
-lista_t* criarListaTarefas(){
+lista_t* criarListaTarefas() {
     lista_t *lista = (lista_t*)malloc(sizeof(lista_t));
     if (lista == NULL) {
         printf("Erro de alocação de memória.\n");
@@ -32,10 +32,12 @@ lista_t* criarListaTarefas(){
     lista->elemento = (tarefa_t*)malloc(lista->capacidade * sizeof(tarefa_t));
     if (lista->elemento == NULL) {
         printf("Erro de alocação de memória.\n");
+        free(lista);
         exit(1);
     }
     return lista;
 }
+
 
 void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max], char prazo[tempo_max_prazo]) {
     if (lista->tamanho >= lista->capacidade) {
@@ -201,7 +203,11 @@ void carregar_tarefas(lista_t *tarefa) {
 
     // Lê o tamanho da lista
     int tamanho;
-    fread(&tamanho, sizeof(int), 1, arquivo);
+    if (fread(&tamanho, sizeof(int), 1, arquivo) != 1) {
+        printf("Erro ao ler o tamanho do arquivo.\n");
+        fclose(arquivo);
+        return;
+    }
 
     // Verifica se o tamanho lido é válido
     if (tamanho < 0) {
@@ -213,6 +219,7 @@ void carregar_tarefas(lista_t *tarefa) {
     // Se o tamanho for zero, não há necessidade de realocar
     if (tamanho == 0) {
         tarefa->tamanho = 0;
+        tarefa->capacidade = 0;
         tarefa->elemento = NULL;
         fclose(arquivo);
         return;
@@ -226,6 +233,7 @@ void carregar_tarefas(lista_t *tarefa) {
         return;
     }
     tarefa->elemento = temp;
+    tarefa->capacidade = tamanho;
     tarefa->tamanho = tamanho;
 
     // Lê as tarefas do arquivo
