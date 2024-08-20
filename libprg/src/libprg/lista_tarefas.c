@@ -164,6 +164,7 @@ void insertionSortPrazo(lista_t* lista, bool crescente) {
     for (int i = 1; i < lista->tamanho; i++) {
         struct tarefa chave = lista->elemento[i];
         int j = i - 1;
+
         // Comparação baseada na ordem solicitada
         while (j >= 0 && (crescente ? strcmp(lista->elemento[j].prazo, chave.prazo) > 0
                                     : strcmp(lista->elemento[j].prazo, chave.prazo) < 0)) {
