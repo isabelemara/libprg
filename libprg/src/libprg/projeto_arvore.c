@@ -165,9 +165,9 @@ void imprimir_em_ordem(no_avl_t *raiz) {
 // Função para imprimir a árvore AVL
 void imprimir_arvore(no_avl_t *raiz) {
     if (raiz == NULL) {
-        printf("A árvore está vazia.\n");
+        printf("A arvore esta vazia.\n");
     } else {
-        printf("Árvore AVL (em ordem):\n");
+        printf("arvore AVL (em ordem):\n");
         imprimir_em_ordem(raiz);
         printf("\n");
     }
