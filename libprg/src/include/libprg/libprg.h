@@ -35,6 +35,11 @@ typedef struct no {
 #define capacidade_inicial 200
 typedef struct tarefa tarefa_t;
 typedef struct lista lista_t;
+typedef enum {
+    PRIORIDADE_BAIXA = 1,
+    PRIORIDADE_MEDIA = 2,
+    PRIORIDADE_ALTA = 3
+} Prioridade;
 // Funções para manipular a lista de tarefas
 //projeto 2
 // Funções para manipular a lista de tarefas
