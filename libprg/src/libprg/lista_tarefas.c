@@ -198,3 +198,15 @@ void carregar_tarefas(lista_t *lista) {
     fread(lista->elemento, sizeof(tarefa_t), lista->tamanho, arquivo);
     fclose(arquivo);
 }
+void imprimirListaTarefas(lista_t *lista) {
+    if (lista->tamanho == 0) {
+        printf("A lista de tarefas está vazia.\n");
+        return;
+    }
+
+    for (int i = 0; i < lista->tamanho; i++) {
+        printf("\nID: %d\nDescrição: %s\nPrioridade: %s\nPrazo: %s\nConclusão: %s\n",
+                lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
+                lista->elemento[i].prazo, lista->elemento[i].conclusao);
+    }
+}
