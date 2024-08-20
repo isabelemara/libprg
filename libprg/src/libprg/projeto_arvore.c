@@ -145,11 +145,9 @@ void imprimir_em_ordem(no_avl_t *raiz) {
 
 // Função para imprimir a árvore AVL
 void imprimir_arvore(no_avl_t *raiz) {
-    if (raiz == NULL) {
-        printf("A arvore esta vazia.\n");
-    } else {
-        printf("arvore AVL (em ordem):\n");
-        imprimir_em_ordem(raiz);
-        printf("\n");
+    if (raiz != NULL) {
+        imprimir_arvore(raiz->esquerda); // Percorre a subárvore esquerda
+        printf("%d ", raiz->valor);      // Imprime o valor do nó
+        imprimir_arvore(raiz->direita);  // Percorre a subárvore direita
     }
 }
