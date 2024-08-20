@@ -242,3 +242,16 @@ void liberarLista(lista_t *lista) {
     free(lista->elemento);
     free(lista);
 }
+int excluirPorID(lista_t *lista, int ID) {
+    for (int i = 0; i < lista->tamanho; i++) {
+        if (lista->elemento[i].ID == ID) {
+            // Remover a tarefa, movendo as tarefas seguintes para a frente
+            for (int j = i; j < lista->tamanho - 1; j++) {
+                lista->elemento[j] = lista->elemento[j + 1];
+            }
+            lista->tamanho--; // Reduzir o tamanho da lista
+            return 0; // Sucesso
+        }
+    }
+    return -1; // Tarefa não encontrada
+}
