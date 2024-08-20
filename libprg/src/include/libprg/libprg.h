@@ -46,6 +46,7 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char nova
 void salvar_binario(lista_t * tarefa);
 void carregar_tarefas(lista_t * Tarefas );
 void imprimirListaTarefas(lista_t *lista);
+void removerListaTarefas(lista_t *lista, char descricao[numero_descricao]);
 
 
 ////arvore

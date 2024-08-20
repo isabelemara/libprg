@@ -125,13 +125,16 @@ void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[te
     }
 }
 
-void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]) {
+// Ajuste o tamanho do buffer se necessário
+void editarConclusao(lista_t *lista, char descricao[numero_descricao], char novaConclusao[tempo_max_prazo]) {
     int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
         printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
         return;
     }
-    strncpy(lista->elemento[indice].conclusao, conclusao, tempo_max_prazo);
+    // Copie a nova conclusão para garantir que ela não ultrapasse o tamanho do buffer
+    strncpy(lista->elemento[indice].conclusao, novaConclusao, tempo_max_prazo - 1);
+    lista->elemento[indice].conclusao[tempo_max_prazo - 1] = '\0'; // Garantir terminação nula
     printf("\nConclusao alterada!\n");
 }
 
