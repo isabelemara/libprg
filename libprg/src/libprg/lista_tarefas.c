@@ -221,3 +221,11 @@ void liberarListaTarefas(lista_t *lista) {
     free(lista->elemento);
     free(lista);
 }
+void exibirTarefas(lista_t *lista) {
+    for (int i = 0; i < lista->tamanho; i++) {
+        printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
+               lista->elemento[i].ID, lista->elemento[i].descricao,
+               lista->elemento[i].prioridade, lista->elemento[i].prazo,
+               lista->elemento[i].conclusao);
+    }
+}
