@@ -188,7 +188,10 @@ void salvar_binario(lista_t *tarefa) {
         return;
     }
 
+    // Salva o tamanho da lista
     fwrite(&tarefa->tamanho, sizeof(int), 1, arquivo);
+
+    // Salva as tarefas
     fwrite(tarefa->elemento, sizeof(tarefa_t), tarefa->tamanho, arquivo);
 
     fclose(arquivo);
@@ -211,21 +214,12 @@ void carregar_tarefas(lista_t *tarefa) {
 
     // Verifica se o tamanho lido é válido
     if (tamanho < 0) {
-        printf("Tamanho inválido lido do arquivo.\n");
+        printf("Tamanho inválido lido do arquivo: %d\n", tamanho);
         fclose(arquivo);
         return;
     }
 
-    // Se o tamanho for zero, não há necessidade de realocar
-    if (tamanho == 0) {
-        tarefa->tamanho = 0;
-        tarefa->capacidade = 0;
-        tarefa->elemento = NULL;
-        fclose(arquivo);
-        return;
-    }
-
-    // Inicializa a memória se ainda não estiver alocada
+    // Inicializa ou realoca a memória para a lista de tarefas
     if (tarefa->elemento == NULL) {
         tarefa->elemento = (tarefa_t *)malloc(sizeof(tarefa_t) * tamanho);
         if (tarefa->elemento == NULL) {
@@ -235,7 +229,6 @@ void carregar_tarefas(lista_t *tarefa) {
         }
         tarefa->capacidade = tamanho;
     } else {
-        // Realoca a memória para a lista de tarefas
         tarefa_t *temp = (tarefa_t *)realloc(tarefa->elemento, sizeof(tarefa_t) * tamanho);
         if (temp == NULL) {
             printf("Erro ao realocar memória.\n");
@@ -255,7 +248,6 @@ void carregar_tarefas(lista_t *tarefa) {
 
     fclose(arquivo);
 }
-
 
 void liberarListaTarefas(lista_t *lista) {
     if (lista == NULL) {
