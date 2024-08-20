@@ -199,19 +199,31 @@ void carregar_tarefas(lista_t *tarefa) {
         return;
     }
 
+    // Lê o tamanho da lista
     fread(&tarefa->tamanho, sizeof(int), 1, arquivo);
 
-    tarefa->elemento = (tarefa_t *)realloc(tarefa->elemento, sizeof(tarefa_t) * tarefa->tamanho);
-    if (tarefa->elemento == NULL) {
-        printf("Erro ao realocar memória.\n");
+    // Verifica se o tamanho lido é válido
+    if (tarefa->tamanho < 0) {
+        printf("Tamanho inválido lido do arquivo.\n");
         fclose(arquivo);
         return;
     }
 
+    // Realoca a memória para a lista de tarefas
+    tarefa_t *temp = (tarefa_t *)realloc(tarefa->elemento, sizeof(tarefa_t) * tarefa->tamanho);
+    if (temp == NULL) {
+        printf("Erro ao realocar memória.\n");
+        fclose(arquivo);
+        return;
+    }
+    tarefa->elemento = temp;
+
+    // Lê as tarefas do arquivo
     fread(tarefa->elemento, sizeof(tarefa_t), tarefa->tamanho, arquivo);
 
     fclose(arquivo);
 }
+
 
 void liberarListaTarefas(lista_t *lista) {
     if (lista == NULL) {
