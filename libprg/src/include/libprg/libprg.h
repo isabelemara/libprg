@@ -56,8 +56,8 @@ void insertionSortConclusao(lista_t* lista, bool crescente);
 
 // Funções de impressão e arquivo
 void imprimirTarefas(lista_t *lista);
-void salvarListaEmArquivo(lista_t *lista, const char *nome_arquivo);
-void carregarListaDeArquivo(lista_t *lista, const char *nome_arquivo);
+void carregar_tarefas(lista_t *lista);
+void salvar_binario(lista_t *lista);
 
 ///==============================///
 

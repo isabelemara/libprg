@@ -224,32 +224,25 @@ void liberarLista(lista_t *lista) {
 }
 
 // Função para salvar a lista de tarefas em um arquivo binário
-void salvarListaEmArquivo(lista_t *lista, const char *nome_arquivo) {
-    FILE *arquivo = fopen(nome_arquivo, "wb");
+void salvar_binario(lista_t *lista) {
+    FILE *arquivo = fopen("tarefa.dat", "wb");
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo para escrita.\n");
+        printf("Não foi possível abrir o arquivo para escrita.\n");
         return;
     }
     fwrite(&lista->tamanho, sizeof(int), 1, arquivo);
     fwrite(lista->elemento, sizeof(tarefa_t), lista->tamanho, arquivo);
     fclose(arquivo);
 }
-
-// Função para carregar a lista de tarefas a partir de um arquivo binário
-void carregarListaDeArquivo(lista_t *lista, const char *nome_arquivo) {
-    FILE *arquivo = fopen(nome_arquivo, "rb");
+void carregar_tarefas(lista_t *lista) {
+    FILE *arquivo = fopen("tarefa.dat", "rb");
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo para leitura.\n");
+        printf("Não foi possível abrir o arquivo para leitura.\n");
         return;
     }
     fread(&lista->tamanho, sizeof(int), 1, arquivo);
-    lista->capacidade = lista->tamanho;
+    lista->capacidade = lista->tamanho > capacidade_inicial ? lista->tamanho : capacidade_inicial;
     lista->elemento = (tarefa_t*)realloc(lista->elemento, sizeof(tarefa_t) * lista->capacidade);
-    if (lista->elemento == NULL) {
-        printf("Erro de realocação de memória\n");
-        fclose(arquivo);
-        exit(1);
-    }
     fread(lista->elemento, sizeof(tarefa_t), lista->tamanho, arquivo);
     fclose(arquivo);
 }
