@@ -25,12 +25,15 @@ typedef struct no {
     struct no*direita;
 } no_t;
 //projeto 2
-#define numero_descricao 100
-#define prioridade_max 10
-#define tempo_max_prazo 11
-#define capacidade_inicial 10
+#define numero_descricao 1001
+#define prioridade_max 1000
+#define tempo_max_prazo 200
+#define capacidade_inicial 200
 typedef struct tarefa tarefa_t;
 typedef struct lista lista_t;
+// Funções para manipular a lista de tarefas
+
+//projeto 2
 // Funções para manipular a lista de tarefas
 lista_t* criarListaTarefas();
 void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max], char prazo[tempo_max_prazo]);
@@ -47,6 +50,7 @@ void salvar_binario(lista_t * tarefa);
 void carregar_tarefas(lista_t * Tarefas );
 void imprimirListaTarefas(lista_t *lista);
 void removerListaTarefas(lista_t *lista, char descricao[numero_descricao]);
+
 
 
 ////arvore

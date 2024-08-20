@@ -191,3 +191,21 @@ void imprimirListaTarefas(lista_t *lista) {
                 lista->elemento[i].prazo, lista->elemento[i].conclusao);
     }
 }
+void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]) {
+    int i;
+    for (i = 0; i < lista->tamanho; i++) {
+        if (strcmp(lista->elemento[i].descricao, alvo) == 0) {
+            break;
+        }
+    }
+    if (i < lista->tamanho) {
+        // Move as tarefas restantes para preencher o espaço
+        for (int j = i; j < lista->tamanho - 1; j++) {
+            lista->elemento[j] = lista->elemento[j + 1];
+        }
+        lista->tamanho--;
+        printf("Tarefa removida com sucesso.\n");
+    } else {
+        printf("Tarefa com a descrição '%s' não encontrada.\n", alvo);
+    }
+}
