@@ -168,7 +168,7 @@ void insertionSortPrazo(lista_t* lista, bool crescente) {
                                     : strcmp(lista->elemento[j].prazo, chave.prazo) < 0)) {
             lista->elemento[j + 1] = lista->elemento[j];
             j--;
-        }
+                                    }
         lista->elemento[j + 1] = chave;
     }
 }
