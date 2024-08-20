@@ -154,6 +154,35 @@ void insertionSortPrazo(lista_t* lista, bool crescente) {
         lista->elemento[j + 1] = chave;
     }
 }
+// Função para ordenar tarefas por prioridade
+void insertionSortPrioridade(lista_t* lista, bool crescente) {
+    for (int i = 1; i < lista->tamanho; i++) {
+        tarefa_t chave = lista->elemento[i];
+        int j = i - 1;
+
+        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].prioridade, chave.prioridade) > 0
+                                    : strcmp(lista->elemento[j].prioridade, chave.prioridade) < 0)) {
+            lista->elemento[j + 1] = lista->elemento[j];
+            j--;
+                                    }
+        lista->elemento[j + 1] = chave;
+    }
+}
+
+// Função para ordenar tarefas por conclusão
+void insertionSortConclusao(lista_t* lista, bool crescente) {
+    for (int i = 1; i < lista->tamanho; i++) {
+        tarefa_t chave = lista->elemento[i];
+        int j = i - 1;
+
+        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].conclusao, chave.conclusao) > 0
+                                    : strcmp(lista->elemento[j].conclusao, chave.conclusao) < 0)) {
+            lista->elemento[j + 1] = lista->elemento[j];
+            j--;
+                                    }
+        lista->elemento[j + 1] = chave;
+    }
+}
 void salvar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "wb");
     if (arquivo == NULL) {
