@@ -1,10 +1,15 @@
 
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include "libprg/libprg.h"
 
 #define max(a,b)  (((a) > (b)) ? (a) : (b))
+// struct
 
+
+
+// altura
 
 int altura(no_avl_t *v){
     if(v == NULL){
@@ -151,25 +156,5 @@ no_avl_t *remover_arvore_avl(no_avl_t *v, int valor) {
 
     // Balancear o nó atual
     return balancear(v);
-}
-
-// Função auxiliar para travessia em ordem
-void imprimir_em_ordem(no_avl_t *raiz) {
-    if (raiz != NULL) {
-        imprimir_em_ordem(raiz->esquerda);  // Visitar o filho esquerdo
-        printf("%d ", raiz->valor);         // Imprimir o valor do nó
-        imprimir_em_ordem(raiz->direita);   // Visitar o filho direito
-    }
-}
-
-// Função para imprimir a árvore AVL
-void imprimir_arvore(no_avl_t *raiz) {
-    if (raiz == NULL) {
-        printf("A arvore esta vazia.\n");
-    } else {
-        printf("arvore AVL (em ordem):\n");
-        imprimir_em_ordem(raiz);
-        printf("\n");
-    }
 }
 
