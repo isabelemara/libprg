@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-
+#include <ctype.h>
 #define numero_descricao 1001
 #define prioridade_max 1000
 #define tempo_max_prazo 200
@@ -60,18 +60,41 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char 
     lista->tamanho++;
 }
 
+void paraMinusculas(char *str) {
+    while (*str) {
+        *str = tolower((unsigned char) *str);
+        str++;
+    }
+}
+
 int buscarTarefasDes(lista_t *lista, char alvo[numero_descricao]) {
+    char alvo_minusculas[numero_descricao];
+    // Copiar e converter a string de busca para minúsculas
+    strncpy(alvo_minusculas, alvo, numero_descricao);
+    paraMinusculas(alvo_minusculas);
+
+    bool encontrado = false;
+
     for (int i = 0; i < lista->tamanho; i++) {
-        if (strstr(lista->elemento[i].descricao, alvo) != NULL) {
-            // Imprimir a tarefa encontrada
+        char descricao_minusculas[numero_descricao];
+        // Copiar e converter a descrição da tarefa para minúsculas
+        strncpy(descricao_minusculas, lista->elemento[i].descricao, numero_descricao);
+        paraMinusculas(descricao_minusculas);
+
+        // Verificar se a string de busca é uma substring da descrição
+        if (strstr(descricao_minusculas, alvo_minusculas) != NULL) {
+            // Imprimir os detalhes da tarefa encontrada
             printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
                    lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
                    lista->elemento[i].prazo, lista->elemento[i].conclusao);
-            return i;
+            encontrado = true;
         }
     }
-    printf("Nenhuma tarefa encontrada para '%s'\n", alvo);
-    return -1;
+
+    if (!encontrado) {
+        printf("Nenhuma tarefa encontrada para '%s'\n", alvo);
+    }
+    return encontrado ? 0 : -1;
 }
 bool buscarTarefasPrioridade(lista_t *lista, char prioridade[prioridade_max]) {
     bool encontrado = false;
