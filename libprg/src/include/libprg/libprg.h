@@ -55,7 +55,7 @@ void insertionSortPrazo(lista_t* lista, bool crescente);
 void insertionSortPrioridade(lista_t* lista, bool crescente);
 void insertionSortConclusao(lista_t* lista, bool crescente);
 void salvar_binario(lista_t *lista);
-void carregar_tarefas(lista_t *lista);
+void carregar_binario(lista_t *lista)
 void imprimirListaTarefas(lista_t *lista);
 int excluirPorID(lista_t *lista, int id);
 ///==============================///
