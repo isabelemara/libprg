@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
+
 
 #define numero_descricao 1001
 #define prioridade_max 1000
@@ -158,30 +160,16 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conc
     printf("\nConclusao alterada!\n");
 }
 
-void insertionSortPrazo(lista_t* lista, int crescente) {
+void insertionSortPrazo(lista_t* lista, bool crescente) {
     for (int i = 1; i < lista->tamanho; i++) {
-        tarefa_t chave = lista->elemento[i];
+        struct tarefa chave = lista->elemento[i];
         int j = i - 1;
-
-        printf("Ordenando tarefa: %s\n", chave.prazo);
-
-        // Para ordenação crescente
-        if (crescente) {
-            while (j >= 0 && strcmp(lista->elemento[j].prazo, chave.prazo) > 0) {
-                printf("Trocando %s com %s\n", lista->elemento[j].prazo, chave.prazo);
-                lista->elemento[j + 1] = lista->elemento[j];
-                j--;
-            }
-        }
-        // Para ordenação decrescente
-        else {
-            while (j >= 0 && strcmp(lista->elemento[j].prazo, chave.prazo) < 0) {
-                printf("Trocando %s com %s\n", lista->elemento[j].prazo, chave.prazo);
-                lista->elemento[j + 1] = lista->elemento[j];
-                j--;
-            }
-        }
-
+        // Comparação baseada na ordem solicitada
+        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].prazo, chave.prazo) > 0
+                                    : strcmp(lista->elemento[j].prazo, chave.prazo) < 0)) {
+            lista->elemento[j + 1] = lista->elemento[j];
+            j = j - 1;
+                                    }
         lista->elemento[j + 1] = chave;
     }
 }
