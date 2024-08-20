@@ -68,6 +68,9 @@ no_avl_t  * balancear(no_avl_t *v);
 no_avl_t *rotacao_dupla_direita(no_avl_t *v);
 no_avl_t *rotacao_dupla_esquerda(no_avl_t *v);
 no_avl_t *remover_arvore_avl(no_avl_t *v, int valor);
+void imprimir_em_ordem(no_avl_t *raiz);
+void imprimir_arvore(no_avl_t *raiz);
+void imprimir_arvore_visual(no_avl_t *raiz, int nivel);
 // void opcao(no_avl_t*no_avl);
 
 //
