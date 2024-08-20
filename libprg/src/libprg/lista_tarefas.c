@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
-
+#include <stdbool.h>
 
 #define numero_descricao 1001
 #define prioridade_max 1000
@@ -39,7 +38,6 @@ lista_t* criarListaTarefas() {
     }
     return lista;
 }
-
 
 void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max], char prazo[tempo_max_prazo]) {
     if (lista->tamanho >= lista->capacidade) {
@@ -162,109 +160,41 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conc
 
 void insertionSortPrazo(lista_t* lista, bool crescente) {
     for (int i = 1; i < lista->tamanho; i++) {
-        struct tarefa chave = lista->elemento[i];
+        tarefa_t chave = lista->elemento[i];
         int j = i - 1;
 
         // Comparação baseada na ordem solicitada
         while (j >= 0 && (crescente ? strcmp(lista->elemento[j].prazo, chave.prazo) > 0
                                     : strcmp(lista->elemento[j].prazo, chave.prazo) < 0)) {
             lista->elemento[j + 1] = lista->elemento[j];
-            j = j - 1;
-                                    }
+            j--;
+        }
         lista->elemento[j + 1] = chave;
     }
 }
 
-
-void listarTarefas(lista_t *lista) {
-    for (int i = 0; i < lista->tamanho; i++) {
-        printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
-               lista->elemento[i].ID, lista->elemento[i].descricao,
-               lista->elemento[i].prioridade, lista->elemento[i].prazo,
-               lista->elemento[i].conclusao);
-    }
-}
-
-void salvar_binario(lista_t *tarefa) {
+void salvar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "wb");
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo para escrita.\n");
+        printf("Não foi possível abrir o arquivo para escrita.\n");
         return;
     }
 
-    // Salva o tamanho da lista
-    fwrite(&tarefa->tamanho, sizeof(int), 1, arquivo);
-
-    // Salva as tarefas
-    fwrite(tarefa->elemento, sizeof(tarefa_t), tarefa->tamanho, arquivo);
-
+    fwrite(&lista->tamanho, sizeof(int), 1, arquivo);
+    fwrite(lista->elemento, sizeof(tarefa_t), lista->tamanho, arquivo);
     fclose(arquivo);
 }
 
-void carregar_tarefas(lista_t *tarefa) {
+void carregar_tarefas(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "rb");
     if (arquivo == NULL) {
-        printf("Arquivo não encontrado ou não pode ser aberto.\n");
+        printf("Não foi possível abrir o arquivo para leitura.\n");
         return;
     }
 
-    int tamanho;
-    if (fread(&tamanho, sizeof(int), 1, arquivo) != 1) {
-        printf("Erro ao ler o tamanho do arquivo.\n");
-        fclose(arquivo);
-        return;
-    }
-
-    printf("Tamanho lido do arquivo: %d\n", tamanho);
-
-    if (tamanho < 0) {
-        printf("Tamanho inválido lido do arquivo: %d\n", tamanho);
-        fclose(arquivo);
-        return;
-    }
-
-    if (tarefa->elemento == NULL) {
-        tarefa->elemento = (tarefa_t *)malloc(sizeof(tarefa_t) * tamanho);
-        if (tarefa->elemento == NULL) {
-            printf("Erro ao alocar memória.\n");
-            fclose(arquivo);
-            return;
-        }
-        tarefa->capacidade = tamanho;
-    } else {
-        tarefa_t *temp = (tarefa_t *)realloc(tarefa->elemento, sizeof(tarefa_t) * tamanho);
-        if (temp == NULL) {
-            printf("Erro ao realocar memória.\n");
-            fclose(arquivo);
-            return;
-        }
-        tarefa->elemento = temp;
-        tarefa->capacidade = tamanho;
-    }
-    tarefa->tamanho = tamanho;
-
-    size_t lido = fread(tarefa->elemento, sizeof(tarefa_t), tamanho, arquivo);
-    if (lido != tamanho) {
-        printf("Erro ao ler as tarefas do arquivo.\n");
-    }
-
+    fread(&lista->tamanho, sizeof(int), 1, arquivo);
+    lista->capacidade = lista->tamanho > capacidade_inicial ? lista->tamanho : capacidade_inicial;
+    lista->elemento = (tarefa_t*)realloc(lista->elemento, sizeof(tarefa_t) * lista->capacidade);
+    fread(lista->elemento, sizeof(tarefa_t), lista->tamanho, arquivo);
     fclose(arquivo);
-}
-
-
-void liberarListaTarefas(lista_t *lista) {
-    if (lista == NULL) {
-        return;
-    }
-
-    free(lista->elemento);
-    free(lista);
-}
-void exibirTarefas(lista_t *lista) {
-    for (int i = 0; i < lista->tamanho; i++) {
-        printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
-               lista->elemento[i].ID, lista->elemento[i].descricao,
-               lista->elemento[i].prioridade, lista->elemento[i].prazo,
-               lista->elemento[i].conclusao);
-    }
 }
