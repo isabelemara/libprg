@@ -45,7 +45,6 @@ void editarPrazo(lista_t *lista, char descricao[numero_descricao], char novoPraz
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char novaConclusao[tempo_max_prazo]);
 void salvar_binario(lista_t * tarefa);
 void carregar_tarefas(lista_t * Tarefas );
-void liberarListaTarefas(lista_t *lista);
 void imprimirListaTarefas(lista_t *lista);
 
 
