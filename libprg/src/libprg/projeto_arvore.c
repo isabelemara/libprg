@@ -164,10 +164,6 @@ void imprimir_em_ordem(no_avl_t *raiz) {
 
 // Função para imprimir a árvore AVL
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "libprg/libprg.h"
-
 void imprimir_arvore_visual(no_avl_t *raiz, int nivel) {
     if (raiz == NULL) {
         return;
