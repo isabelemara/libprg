@@ -204,7 +204,6 @@ void carregar_tarefas(lista_t *tarefa) {
         return;
     }
 
-    // Lê o tamanho da lista
     int tamanho;
     if (fread(&tamanho, sizeof(int), 1, arquivo) != 1) {
         printf("Erro ao ler o tamanho do arquivo.\n");
@@ -212,14 +211,14 @@ void carregar_tarefas(lista_t *tarefa) {
         return;
     }
 
-    // Verifica se o tamanho lido é válido
+    printf("Tamanho lido do arquivo: %d\n", tamanho);
+
     if (tamanho < 0) {
         printf("Tamanho inválido lido do arquivo: %d\n", tamanho);
         fclose(arquivo);
         return;
     }
 
-    // Inicializa ou realoca a memória para a lista de tarefas
     if (tarefa->elemento == NULL) {
         tarefa->elemento = (tarefa_t *)malloc(sizeof(tarefa_t) * tamanho);
         if (tarefa->elemento == NULL) {
@@ -240,7 +239,6 @@ void carregar_tarefas(lista_t *tarefa) {
     }
     tarefa->tamanho = tamanho;
 
-    // Lê as tarefas do arquivo
     size_t lido = fread(tarefa->elemento, sizeof(tarefa_t), tamanho, arquivo);
     if (lido != tamanho) {
         printf("Erro ao ler as tarefas do arquivo.\n");
@@ -248,6 +246,7 @@ void carregar_tarefas(lista_t *tarefa) {
 
     fclose(arquivo);
 }
+
 
 void liberarListaTarefas(lista_t *lista) {
     if (lista == NULL) {
