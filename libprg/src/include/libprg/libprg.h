@@ -44,25 +44,20 @@ typedef enum {
 //projeto 2
 // Funções para manipular a lista de tarefas
 lista_t* criarListaTarefas();
-void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max], char prazo[tempo_max_prazo]);
-void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]);
-int excluirPorID(lista_t *lista, int id);
-int buscarTarefasDes(lista_t *lista, char descricao[numero_descricao]);
-void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]);
-void insertionSortPrazo(lista_t* lista, bool crescente);
-bool buscarTarefasPrioridade(lista_t *lista, char prioridade[prioridade_max]);
-void editarDes(lista_t *lista, char descricao[numero_descricao], char novaDescricao[numero_descricao]);
-void editarPrio(lista_t *lista, char descricao[numero_descricao], char novaPrioridade[prioridade_max]);
-void editarPrazo(lista_t *lista, char descricao[numero_descricao], char novoPrazo[tempo_max_prazo]);
+void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], Prioridade prioridade, char prazo[tempo_max_prazo]);
+int buscarTarefasDes(lista_t *lista, char alvo[numero_descricao]);
+bool buscarTarefasPrioridade(lista_t *lista, Prioridade prioridade);
+void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoNova[numero_descricao]);
+void editarPrio(lista_t *lista, char descricao[numero_descricao], Prioridade prioridade);
+void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[tempo_max_prazo]);
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char novaConclusao[tempo_max_prazo]);
-void salvar_binario(lista_t * tarefa);
-void carregar_tarefas(lista_t * Tarefas );
-void imprimirListaTarefas(lista_t *lista);
-void removerListaTarefas(lista_t *lista, char descricao[numero_descricao]);
-void insertionSortConclusao(lista_t* lista, bool crescente);
+void insertionSortPrazo(lista_t* lista, bool crescente);
 void insertionSortPrioridade(lista_t* lista, bool crescente);
-
-
+void insertionSortConclusao(lista_t* lista, bool crescente);
+void salvar_binario(lista_t *lista);
+void carregar_tarefas(lista_t *lista);
+void imprimirListaTarefas(lista_t *lista);
+int excluirPorID(lista_t *lista, int id);
 ///==============================///
 
 ////arvore
