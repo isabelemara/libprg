@@ -225,15 +225,26 @@ void carregar_tarefas(lista_t *tarefa) {
         return;
     }
 
-    // Realoca a memória para a lista de tarefas
-    tarefa_t *temp = (tarefa_t *)realloc(tarefa->elemento, sizeof(tarefa_t) * tamanho);
-    if (temp == NULL) {
-        printf("Erro ao realocar memória.\n");
-        fclose(arquivo);
-        return;
+    // Inicializa a memória se ainda não estiver alocada
+    if (tarefa->elemento == NULL) {
+        tarefa->elemento = (tarefa_t *)malloc(sizeof(tarefa_t) * tamanho);
+        if (tarefa->elemento == NULL) {
+            printf("Erro ao alocar memória.\n");
+            fclose(arquivo);
+            return;
+        }
+        tarefa->capacidade = tamanho;
+    } else {
+        // Realoca a memória para a lista de tarefas
+        tarefa_t *temp = (tarefa_t *)realloc(tarefa->elemento, sizeof(tarefa_t) * tamanho);
+        if (temp == NULL) {
+            printf("Erro ao realocar memória.\n");
+            fclose(arquivo);
+            return;
+        }
+        tarefa->elemento = temp;
+        tarefa->capacidade = tamanho;
     }
-    tarefa->elemento = temp;
-    tarefa->capacidade = tamanho;
     tarefa->tamanho = tamanho;
 
     // Lê as tarefas do arquivo
@@ -244,6 +255,7 @@ void carregar_tarefas(lista_t *tarefa) {
 
     fclose(arquivo);
 }
+
 
 void liberarListaTarefas(lista_t *lista) {
     if (lista == NULL) {
