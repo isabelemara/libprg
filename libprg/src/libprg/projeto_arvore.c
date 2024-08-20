@@ -163,31 +163,13 @@ void imprimir_em_ordem(no_avl_t *raiz) {
 }
 
 // Função para imprimir a árvore AVL
-
-void imprimir_arvore_visual(no_avl_t *raiz, int nivel) {
-    if (raiz == NULL) {
-        return;
-    }
-
-    // Imprime a subárvore direita
-    imprimir_arvore_visual(raiz->direita, nivel + 1);
-
-    // Imprime o valor do nó atual com a indentação correspondente
-    for (int i = 0; i < nivel; i++) {
-        printf("   ");
-    }
-    printf("%d\n", raiz->valor);
-
-    // Imprime a subárvore esquerda
-    imprimir_arvore_visual(raiz->esquerda, nivel + 1);
-}
-
 void imprimir_arvore(no_avl_t *raiz) {
     if (raiz == NULL) {
         printf("A árvore está vazia.\n");
     } else {
-        printf("Árvore AVL (visual):\n");
-        imprimir_arvore_visual(raiz, 0);
+        printf("Árvore AVL (em ordem):\n");
+        imprimir_em_ordem(raiz);
         printf("\n");
     }
 }
+
