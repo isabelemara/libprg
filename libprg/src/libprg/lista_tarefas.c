@@ -214,27 +214,16 @@ void imprimirListaTarefas(lista_t *lista) {
     }
 }
 
-int excluirPorID(lista_t *lista, int id) {
-    // Encontrar o índice da tarefa com o ID fornecido
-    int i;
-    for (i = 0; i < lista->tamanho; i++) {
-        if (lista->elemento[i].ID == id) {
-            break;
+int excluirPorID(lista_t *lista, int ID) {
+    for (int i = 0; i < lista->tamanho; i++) {
+        if (lista->elemento[i].ID == ID) {
+            // Remover a tarefa, movendo as tarefas seguintes para a frente
+            for (int j = i; j < lista->tamanho - 1; j++) {
+                lista->elemento[j] = lista->elemento[j + 1];
+            }
+            lista->tamanho--; // Reduzir o tamanho da lista
+            return 0; // Sucesso
         }
     }
-
-    // Se o ID não foi encontrado, retornar -1
-    if (i == lista->tamanho) {
-        return -1;
-    }
-
-    // Deslocar os elementos para preencher o espaço do elemento removido
-    for (int j = i; j < lista->tamanho - 1; j++) {
-        lista->elemento[j] = lista->elemento[j + 1];
-    }
-
-    // Reduzir o tamanho da lista
-    lista->tamanho--;
-
-    return id;
+    return -1; // Tarefa não encontrada
 }
