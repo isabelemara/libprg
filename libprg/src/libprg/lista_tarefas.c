@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 #define numero_descricao 1001
 #define prioridade_max 1000
@@ -85,19 +86,39 @@ void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]) {
     lista->tamanho--;
 }
 
-void buscarTarefasDescricao(lista_t *lista, char descricao[numero_descricao]) {
-    int encontrados = 0;
-    for (int i = 0; i < lista->tamanho; i++) {
-        if (strstr(lista->elemento[i].descricao, descricao) != NULL) {
-            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
+void paraMinusculas(char *str) {
+    for (int i = 0; str[i]; i++) {
+        str[i] = tolower((unsigned char)str[i]);
+    }
+}
+
+// Função para buscar tarefas por descrição (case-insensitive)
+int buscarTarefasDescricao(lista_t *lista, char *descricao) {
+    char descricaoBusca[numero_descricao];
+    strncpy(descricaoBusca, descricao, numero_descricao);
+    paraMinusculas(descricaoBusca);
+
+    bool encontrado = false; // Para rastrear se pelo menos uma tarefa foi encontrada
+
+    for (int i = 0; i < lista->tamanho; ++i) {
+        char descricaoAtual[numero_descricao];
+        strncpy(descricaoAtual, lista->elemento[i].descricao, numero_descricao);
+        paraMinusculas(descricaoAtual);
+
+        if (strstr(descricaoAtual, descricaoBusca) != NULL) {
+            encontrado = true;
+            printf("Tarefa encontrada na posição %d\n\n", i + 1);
+            printf("ID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n\n",
                     lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
                     lista->elemento[i].prazo, lista->elemento[i].conclusao);
-            encontrados++;
         }
     }
-    if (encontrados == 0) {
-        printf("Nenhuma tarefa encontrada para '%s'\n", descricao);
+
+    if (!encontrado) {
+        printf("Nenhuma tarefa encontrada com a descrição '%s'\n\n", descricao);
     }
+
+    return encontrado ? 0 : -1;
 }
 
 void buscarTarefasPrioridade(lista_t *lista, char prioridades[prioridade_max]) {
