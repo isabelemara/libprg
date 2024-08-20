@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <ctype.h>
 
 #define numero_descricao 1001
 #define prioridade_max 1000
@@ -61,83 +60,40 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char 
     lista->tamanho++;
 }
 
-int buscaListaTarefasDes(lista_t *lista, char alvo[numero_descricao]) {
+bool buscarTarefasDes(lista_t *lista, char descricao[numero_descricao]) {
+    bool encontrado = false;
     for (int i = 0; i < lista->tamanho; i++) {
-        if (strcmp(lista->elemento[i].descricao, alvo) == 0) {
-            return i;
-        }
-    }
-    return -1;
-}
-
-void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]) {
-    if (lista->tamanho == 0) {
-        printf("\nA lista de tarefas está vazia.\n");
-        return;
-    }
-
-    int indice = buscaListaTarefasDes(lista, alvo);
-    if (indice < 0) {
-        printf("\nNenhuma tarefa encontrada para '%s'.\n", alvo);
-        return;
-    }
-
-    lista->elemento[indice] = lista->elemento[lista->tamanho - 1];
-    lista->tamanho--;
-}
-
-void paraMinusculas(char *str) {
-    for (int i = 0; str[i]; i++) {
-        str[i] = tolower((unsigned char)str[i]);
-    }
-}
-
-// Função para buscar tarefas por descrição (case-insensitive)
-int buscarTarefasDescricao(lista_t *lista, char *descricao) {
-    char descricaoBusca[numero_descricao];
-    strncpy(descricaoBusca, descricao, numero_descricao);
-    paraMinusculas(descricaoBusca);
-
-    bool encontrado = false; // Para rastrear se pelo menos uma tarefa foi encontrada
-
-    for (int i = 0; i < lista->tamanho; ++i) {
-        char descricaoAtual[numero_descricao];
-        strncpy(descricaoAtual, lista->elemento[i].descricao, numero_descricao);
-        paraMinusculas(descricaoAtual);
-
-        if (strstr(descricaoAtual, descricaoBusca) != NULL) {
+        if (strstr(lista->elemento[i].descricao, descricao) != NULL) {
             encontrado = true;
-            printf("Tarefa encontrada na posição %d\n\n", i + 1);
-            printf("ID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n\n",
-                    lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-                    lista->elemento[i].prazo, lista->elemento[i].conclusao);
-        }
-    }
-
-    if (!encontrado) {
-        printf("Nenhuma tarefa encontrada com a descrição '%s'\n\n", descricao);
-    }
-
-    return encontrado ? 0 : -1;
-}
-
-void buscarTarefasPrioridade(lista_t *lista, char prioridades[prioridade_max]) {
-    int encontrados = 0;
-    for (int i = 0; i < lista->tamanho; i++) {
-        if (strstr(lista->elemento[i].prioridade, prioridades) != NULL) {
             printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
                     lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
                     lista->elemento[i].prazo, lista->elemento[i].conclusao);
-            encontrados++;
         }
     }
-    if (encontrados == 0) {
-        printf("Nenhuma tarefa encontrada para '%s'\n", prioridades);
+    if (!encontrado) {
+        printf("Nenhuma tarefa encontrada para '%s'\n", descricao);
     }
+    return encontrado;
+}
+
+bool buscarTarefasPrioridade(lista_t *lista, char prioridade[prioridade_max]) {
+    bool encontrado = false;
+    for (int i = 0; i < lista->tamanho; i++) {
+        if (strstr(lista->elemento[i].prioridade, prioridade) != NULL) {
+            encontrado = true;
+            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
+                    lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
+                    lista->elemento[i].prazo, lista->elemento[i].conclusao);
+        }
+    }
+    if (!encontrado) {
+        printf("Nenhuma tarefa encontrada para '%s'\n", prioridade);
+    }
+    return encontrado;
 }
 
 void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoNova[numero_descricao]) {
-    int indice = buscaListaTarefasDes(lista, descricao);
+    int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
         printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
         return;
@@ -148,7 +104,7 @@ void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoN
 }
 
 void editarPrio(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max]) {
-    int indice = buscaListaTarefasDes(lista, descricao);
+    int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
         printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
         return;
@@ -159,7 +115,7 @@ void editarPrio(lista_t *lista, char descricao[numero_descricao], char prioridad
 }
 
 void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[tempo_max_prazo]) {
-    int indice = buscaListaTarefasDes(lista, descricao);
+    int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
         printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
         return;
@@ -170,7 +126,7 @@ void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[te
 }
 
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]) {
-    int indice = buscaListaTarefasDes(lista, descricao);
+    int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
         printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
         return;
@@ -189,7 +145,7 @@ void insertionSortPrazo(lista_t* lista, bool crescente) {
                                     : strcmp(lista->elemento[j].prazo, chave.prazo) < 0)) {
             lista->elemento[j + 1] = lista->elemento[j];
             j--;
-                                    }
+        }
         lista->elemento[j + 1] = chave;
     }
 }
@@ -219,6 +175,7 @@ void carregar_tarefas(lista_t *lista) {
     fread(lista->elemento, sizeof(tarefa_t), lista->tamanho, arquivo);
     fclose(arquivo);
 }
+
 void imprimirListaTarefas(lista_t *lista) {
     if (lista->tamanho == 0) {
         printf("A lista de tarefas está vazia.\n");
