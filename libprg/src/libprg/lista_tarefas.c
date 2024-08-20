@@ -60,15 +60,17 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char 
     lista->tamanho++;
 }
 
-int buscarTarefasDes(lista_t *lista, char alvo[numero_descricao])
-{
-    for(int i=0; i<lista->tamanho; i++)
-    {
-        if(strcmp(alvo, lista->elemento[i].descricao) == 0)
-        {
+int buscarTarefasDes(lista_t *lista, char alvo[numero_descricao]) {
+    for (int i = 0; i < lista->tamanho; i++) {
+        if (strstr(lista->elemento[i].descricao, alvo) != NULL) {
+            // Imprimir a tarefa encontrada
+            printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
+                   lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
+                   lista->elemento[i].prazo, lista->elemento[i].conclusao);
             return i;
         }
     }
+    printf("Nenhuma tarefa encontrada para '%s'\n", alvo);
     return -1;
 }
 bool buscarTarefasPrioridade(lista_t *lista, char prioridade[prioridade_max]) {
