@@ -164,18 +164,25 @@ void imprimir_em_ordem(no_avl_t *raiz) {
 
 // Função para imprimir a árvore AVL
 
+#include <stdio.h>
+#include <stdlib.h>
+#include "libprg/libprg.h"
+
 void imprimir_arvore_visual(no_avl_t *raiz, int nivel) {
     if (raiz == NULL) {
         return;
     }
 
+    // Imprime a subárvore direita
     imprimir_arvore_visual(raiz->direita, nivel + 1);
 
+    // Imprime o valor do nó atual com a indentação correspondente
     for (int i = 0; i < nivel; i++) {
         printf("   ");
     }
     printf("%d\n", raiz->valor);
 
+    // Imprime a subárvore esquerda
     imprimir_arvore_visual(raiz->esquerda, nivel + 1);
 }
 
