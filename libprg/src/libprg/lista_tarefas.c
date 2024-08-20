@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
+
 #define numero_descricao 1001
 #define prioridade_max 1000
 #define tempo_max_prazo 200
@@ -96,6 +97,7 @@ int buscarTarefasDes(lista_t *lista, char alvo[numero_descricao]) {
     }
     return encontrado ? 0 : -1;
 }
+
 bool buscarTarefasPrioridade(lista_t *lista, char prioridade[prioridade_max]) {
     bool encontrado = false;
     for (int i = 0; i < lista->tamanho; i++) {
@@ -211,21 +213,28 @@ void imprimirListaTarefas(lista_t *lista) {
                 lista->elemento[i].prazo, lista->elemento[i].conclusao);
     }
 }
-void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]) {
+
+int excluirPorID(lista_t *lista, int id) {
+    // Encontrar o índice da tarefa com o ID fornecido
     int i;
     for (i = 0; i < lista->tamanho; i++) {
-        if (strcmp(lista->elemento[i].descricao, alvo) == 0) {
+        if (lista->elemento[i].ID == id) {
             break;
         }
     }
-    if (i < lista->tamanho) {
-        // Move as tarefas restantes para preencher o espaço
-        for (int j = i; j < lista->tamanho - 1; j++) {
-            lista->elemento[j] = lista->elemento[j + 1];
-        }
-        lista->tamanho--;
-        printf("Tarefa removida com sucesso.\n");
-    } else {
-        printf("Tarefa com a descrição '%s' não encontrada.\n", alvo);
+
+    // Se o ID não foi encontrado, retornar -1
+    if (i == lista->tamanho) {
+        return -1;
     }
+
+    // Deslocar os elementos para preencher o espaço do elemento removido
+    for (int j = i; j < lista->tamanho - 1; j++) {
+        lista->elemento[j] = lista->elemento[j + 1];
+    }
+
+    // Reduzir o tamanho da lista
+    lista->tamanho--;
+
+    return id;
 }

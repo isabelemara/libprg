@@ -37,7 +37,7 @@ typedef struct lista lista_t;
 // Funções para manipular a lista de tarefas
 lista_t* criarListaTarefas();
 void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max], char prazo[tempo_max_prazo]);
-void removerListaTarefas(lista_t *lista, char alvo[numero_descricao]);
+int excluirPorID(lista_t *lista, int id);
 int buscarTarefasDes(lista_t *lista, char descricao[numero_descricao]);
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char conclusao[tempo_max_prazo]);
 void insertionSortPrazo(lista_t* lista, bool crescente);
@@ -49,7 +49,7 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char nova
 void salvar_binario(lista_t * tarefa);
 void carregar_tarefas(lista_t * Tarefas );
 void imprimirListaTarefas(lista_t *lista);
-void removerListaTarefas(lista_t *lista, char descricao[numero_descricao]);
+
 
 
 
