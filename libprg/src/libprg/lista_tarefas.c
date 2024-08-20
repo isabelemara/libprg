@@ -66,8 +66,8 @@ bool buscarTarefasDes(lista_t *lista, char descricao[numero_descricao]) {
         if (strstr(lista->elemento[i].descricao, descricao) != NULL) {
             encontrado = true;
             printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
-                    lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-                    lista->elemento[i].prazo, lista->elemento[i].conclusao);
+                   lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
+                   lista->elemento[i].prazo, lista->elemento[i].conclusao);
         }
     }
     if (!encontrado) {
@@ -82,8 +82,8 @@ bool buscarTarefasPrioridade(lista_t *lista, char prioridade[prioridade_max]) {
         if (strstr(lista->elemento[i].prioridade, prioridade) != NULL) {
             encontrado = true;
             printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
-                    lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-                    lista->elemento[i].prazo, lista->elemento[i].conclusao);
+                   lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
+                   lista->elemento[i].prazo, lista->elemento[i].conclusao);
         }
     }
     if (!encontrado) {
