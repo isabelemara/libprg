@@ -60,17 +60,18 @@ typedef struct no_avl{
 
 int altura(no_avl_t *v);
 int fator_balanceamento(no_avl_t *v);
-no_avl_t  * rotacao_esquerda(no_avl_t *v);
+no_avl_t *rotacao_esquerda(no_avl_t *v);
 no_avl_t *rotacao_direita(no_avl_t *v);
 no_avl_t *criar_no_arvore_avl(int valor);
-no_avl_t  * inserir_arvore_avl(no_avl_t *v, int valor);
-no_avl_t  * balancear(no_avl_t *v);
+no_avl_t *inserir_arvore_avl(no_avl_t *v, int valor);
+no_avl_t *balancear(no_avl_t *v);
 no_avl_t *rotacao_dupla_direita(no_avl_t *v);
 no_avl_t *rotacao_dupla_esquerda(no_avl_t *v);
 no_avl_t *remover_arvore_avl(no_avl_t *v, int valor);
 void imprimir_em_ordem(no_avl_t *raiz);
 void imprimir_arvore(no_avl_t *raiz);
-// void opcao(no_avl_t*no_avl);
+void inserir_numeros(no_avl_t **raiz);
+void remover_numero_aleatorio(no_avl_t **raiz);
 
 //
 // //lista projeto
