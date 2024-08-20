@@ -3,12 +3,10 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
-
-#define numero_descricao 100
-#define prioridade_max 10
-#define tempo_max_prazo 11
+#define numero_descricao 1001
+#define prioridade_max 1000
+#define tempo_max_prazo 200
 #define capacidade_inicial 200
-
 typedef struct tarefa {
     char descricao[numero_descricao];
     char prioridade[prioridade_max];
@@ -16,14 +14,11 @@ typedef struct tarefa {
     int ID;
     char conclusao[tempo_max_prazo];
 } tarefa_t;
-
 typedef struct lista {
     tarefa_t *elemento;
     int tamanho;
     int capacidade;
 } lista_t;
-
-// Função para criar a lista de tarefas
 lista_t* criarListaTarefas() {
     lista_t *lista = (lista_t*)malloc(sizeof(lista_t));
     if (lista == NULL) {
@@ -40,8 +35,6 @@ lista_t* criarListaTarefas() {
     }
     return lista;
 }
-
-// Função para inserir tarefas na lista
 void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max], char prazo[tempo_max_prazo]) {
     if (lista->tamanho >= lista->capacidade) {
         lista->capacidade *= 2;
@@ -51,54 +44,46 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], char 
             exit(1);
         }
     }
-
     tarefa_t nova_tarefa;
     strncpy(nova_tarefa.descricao, descricao, numero_descricao);
     strncpy(nova_tarefa.prioridade, prioridade, prioridade_max);
     strncpy(nova_tarefa.prazo, prazo, tempo_max_prazo);
     nova_tarefa.ID = lista->tamanho > 0 ? lista->elemento[lista->tamanho - 1].ID + 1 : 0;
     strcpy(nova_tarefa.conclusao, "nao concluida");
-
     lista->elemento[lista->tamanho] = nova_tarefa;
     lista->tamanho++;
 }
-
-// Função auxiliar para converter string para minúsculas
 void paraMinusculas(char *str) {
     while (*str) {
         *str = tolower((unsigned char) *str);
         str++;
     }
 }
-
-// Função para buscar tarefas por descrição
 int buscarTarefasDes(lista_t *lista, char alvo[numero_descricao]) {
     char alvo_minusculas[numero_descricao];
+    // Copiar e converter a string de busca para minúsculas
     strncpy(alvo_minusculas, alvo, numero_descricao);
     paraMinusculas(alvo_minusculas);
-
     bool encontrado = false;
-
     for (int i = 0; i < lista->tamanho; i++) {
         char descricao_minusculas[numero_descricao];
+        // Copiar e converter a descrição da tarefa para minúsculas
         strncpy(descricao_minusculas, lista->elemento[i].descricao, numero_descricao);
         paraMinusculas(descricao_minusculas);
-
+        // Verificar se a string de busca é uma substring da descrição
         if (strstr(descricao_minusculas, alvo_minusculas) != NULL) {
+            // Imprimir os detalhes da tarefa encontrada
             printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
                    lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
                    lista->elemento[i].prazo, lista->elemento[i].conclusao);
             encontrado = true;
         }
     }
-
     if (!encontrado) {
         printf("Nenhuma tarefa encontrada para '%s'\n", alvo);
     }
     return encontrado ? 0 : -1;
 }
-
-// Função para buscar tarefas por prioridade
 bool buscarTarefasPrioridade(lista_t *lista, char prioridade[prioridade_max]) {
     bool encontrado = false;
     for (int i = 0; i < lista->tamanho; i++) {
@@ -114,8 +99,6 @@ bool buscarTarefasPrioridade(lista_t *lista, char prioridade[prioridade_max]) {
     }
     return encontrado;
 }
-
-// Função para editar a descrição de uma tarefa
 void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoNova[numero_descricao]) {
     int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
@@ -126,8 +109,6 @@ void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoN
         printf("\nDescricao alterada!\n");
     }
 }
-
-// Função para editar a prioridade de uma tarefa
 void editarPrio(lista_t *lista, char descricao[numero_descricao], char prioridade[prioridade_max]) {
     int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
@@ -138,8 +119,6 @@ void editarPrio(lista_t *lista, char descricao[numero_descricao], char prioridad
         printf("\nPrioridade alterada!\n");
     }
 }
-
-// Função para editar o prazo de uma tarefa
 void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[tempo_max_prazo]) {
     int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
@@ -150,25 +129,23 @@ void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[te
         printf("\nPrazo alterado!\n");
     }
 }
-
-// Função para editar a conclusão de uma tarefa
+// Ajuste o tamanho do buffer se necessário
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char novaConclusao[tempo_max_prazo]) {
     int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
         printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
         return;
     }
+    // Copie a nova conclusão para garantir que ela não ultrapasse o tamanho do buffer
     strncpy(lista->elemento[indice].conclusao, novaConclusao, tempo_max_prazo - 1);
     lista->elemento[indice].conclusao[tempo_max_prazo - 1] = '\0'; // Garantir terminação nula
     printf("\nConclusao alterada!\n");
 }
-
-// Função para ordenar tarefas por prazo
 void insertionSortPrazo(lista_t* lista, bool crescente) {
     for (int i = 1; i < lista->tamanho; i++) {
         tarefa_t chave = lista->elemento[i];
         int j = i - 1;
-
+        // Comparação baseada na ordem solicitada
         while (j >= 0 && (crescente ? strcmp(lista->elemento[j].prazo, chave.prazo) > 0
                                     : strcmp(lista->elemento[j].prazo, chave.prazo) < 0)) {
             lista->elemento[j + 1] = lista->elemento[j];
@@ -177,53 +154,6 @@ void insertionSortPrazo(lista_t* lista, bool crescente) {
         lista->elemento[j + 1] = chave;
     }
 }
-
-// Função para ordenar tarefas por prioridade
-void insertionSortPrioridade(lista_t* lista, bool crescente) {
-    for (int i = 1; i < lista->tamanho; i++) {
-        tarefa_t chave = lista->elemento[i];
-        int j = i - 1;
-
-        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].prioridade, chave.prioridade) > 0
-                                    : strcmp(lista->elemento[j].prioridade, chave.prioridade) < 0)) {
-            lista->elemento[j + 1] = lista->elemento[j];
-            j--;
-        }
-        lista->elemento[j + 1] = chave;
-    }
-}
-
-// Função para ordenar tarefas por conclusão
-void insertionSortConclusao(lista_t* lista, bool crescente) {
-    for (int i = 1; i < lista->tamanho; i++) {
-        tarefa_t chave = lista->elemento[i];
-        int j = i - 1;
-
-        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].conclusao, chave.conclusao) > 0
-                                    : strcmp(lista->elemento[j].conclusao, chave.conclusao) < 0)) {
-            lista->elemento[j + 1] = lista->elemento[j];
-            j--;
-        }
-        lista->elemento[j + 1] = chave;
-    }
-}
-
-// Função para imprimir todas as tarefas
-void imprimirTarefas(lista_t *lista) {
-    for (int i = 0; i < lista->tamanho; i++) {
-        printf("\nID: %d\nDescricao: %s\nPrioridade: %s\nPrazo: %s\nConclusao: %s\n",
-               lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-               lista->elemento[i].prazo, lista->elemento[i].conclusao);
-    }
-}
-
-// Função para liberar a memória da lista de tarefas
-void liberarLista(lista_t *lista) {
-    free(lista->elemento);
-    free(lista);
-}
-
-// Função para salvar a lista de tarefas em um arquivo binário
 void salvar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "wb");
     if (arquivo == NULL) {
@@ -245,4 +175,32 @@ void carregar_tarefas(lista_t *lista) {
     lista->elemento = (tarefa_t*)realloc(lista->elemento, sizeof(tarefa_t) * lista->capacidade);
     fread(lista->elemento, sizeof(tarefa_t), lista->tamanho, arquivo);
     fclose(arquivo);
+}
+void imprimirListaTarefas(lista_t *lista) {
+    if (lista->tamanho == 0) {
+        printf("A lista de tarefas está vazia.\n");
+        return;
+    }
+    for (int i = 0; i < lista->tamanho; i++) {
+        printf("\nID: %d\nDescrição: %s\nPrioridade: %s\nPrazo: %s\nConclusão: %s\n",
+                lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
+                lista->elemento[i].prazo, lista->elemento[i].conclusao);
+    }
+}
+
+int excluirPorID(lista_t *lista, int id) {
+    // Encontrar o índice da tarefa com o ID fornecido
+    int i;
+    for (i = 0; i < lista->tamanho; i++) {
+        if (lista->elemento[i].ID == id) {
+            // Remover a tarefa, movendo as tarefas seguintes para a frente
+            for (int j = i; j < lista->tamanho - 1; j++) {
+                lista->elemento[j] = lista->elemento[j + 1];
+            }
+            lista->tamanho--; // Reduzir o tamanho da lista
+            return 0; // Sucesso
+        }
+    }
+
+    return -1; // Tarefa não encontrada
 }
