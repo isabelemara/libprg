@@ -62,17 +62,16 @@ no_avl_t *criar_no_arvore_avl(int valor){
 }
 // inserir
 
-no_avl_t  * inserir_arvore_avl(no_avl_t *v, int valor){
-    if(v == NULL){
-        v = criar_no_arvore_avl(valor);
-    }else if(valor < v->valor){
-        v->direita = inserir_arvore_avl(v->direita,valor);
-    }else if(valor > v->valor){
-        v->direita = inserir_arvore_avl(v->direita,valor);
+no_avl_t *inserir_arvore_avl(no_avl_t *v, int valor) {
+    if (v == NULL) {
+        return criar_no_arvore_avl(valor);
+    } else if (valor < v->valor) {
+        v->esquerda = inserir_arvore_avl(v->esquerda, valor);
+    } else if (valor > v->valor) {
+        v->direita = inserir_arvore_avl(v->direita, valor);
     }
     v->altura = 1 + max(altura(v->esquerda), altura(v->direita));
-    v = balancear(v);
-    return v;
+    return balancear(v);
 }
 
 //  balancear
@@ -156,5 +155,21 @@ no_avl_t *remover_arvore_avl(no_avl_t *v, int valor) {
 
     // Balancear o nó atual
     return balancear(v);
+}
+void imprimir_em_ordem(no_avl_t *raiz) {
+    if (raiz != NULL) {
+        imprimir_em_ordem(raiz->esquerda);  // Visitar o filho esquerdo
+        printf("%d ", raiz->valor);         // Imprimir o valor do nó
+        imprimir_em_ordem(raiz->direita);   // Visitar o filho direito
+    }
+}
+void imprimir_arvore(no_avl_t *raiz) {
+    if (raiz == NULL) {
+        printf("A árvore está vazia.\n");
+    } else {
+        printf("Árvore AVL (em ordem):\n");
+        imprimir_em_ordem(raiz);
+        printf("\n");
+    }
 }
 
