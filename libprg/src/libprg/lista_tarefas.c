@@ -195,6 +195,24 @@ void insertionSortConclusao(lista_t* lista, bool crescente) {
         lista->elemento[j + 1] = chave;
     }
 }
+void filtrarPorDataConclusao(lista_t *lista, const char *data, bool crescente) {
+    // Ordenar a lista por data de conclusão na ordem especificada
+    insertionSortConclusao(lista, crescente);
+
+    bool encontrado = false;
+    for (int i = 0; i < lista->tamanho; i++) {
+        // Verifica se a data da conclusão contém a data fornecida
+        if (strstr(lista->elemento[i].conclusao, data) != NULL) {
+            printf("\nID: %d\nDescricao: %s\nPrioridade: %d\nPrazo: %s\nConclusao: %s\n",
+                   lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
+                   lista->elemento[i].prazo, lista->elemento[i].conclusao);
+            encontrado = true;
+        }
+    }
+    if (!encontrado) {
+        printf("Nenhuma tarefa encontrada com data de conclusao '%s'\n", data);
+    }
+}
 
 void salvar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "wb");
