@@ -32,14 +32,14 @@ typedef struct lista {
 lista_t* criarListaTarefas() {
     lista_t *lista = (lista_t*)malloc(sizeof(lista_t));
     if (lista == NULL) {
-        printf("Erro de alocação de memória.\n");
+        printf("Erro de alocação de memoria.\n");
         exit(1);
     }
     lista->tamanho = 0;
     lista->capacidade = capacidade_inicial;
     lista->elemento = (tarefa_t*)malloc(lista->capacidade * sizeof(tarefa_t));
     if (lista->elemento == NULL) {
-        printf("Erro de alocação de memória.\n");
+        printf("Erro de alocação de memoria.\n");
         free(lista);
         exit(1);
     }
@@ -51,7 +51,7 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], Prior
         lista->capacidade *= 2;
         lista->elemento = (tarefa_t*)realloc(lista->elemento, sizeof(tarefa_t) * lista->capacidade);
         if (lista->elemento == NULL) {
-            printf("Erro de realocação de memória\n");
+            printf("Erro de realocacao de memoria\n");
             exit(1);
         }
     }
@@ -197,7 +197,7 @@ void insertionSortConclusao(lista_t* lista, bool crescente) {
 void salvar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "wb");
     if (arquivo == NULL) {
-        printf("Não foi possível abrir o arquivo para escrita.\n");
+        printf("nao foi possível abrir o arquivo para escrita.\n");
         return;
     }
     fwrite(&lista->tamanho, sizeof(int), 1, arquivo);
@@ -209,7 +209,7 @@ void salvar_binario(lista_t *lista) {
 void carregar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "rb");
     if (arquivo == NULL) {
-        printf("Não foi possível abrir o arquivo para leitura.\n");
+        printf("nao foi possível abrir o arquivo para leitura.\n");
         return;
     }
     fread(&lista->tamanho, sizeof(int), 1, arquivo);
@@ -226,7 +226,7 @@ void concluirTarefa(lista_t *lista, char descricao[numero_descricao]) {
         return;
     } else {
         strncpy(lista->elemento[indice].conclusao, "concluida", tempo_max_prazo);
-        printf("\nTarefa '%s' concluída!\n", descricao);
+        printf("\nTarefa '%s' concluida!\n", descricao);
     }
 }
 
