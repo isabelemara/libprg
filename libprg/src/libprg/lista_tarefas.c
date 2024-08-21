@@ -207,19 +207,24 @@ void carregar_binario(lista_t *lista) {
     fclose(arquivo);
     printf("\nLista carregada de 'tarefa.dat'.\n");
 }
-void concluirTarefa(lista_t *lista, char descricao[numero_descricao], char dataConclusao[tempo_max_prazo]) {
-    int indice = buscarTarefasDes(lista, descricao);
-    if (indice < 0) {
-        printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
-        return;
-    } else {
-        // Copiar a data de conclusão fornecida pelo usuário
-        strncpy(lista->elemento[indice].conclusao, dataConclusao, tempo_max_prazo - 1);
-        lista->elemento[indice].conclusao[tempo_max_prazo - 1] = '\0'; // Garantir que a string esteja terminada
-        printf("\nTarefa '%s' concluída!\n", descricao);
-        printf("Data de conclusão: %s\n", lista->elemento[indice].conclusao);
+void concluirTarefa(lista_t *lista, int ID, char dataConclusao[tempo_max_prazo]) {
+    int encontrado = 0;
+    for (int i = 0; i < lista->tamanho; i++) {
+        if (lista->elemento[i].ID == ID) {
+            // Copiar a data de conclusão fornecida pelo usuário
+            strncpy(lista->elemento[i].conclusao, dataConclusao, tempo_max_prazo - 1);
+            lista->elemento[i].conclusao[tempo_max_prazo - 1] = '\0'; // Garantir que a string esteja terminada
+            printf("\nTarefa '%s' concluída!\n", lista->elemento[i].descricao);
+            printf("Data de conclusão: %s\n", lista->elemento[i].conclusao);
+            encontrado = 1;
+            break;
+        }
+    }
+    if (!encontrado) {
+        printf("\nNenhuma tarefa encontrada com ID %d\n", ID);
     }
 }
+
 
 
 void imprimirListaTarefas(lista_t *lista) {
