@@ -183,7 +183,7 @@ void insertionSortConclusao(lista_t* lista, bool crescente) {
 void salvar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "wb");
     if (arquivo == NULL) {
-        printf("Não foi possível abrir o arquivo para escrita.\n");
+        printf("nao foi possível abrir o arquivo para escrita.\n");
         printf("nao foi possível abrir o arquivo para escrita.\n");
         return;
     }
@@ -195,7 +195,7 @@ void salvar_binario(lista_t *lista) {
 void carregar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "rb");
     if (arquivo == NULL) {
-        printf("Não foi possível abrir o arquivo para leitura.\n");
+        printf("nao foi possível abrir o arquivo para leitura.\n");
         printf("nao foi possível abrir o arquivo para leitura.\n");
         return;
     }
@@ -211,7 +211,7 @@ void concluirTarefa(lista_t *lista, int ID, char dataConclusao[tempo_max_prazo])
         if (lista->elemento[i].ID == ID) {
             strncpy(lista->elemento[i].conclusao, dataConclusao, tempo_max_prazo - 1);
             lista->elemento[i].conclusao[tempo_max_prazo - 1] = '\0';
-            printf("\nTarefa '%s' concluída!\n", lista->elemento[i].descricao);
+            printf("\nTarefa '%s' concluida!\n", lista->elemento[i].descricao);
             printf("Data de conclusão: %s\n", lista->elemento[i].conclusao);
             encontrado = 1;
             break;
@@ -235,7 +235,7 @@ void imprimirListaTarefas(lista_t *lista) {
                 printf("Alta (3)\n");
             break;
             case PRIORIDADE_MEDIA:
-                printf("Média (2)\n");
+                printf("Media (2)\n");
             break;
             case PRIORIDADE_BAIXA:
                 printf("Baixa (1)\n");
