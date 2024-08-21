@@ -3,12 +3,14 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <time.h>
+
 
 #define numero_descricao 1001
+#define prioridade_max 1000
 #define tempo_max_prazo 200
 #define capacidade_inicial 200
 
-// Enumeração para a prioridade
 typedef enum {
     PRIORIDADE_BAIXA = 1,
     PRIORIDADE_MEDIA = 2,
@@ -224,10 +226,18 @@ void concluirTarefa(lista_t *lista, char descricao[numero_descricao]) {
     if (indice < 0) {
         printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
         return;
-    } else {
-        strncpy(lista->elemento[indice].conclusao, "concluida", tempo_max_prazo);
-        printf("\nTarefa '%s' concluida!\n", descricao);
     }
+
+    // Obter a data atual
+    time_t t = time(NULL);
+    struct tm *tm_info = localtime(&t);
+    char dataConclusao[tempo_max_prazo];
+    strftime(dataConclusao, tempo_max_prazo, "%d/%m/%Y", tm_info);
+
+    // Atualizar a conclusão com a data
+    snprintf(lista->elemento[indice].conclusao, tempo_max_prazo, "concluida em %s", dataConclusao);
+
+    printf("\nTarefa '%s' concluída!\n", descricao);
 }
 
 void imprimirListaTarefas(lista_t *lista) {
@@ -244,7 +254,7 @@ void imprimirListaTarefas(lista_t *lista) {
                 printf("Alta (3)\n");
             break;
             case PRIORIDADE_MEDIA:
-                printf("Média (2)\n");
+                printf("Media (2)\n");
             break;
             case PRIORIDADE_BAIXA:
                 printf("Baixa (1)\n");
@@ -272,7 +282,7 @@ int excluirPorID(lista_t *lista, int ID) {
                 lista->elemento[j] = lista->elemento[j + 1];
             }
             lista->tamanho--; // Reduzir o tamanho da lista
-            return 0; // Sucesso
+            return 0;
         }
     }
     return -1; // Tarefa não encontrada
