@@ -138,10 +138,12 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char nova
     if (indice < 0) {
         printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
         return;
+    } else {
+        // Certificar-se de que a conclusão está sendo copiada corretamente
+        strncpy(lista->elemento[indice].conclusao, novaConclusao, tempo_max_prazo - 1);
+        lista->elemento[indice].conclusao[tempo_max_prazo - 1] = '\0'; // Garantir que a string esteja terminada
+        printf("\nConclusao alterada!\n");
     }
-    strncpy(lista->elemento[indice].conclusao, novaConclusao, tempo_max_prazo - 1);
-    lista->elemento[indice].conclusao[tempo_max_prazo - 1] = '\0';
-    printf("\nConclusao alterada!\n");
 }
 // Função para ordenar tarefas por prioridade
 void insertionSortPrioridade(lista_t* lista, bool crescente) {
@@ -211,8 +213,9 @@ void concluirTarefa(lista_t *lista, char descricao[numero_descricao], char dataC
         printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
         return;
     } else {
-        // Copia a data de conclusão fornecida pelo usuário
-        strncpy(lista->elemento[indice].conclusao, dataConclusao, tempo_max_prazo);
+        // Copiar a data de conclusão fornecida pelo usuário
+        strncpy(lista->elemento[indice].conclusao, dataConclusao, tempo_max_prazo - 1);
+        lista->elemento[indice].conclusao[tempo_max_prazo - 1] = '\0'; // Garantir que a string esteja terminada
         printf("\nTarefa '%s' concluída!\n", descricao);
         printf("Data de conclusão: %s\n", lista->elemento[indice].conclusao);
     }
