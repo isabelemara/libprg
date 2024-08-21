@@ -205,24 +205,19 @@ void carregar_binario(lista_t *lista) {
     fclose(arquivo);
     printf("\nLista carregada de 'tarefa.dat'.\n");
 }
-void concluirTarefa(lista_t *lista, char descricao[numero_descricao]) {
+void concluirTarefa(lista_t *lista, char descricao[numero_descricao], char dataConclusao[tempo_max_prazo]) {
     int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
         printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
         return;
     } else {
-        char dataConclusao[tempo_max_prazo];
-        printf("Digite a data de conclusão (formato: dd/mm/aaaa): ");
-        fgets(dataConclusao, tempo_max_prazo, stdin);
-        // Remove o caractere de nova linha se presente
-        dataConclusao[strcspn(dataConclusao, "\n")] = '\0';
-
-        // Copia a data de prazo para a conclusão
+        // Copia a data de conclusão fornecida pelo usuário
         strncpy(lista->elemento[indice].conclusao, dataConclusao, tempo_max_prazo);
         printf("\nTarefa '%s' concluída!\n", descricao);
         printf("Data de conclusão: %s\n", lista->elemento[indice].conclusao);
     }
 }
+
 
 void imprimirListaTarefas(lista_t *lista) {
     for (int i = 0; i < lista->tamanho; i++) {
