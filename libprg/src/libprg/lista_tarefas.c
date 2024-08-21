@@ -4,9 +4,10 @@
 #include <stdbool.h>
 #include <ctype.h>
 #define numero_descricao 1001
+#define prioridade_max 1000
 #define tempo_max_prazo 200
 #define capacidade_inicial 200
-// Enumeração para a prioridade
+
 typedef enum {
     PRIORIDADE_BAIXA = 1,
     PRIORIDADE_MEDIA = 2,
@@ -14,7 +15,7 @@ typedef enum {
 } Prioridade;
 typedef struct tarefa {
     char descricao[numero_descricao];
-    Prioridade prioridade;  // Agora usando enumeração Prioridade
+    Prioridade prioridade;
     char prazo[tempo_max_prazo];
     int ID;
     char conclusao[tempo_max_prazo];
@@ -28,7 +29,6 @@ lista_t* criarListaTarefas() {
     lista_t *lista = (lista_t*)malloc(sizeof(lista_t));
     if (lista == NULL) {
         printf("Erro de alocação de memória.\n");
-        printf("Erro de alocação de memoria.\n");
         exit(1);
     }
     lista->tamanho = 0;
@@ -36,7 +36,6 @@ lista_t* criarListaTarefas() {
     lista->elemento = (tarefa_t*)malloc(lista->capacidade * sizeof(tarefa_t));
     if (lista->elemento == NULL) {
         printf("Erro de alocação de memória.\n");
-        printf("Erro de alocação de memoria.\n");
         free(lista);
         exit(1);
     }
@@ -48,7 +47,6 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], Prior
         lista->elemento = (tarefa_t*)realloc(lista->elemento, sizeof(tarefa_t) * lista->capacidade);
         if (lista->elemento == NULL) {
             printf("Erro de realocação de memória\n");
-            printf("Erro de realocacao de memoria\n");
             exit(1);
         }
     }
@@ -211,9 +209,8 @@ void concluirTarefa(lista_t *lista, int ID, char dataConclusao[tempo_max_prazo])
     int encontrado = 0;
     for (int i = 0; i < lista->tamanho; i++) {
         if (lista->elemento[i].ID == ID) {
-            // Copiar a data de conclusão fornecida pelo usuário
             strncpy(lista->elemento[i].conclusao, dataConclusao, tempo_max_prazo - 1);
-            lista->elemento[i].conclusao[tempo_max_prazo - 1] = '\0'; // Garantir que a string esteja terminada
+            lista->elemento[i].conclusao[tempo_max_prazo - 1] = '\0';
             printf("\nTarefa '%s' concluída!\n", lista->elemento[i].descricao);
             printf("Data de conclusão: %s\n", lista->elemento[i].conclusao);
             encontrado = 1;
@@ -224,7 +221,6 @@ void concluirTarefa(lista_t *lista, int ID, char dataConclusao[tempo_max_prazo])
         printf("\nNenhuma tarefa encontrada com ID %d\n", ID);
     }
 }
-
 
 
 void imprimirListaTarefas(lista_t *lista) {
