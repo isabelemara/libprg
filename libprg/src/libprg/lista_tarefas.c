@@ -232,9 +232,31 @@ void concluirTarefa(lista_t *lista, char descricao[numero_descricao]) {
 
 void imprimirListaTarefas(lista_t *lista) {
     for (int i = 0; i < lista->tamanho; i++) {
-        printf("\nID: %d\nDescricao: %s\nPrioridade: %d\nPrazo: %s\nConclusao: %s\n",
-               lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-               lista->elemento[i].prazo, lista->elemento[i].conclusao);
+        tarefa_t *tarefa = &lista->elemento[i];  // Corrigido o acesso ao elemento
+
+        printf("\nID: %d\n", tarefa->ID);
+        printf("Descricao: %s\n", tarefa->descricao);
+
+        // Imprimir prioridade com descrição legível
+        printf("Prioridade: ");
+        switch (tarefa->prioridade) {
+            case PRIORIDADE_ALTA:
+                printf("Alta (3)\n");
+            break;
+            case PRIORIDADE_MEDIA:
+                printf("Média (2)\n");
+            break;
+            case PRIORIDADE_BAIXA:
+                printf("Baixa (1)\n");
+            break;
+            default:
+                printf("Desconhecida\n");
+            break;
+        }
+
+        printf("Prazo: %s\n", tarefa->prazo);
+        printf("Conclusao: %s\n", tarefa->conclusao);
+        printf("\n");
     }
 }
 
