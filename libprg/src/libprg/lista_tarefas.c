@@ -19,6 +19,8 @@ typedef struct tarefa {
     char prazo[tempo_max_prazo];
     int ID;
     char conclusao[tempo_max_prazo];
+    char dataConclusao[tempo_max_prazo];
+
 } tarefa_t;
 typedef struct lista {
     tarefa_t *elemento;
