@@ -3,20 +3,15 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
-#include <time.h>
-
-
 #define numero_descricao 1001
-#define prioridade_max 1000
 #define tempo_max_prazo 200
 #define capacidade_inicial 200
-
+// Enumeração para a prioridade
 typedef enum {
     PRIORIDADE_BAIXA = 1,
     PRIORIDADE_MEDIA = 2,
     PRIORIDADE_ALTA = 3
 } Prioridade;
-
 typedef struct tarefa {
     char descricao[numero_descricao];
     Prioridade prioridade;  // Agora usando enumeração Prioridade
@@ -24,16 +19,15 @@ typedef struct tarefa {
     int ID;
     char conclusao[tempo_max_prazo];
 } tarefa_t;
-
 typedef struct lista {
     tarefa_t *elemento;
     int tamanho;
     int capacidade;
 } lista_t;
-
 lista_t* criarListaTarefas() {
     lista_t *lista = (lista_t*)malloc(sizeof(lista_t));
     if (lista == NULL) {
+        printf("Erro de alocação de memória.\n");
         printf("Erro de alocação de memoria.\n");
         exit(1);
     }
@@ -41,18 +35,19 @@ lista_t* criarListaTarefas() {
     lista->capacidade = capacidade_inicial;
     lista->elemento = (tarefa_t*)malloc(lista->capacidade * sizeof(tarefa_t));
     if (lista->elemento == NULL) {
+        printf("Erro de alocação de memória.\n");
         printf("Erro de alocação de memoria.\n");
         free(lista);
         exit(1);
     }
     return lista;
 }
-
 void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], Prioridade prioridade, char prazo[tempo_max_prazo]) {
     if (lista->tamanho >= lista->capacidade) {
         lista->capacidade *= 2;
         lista->elemento = (tarefa_t*)realloc(lista->elemento, sizeof(tarefa_t) * lista->capacidade);
         if (lista->elemento == NULL) {
+            printf("Erro de realocação de memória\n");
             printf("Erro de realocacao de memoria\n");
             exit(1);
         }
@@ -66,14 +61,12 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], Prior
     lista->elemento[lista->tamanho] = nova_tarefa;
     lista->tamanho++;
 }
-
 void paraMinusculas(char *str) {
     while (*str) {
         *str = tolower((unsigned char) *str);
         str++;
     }
 }
-
 int buscarTarefasDes(lista_t *lista, char alvo[numero_descricao]) {
     char alvo_minusculas[numero_descricao];
     strncpy(alvo_minusculas, alvo, numero_descricao);
@@ -95,7 +88,6 @@ int buscarTarefasDes(lista_t *lista, char alvo[numero_descricao]) {
     }
     return encontrado ? 0 : -1;
 }
-
 bool buscarTarefasPrioridade(lista_t *lista, Prioridade prioridade) {
     bool encontrado = false;
     for (int i = 0; i < lista->tamanho; i++) {
@@ -111,7 +103,6 @@ bool buscarTarefasPrioridade(lista_t *lista, Prioridade prioridade) {
     }
     return encontrado;
 }
-
 void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoNova[numero_descricao]) {
     int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
@@ -122,7 +113,6 @@ void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoN
         printf("\nDescricao alterada!\n");
     }
 }
-
 void editarPrio(lista_t *lista, char descricao[numero_descricao], Prioridade prioridade) {
     int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
@@ -133,7 +123,6 @@ void editarPrio(lista_t *lista, char descricao[numero_descricao], Prioridade pri
         printf("\nPrioridade alterada!\n");
     }
 }
-
 void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[tempo_max_prazo]) {
     int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
@@ -144,7 +133,6 @@ void editarPrazo(lista_t *lista, char descricao[numero_descricao], char prazo[te
         printf("\nPrazo alterado!\n");
     }
 }
-
 void editarConclusao(lista_t *lista, char descricao[numero_descricao], char novaConclusao[tempo_max_prazo]) {
     int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
@@ -155,7 +143,6 @@ void editarConclusao(lista_t *lista, char descricao[numero_descricao], char nova
     lista->elemento[indice].conclusao[tempo_max_prazo - 1] = '\0';
     printf("\nConclusao alterada!\n");
 }
-
 // Função para ordenar tarefas por prioridade
 void insertionSortPrioridade(lista_t* lista, bool crescente) {
     for (int i = 1; i < lista->tamanho; i++) {
@@ -169,7 +156,6 @@ void insertionSortPrioridade(lista_t* lista, bool crescente) {
         lista->elemento[j + 1] = chave;
     }
 }
-
 void insertionSortPrazo(lista_t* lista, bool crescente) {
     for (int i = 1; i < lista->tamanho; i++) {
         tarefa_t chave = lista->elemento[i];
@@ -182,7 +168,6 @@ void insertionSortPrazo(lista_t* lista, bool crescente) {
         lista->elemento[j + 1] = chave;
     }
 }
-
 void insertionSortConclusao(lista_t* lista, bool crescente) {
     for (int i = 1; i < lista->tamanho; i++) {
         tarefa_t chave = lista->elemento[i];
@@ -195,28 +180,10 @@ void insertionSortConclusao(lista_t* lista, bool crescente) {
         lista->elemento[j + 1] = chave;
     }
 }
-void filtrarPorDataConclusao(lista_t *lista, const char *data, bool crescente) {
-    // Ordenar a lista por data de conclusão na ordem especificada
-    insertionSortConclusao(lista, crescente);
-
-    bool encontrado = false;
-    for (int i = 0; i < lista->tamanho; i++) {
-        // Verifica se a data da conclusão contém a data fornecida
-        if (strstr(lista->elemento[i].conclusao, data) != NULL) {
-            printf("\nID: %d\nDescricao: %s\nPrioridade: %d\nPrazo: %s\nConclusao: %s\n",
-                   lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-                   lista->elemento[i].prazo, lista->elemento[i].conclusao);
-            encontrado = true;
-        }
-    }
-    if (!encontrado) {
-        printf("Nenhuma tarefa encontrada com data de conclusao '%s'\n", data);
-    }
-}
-
 void salvar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "wb");
     if (arquivo == NULL) {
+        printf("Não foi possível abrir o arquivo para escrita.\n");
         printf("nao foi possível abrir o arquivo para escrita.\n");
         return;
     }
@@ -225,10 +192,10 @@ void salvar_binario(lista_t *lista) {
     fclose(arquivo);
     printf("\nLista salva em 'tarefa.dat'.\n");
 }
-
 void carregar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "rb");
     if (arquivo == NULL) {
+        printf("Não foi possível abrir o arquivo para leitura.\n");
         printf("nao foi possível abrir o arquivo para leitura.\n");
         return;
     }
@@ -238,37 +205,30 @@ void carregar_binario(lista_t *lista) {
     fclose(arquivo);
     printf("\nLista carregada de 'tarefa.dat'.\n");
 }
-
 void concluirTarefa(lista_t *lista, char descricao[numero_descricao]) {
     int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
         printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
         return;
+    } else {
+        char dataConclusao[tempo_max_prazo];
+        printf("Digite a data de conclusão (formato: dd/mm/aaaa): ");
+        fgets(dataConclusao, tempo_max_prazo, stdin);
+        // Remove o caractere de nova linha se presente
+        dataConclusao[strcspn(dataConclusao, "\n")] = '\0';
+
+        // Copia a data de prazo para a conclusão
+        strncpy(lista->elemento[indice].conclusao, dataConclusao, tempo_max_prazo);
+        printf("\nTarefa '%s' concluída!\n", descricao);
+        printf("Data de conclusão: %s\n", lista->elemento[indice].conclusao);
     }
-
-    // Obter a data atual
-    time_t t = time(NULL);
-    struct tm *tm_info = localtime(&t);
-    char dataConclusao[tempo_max_prazo];
-    strftime(dataConclusao, tempo_max_prazo, "%Y-%m-%d", tm_info);
-
-    // Atualizar a conclusão com a data
-    snprintf(lista->elemento[indice].conclusao, tempo_max_prazo, "concluida em %s", dataConclusao);
-
-    printf("\nTarefa '%s' concluída!\n", descricao);
-
-    // Salvar as alterações no arquivo binário
-    salvar_binario(lista);
 }
-
 
 void imprimirListaTarefas(lista_t *lista) {
     for (int i = 0; i < lista->tamanho; i++) {
         tarefa_t *tarefa = &lista->elemento[i];  // Corrigido o acesso ao elemento
-
         printf("\nID: %d\n", tarefa->ID);
         printf("Descricao: %s\n", tarefa->descricao);
-
         // Imprimir prioridade com descrição legível
         printf("Prioridade: ");
         switch (tarefa->prioridade) {
@@ -276,7 +236,7 @@ void imprimirListaTarefas(lista_t *lista) {
                 printf("Alta (3)\n");
             break;
             case PRIORIDADE_MEDIA:
-                printf("Media (2)\n");
+                printf("Média (2)\n");
             break;
             case PRIORIDADE_BAIXA:
                 printf("Baixa (1)\n");
@@ -285,13 +245,11 @@ void imprimirListaTarefas(lista_t *lista) {
                 printf("Desconhecida\n");
             break;
         }
-
         printf("Prazo: %s\n", tarefa->prazo);
         printf("Conclusao: %s\n", tarefa->conclusao);
         printf("\n");
     }
 }
-
 void liberarLista(lista_t *lista) {
     free(lista->elemento);
     free(lista);
@@ -304,7 +262,7 @@ int excluirPorID(lista_t *lista, int ID) {
                 lista->elemento[j] = lista->elemento[j + 1];
             }
             lista->tamanho--; // Reduzir o tamanho da lista
-            return 0;
+            return 0; // Sucesso
         }
     }
     return -1; // Tarefa não encontrada
