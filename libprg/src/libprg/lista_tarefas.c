@@ -250,13 +250,17 @@ void concluirTarefa(lista_t *lista, char descricao[numero_descricao]) {
     time_t t = time(NULL);
     struct tm *tm_info = localtime(&t);
     char dataConclusao[tempo_max_prazo];
-    strftime(dataConclusao, tempo_max_prazo, "%d/%m/%Y", tm_info);
+    strftime(dataConclusao, tempo_max_prazo, "%Y-%m-%d", tm_info);
 
     // Atualizar a conclusão com a data
     snprintf(lista->elemento[indice].conclusao, tempo_max_prazo, "concluida em %s", dataConclusao);
 
     printf("\nTarefa '%s' concluída!\n", descricao);
+
+    // Salvar as alterações no arquivo binário
+    salvar_binario(lista);
 }
+
 
 void imprimirListaTarefas(lista_t *lista) {
     for (int i = 0; i < lista->tamanho; i++) {
