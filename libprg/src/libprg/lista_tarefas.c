@@ -59,31 +59,36 @@ void inserirListaTarefas(lista_t *lista, char descricao[numero_descricao], Prior
     lista->elemento[lista->tamanho] = nova_tarefa;
     lista->tamanho++;
 }
-void paraMinusculas(char *str) {
-    while (*str) {
-        *str = tolower((unsigned char) *str);
-        str++;
-    }
-}
 int buscarTarefasDes(lista_t *lista, char alvo[numero_descricao]) {
-    char alvo_minusculas[numero_descricao];
-    strncpy(alvo_minusculas, alvo, numero_descricao);
-    paraMinusculas(alvo_minusculas);
+    // Converter a string alvo para minúsculas
+    for (int i = 0; alvo[i]; i++) {
+        alvo[i] = tolower((unsigned char)alvo[i]);
+    }
+
     bool encontrado = false;
+
     for (int i = 0; i < lista->tamanho; i++) {
+        // Criar uma cópia da descrição da tarefa e convertê-la para minúsculas
         char descricao_minusculas[numero_descricao];
         strncpy(descricao_minusculas, lista->elemento[i].descricao, numero_descricao);
-        paraMinusculas(descricao_minusculas);
-        if (strstr(descricao_minusculas, alvo_minusculas) != NULL) {
+
+        for (int j = 0; descricao_minusculas[j]; j++) {
+            descricao_minusculas[j] = tolower((unsigned char)descricao_minusculas[j]);
+        }
+
+        // Comparar as strings em minúsculas
+        if (strstr(descricao_minusculas, alvo) != NULL) {
             printf("\nID: %d\nDescricao: %s\nPrioridade: %d\nPrazo: %s\nConclusao: %s\n",
                    lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
                    lista->elemento[i].prazo, lista->elemento[i].conclusao);
             encontrado = true;
         }
     }
+
     if (!encontrado) {
         printf("Nenhuma tarefa encontrada para '%s'\n", alvo);
     }
+
     return encontrado ? 0 : -1;
 }
 bool buscarTarefasPrioridade(lista_t *lista, Prioridade prioridade) {
