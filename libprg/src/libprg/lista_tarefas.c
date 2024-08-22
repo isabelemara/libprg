@@ -78,9 +78,25 @@ int buscarTarefasDes(lista_t *lista, char alvo[numero_descricao]) {
 
         // Comparar as strings em minúsculas
         if (strstr(descricao_minusculas, alvo) != NULL) {
-            printf("\nID: %d\nDescricao: %s\nPrioridade: %d\nPrazo: %s\nConclusao: %s\n",
-                   lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-                   lista->elemento[i].prazo, lista->elemento[i].conclusao);
+            printf("\nID: %d\nDescricao: %s\n", lista->elemento[i].ID, lista->elemento[i].descricao);
+            // Imprimir prioridade com descrição legível
+            printf("Prioridade: ");
+            switch (lista->elemento[i].prioridade) {
+                case PRIORIDADE_ALTA:
+                    printf("Alta (3)\n");
+                break;
+                case PRIORIDADE_MEDIA:
+                    printf("Media (2)\n");
+                break;
+                case PRIORIDADE_BAIXA:
+                    printf("Baixa (1)\n");
+                break;
+                default:
+                    printf("Desconhecida\n");
+                break;
+            }
+            printf("Prazo: %s\n", lista->elemento[i].prazo);
+            printf("Conclusao: %s\n", lista->elemento[i].conclusao);
             encontrado = true;
         }
     }
@@ -91,6 +107,7 @@ int buscarTarefasDes(lista_t *lista, char alvo[numero_descricao]) {
 
     return encontrado ? 0 : -1;
 }
+
 bool buscarTarefasPrioridade(lista_t *lista, Prioridade prioridade) {
     bool encontrado = false;
     for (int i = 0; i < lista->tamanho; i++) {
