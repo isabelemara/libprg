@@ -113,16 +113,35 @@ bool buscarTarefasPrioridade(lista_t *lista, Prioridade prioridade) {
     for (int i = 0; i < lista->tamanho; i++) {
         if (lista->elemento[i].prioridade == prioridade) {
             encontrado = true;
-            printf("\nID: %d\nDescricao: %s\nPrioridade: %d\nPrazo: %s\nConclusao: %s\n",
-                   lista->elemento[i].ID, lista->elemento[i].descricao, lista->elemento[i].prioridade,
-                   lista->elemento[i].prazo, lista->elemento[i].conclusao);
+            printf("\nID: %d\nDescricao: %s\n", lista->elemento[i].ID, lista->elemento[i].descricao);
+            // Imprimir prioridade com descrição legível
+            printf("Prioridade: ");
+            switch (lista->elemento[i].prioridade) {
+                case PRIORIDADE_ALTA:
+                    printf("Alta (3)\n");
+                break;
+                case PRIORIDADE_MEDIA:
+                    printf("Média (2)\n");
+                break;
+                case PRIORIDADE_BAIXA:
+                    printf("Baixa (1)\n");
+                break;
+                default:
+                    printf("Desconhecida\n");
+                break;
+            }
+            printf("Prazo: %s\n", lista->elemento[i].prazo);
+            printf("Conclusao: %s\n", lista->elemento[i].conclusao);
         }
     }
+
     if (!encontrado) {
-        printf("Nenhuma tarefa encontrada para prioridade %d\n", prioridade);
+        printf("Nenhuma tarefa encontrada.\n");
     }
+
     return encontrado;
 }
+
 void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoNova[numero_descricao]) {
     int indice = buscarTarefasDes(lista, descricao);
     if (indice < 0) {
