@@ -152,17 +152,15 @@ void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoN
         printf("\nDescricao alterada!\n");
     }
 }
-// Definição correta
 void editarDes(lista_t *lista, int ID, char descricaoNova[numero_descricao]) {
     for (int i = 0; i < lista->tamanho; i++) {
         if (lista->elemento[i].ID == ID) {
             strncpy(lista->elemento[i].descricao, descricaoNova, numero_descricao);
-            printf("\nDescricao alterada!\n");
-            return;
+            break;
         }
     }
-    printf("\nNenhuma tarefa encontrada com ID %d\n", ID);
 }
+
 
 
 void editarPrio(lista_t *lista, int ID, Prioridade novaPrioridade) {
@@ -260,19 +258,11 @@ void carregar_binario(lista_t *lista) {
     printf("\nLista carregada de 'tarefa.dat'.\n");
 }
 void concluirTarefa(lista_t *lista, int ID, char dataConclusao[tempo_max_prazo]) {
-    int encontrado = 0;
     for (int i = 0; i < lista->tamanho; i++) {
         if (lista->elemento[i].ID == ID) {
-            strncpy(lista->elemento[i].conclusao, dataConclusao, tempo_max_prazo - 1);
-            lista->elemento[i].conclusao[tempo_max_prazo - 1] = '\0';
-            printf("\nTarefa '%s' concluida!\n", lista->elemento[i].descricao);
-            printf("Data de conclusão: %s\n", lista->elemento[i].conclusao);
-            encontrado = 1;
+            strncpy(lista->elemento[i].conclusao, dataConclusao, tempo_max_prazo);
             break;
         }
-    }
-    if (!encontrado) {
-        printf("\nNenhuma tarefa encontrada com ID %d\n", ID);
     }
 }
 
