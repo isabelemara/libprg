@@ -229,7 +229,6 @@ void salvar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "wb");
     if (arquivo == NULL) {
         printf("nao foi possível abrir o arquivo para escrita.\n");
-        printf("nao foi possível abrir o arquivo para escrita.\n");
         return;
     }
     fwrite(&lista->tamanho, sizeof(int), 1, arquivo);
@@ -240,7 +239,6 @@ void salvar_binario(lista_t *lista) {
 void carregar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "rb");
     if (arquivo == NULL) {
-        printf("nao foi possível abrir o arquivo para leitura.\n");
         printf("nao foi possível abrir o arquivo para leitura.\n");
         return;
     }
