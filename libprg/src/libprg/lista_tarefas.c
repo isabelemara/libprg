@@ -152,6 +152,7 @@ void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoN
         printf("\nDescricao alterada!\n");
     }
 }
+// Definição correta
 void editarDes(lista_t *lista, int ID, char descricaoNova[numero_descricao]) {
     for (int i = 0; i < lista->tamanho; i++) {
         if (lista->elemento[i].ID == ID) {
@@ -162,6 +163,7 @@ void editarDes(lista_t *lista, int ID, char descricaoNova[numero_descricao]) {
     }
     printf("\nNenhuma tarefa encontrada com ID %d\n", ID);
 }
+
 
 void editarPrio(lista_t *lista, int ID, Prioridade novaPrioridade) {
     for (int i = 0; i < lista->tamanho; i++) {
