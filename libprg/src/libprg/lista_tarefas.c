@@ -142,52 +142,45 @@ bool buscarTarefasPrioridade(lista_t *lista, Prioridade prioridade) {
     return encontrado;
 }
 
-void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoNova[numero_descricao]) {
-    int indice = buscarTarefasDes(lista, descricao);
-    if (indice < 0) {
-        printf("\nNenhuma tarefa encontrada para '%s'\n", descricao);
+void editarDes(lista_t *lista, int id, char descricaoNova[numero_descricao]) {
+    if (id < 0 || id >= lista->tamanho) {
+        printf("\nID inválido.\n");
         return;
-    } else {
-        strncpy(lista->elemento[indice].descricao, descricaoNova, numero_descricao);
-        printf("\nDescricao alterada!\n");
     }
+    strncpy(lista->elemento[id].descricao, descricaoNova, numero_descricao);
+    lista->elemento[id].descricao[numero_descricao - 1] = '\0';  // Garantir que a string esteja terminada
+    printf("\nDescrição alterada!\n");
 }
 
-
-
-
-void editarPrio(lista_t *lista, int ID, Prioridade novaPrioridade) {
-    for (int i = 0; i < lista->tamanho; i++) {
-        if (lista->elemento[i].ID == ID) {
-            lista->elemento[i].prioridade = novaPrioridade;
-            printf("\nPrioridade alterada!\n");
-            return;
-        }
+void editarPrio(lista_t *lista, int id, Prioridade prioridade) {
+    if (id < 0 || id >= lista->tamanho) {
+        printf("\nID inválido.\n");
+        return;
     }
-    printf("\nNenhuma tarefa encontrada com ID %d\n", ID);
+    lista->elemento[id].prioridade = prioridade;
+    printf("\nPrioridade alterada!\n");
 }
 
-void editarPrazo(lista_t *lista, int ID, char novoPrazo[tempo_max_prazo]) {
-    for (int i = 0; i < lista->tamanho; i++) {
-        if (lista->elemento[i].ID == ID) {
-            strncpy(lista->elemento[i].prazo, novoPrazo, tempo_max_prazo);
-            printf("\nPrazo alterado!\n");
-            return;
-        }
+void editarPrazo(lista_t *lista, int id, char prazo[tempo_max_prazo]) {
+    if (id < 0 || id >= lista->tamanho) {
+        printf("\nID inválido.\n");
+        return;
     }
-    printf("\nNenhuma tarefa encontrada com ID %d\n", ID);
+    strncpy(lista->elemento[id].prazo, prazo, tempo_max_prazo);
+    lista->elemento[id].prazo[tempo_max_prazo - 1] = '\0';  // Garantir que a string esteja terminada
+    printf("\nPrazo alterado!\n");
 }
 
-void editarConclusao(lista_t *lista, int ID, char novaConclusao[tempo_max_prazo]) {
-    for (int i = 0; i < lista->tamanho; i++) {
-        if (lista->elemento[i].ID == ID) {
-            strncpy(lista->elemento[i].conclusao, novaConclusao, tempo_max_prazo);
-            printf("\nConclusao alterada!\n");
-            return;
-        }
+void editarConclusao(lista_t *lista, int id, char novaConclusao[tempo_max_prazo]) {
+    if (id < 0 || id >= lista->tamanho) {
+        printf("\nID inválido.\n");
+        return;
     }
-    printf("\nNenhuma tarefa encontrada com ID %d\n", ID);
+    strncpy(lista->elemento[id].conclusao, novaConclusao, tempo_max_prazo);
+    lista->elemento[id].conclusao[tempo_max_prazo - 1] = '\0';  // Garantir que a string esteja terminada
+    printf("\nConclusão alterada!\n");
 }
+
 // Função para ordenar tarefas por prioridade
 void insertionSortPrioridade(lista_t* lista, bool crescente) {
     for (int i = 1; i < lista->tamanho; i++) {
