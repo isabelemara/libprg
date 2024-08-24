@@ -152,14 +152,7 @@ void editarDes(lista_t *lista, char descricao[numero_descricao], char descricaoN
         printf("\nDescricao alterada!\n");
     }
 }
-void editarDes(lista_t *lista, int ID, char descricaoNova[numero_descricao]) {
-    for (int i = 0; i < lista->tamanho; i++) {
-        if (lista->elemento[i].ID == ID) {
-            strncpy(lista->elemento[i].descricao, descricaoNova, numero_descricao);
-            break;
-        }
-    }
-}
+
 
 
 
