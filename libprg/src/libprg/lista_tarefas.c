@@ -178,7 +178,7 @@ void editarConclusao(lista_t *lista, int id, char novaConclusao[tempo_max_prazo]
     }
     strncpy(lista->elemento[id].conclusao, novaConclusao, tempo_max_prazo);
     lista->elemento[id].conclusao[tempo_max_prazo - 1] = '\0';  // Garantir que a string esteja terminada
-    printf("\nConclusão alterada!\n");
+    printf("\nConclusao alterada!\n");
 }
 
 // Função para ordenar tarefas por prioridade
