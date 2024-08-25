@@ -245,6 +245,7 @@ void concluirTarefa(lista_t *lista, int ID, char dataConclusao[tempo_max_prazo])
     for (int i = 0; i < lista->tamanho; i++) {
         if (lista->elemento[i].ID == ID) {
             strncpy(lista->elemento[i].conclusao, dataConclusao, tempo_max_prazo);
+            printf("tarefa concluida");
             break;
         }
     }
