@@ -207,17 +207,35 @@ void insertionSortPrazo(lista_t* lista, bool crescente) {
     }
 }
 void insertionSortConclusao(lista_t* lista, bool crescente) {
-    for (int i = 1; i < lista->tamanho; i++) {
-        tarefa_t chave = lista->elemento[i];
-        int j = i - 1;
-        while (j >= 0 && (crescente ? strcmp(lista->elemento[j].conclusao, chave.conclusao) > 0
-                                    : strcmp(lista->elemento[j].conclusao, chave.conclusao) < 0)) {
-            lista->elemento[j + 1] = lista->elemento[j];
-            j--;
+    //  lista temporária que conterá apenas as tarefas concluídas
+    lista_t* listaConcluidas = criarListaTarefas();
+
+    // Filtre as tarefas concluídas
+    for (int i = 0; i < lista->tamanho; i++) {
+        if (strcmp(lista->elemento[i].conclusao, "nao concluida") != 0) {
+            inserirListaTarefas(listaConcluidas, lista->elemento[i].descricao, lista->elemento[i].prioridade, lista->elemento[i].prazo);
+            listaConcluidas->elemento[listaConcluidas->tamanho - 1].ID = lista->elemento[i].ID; // Mantém o ID original
+            strcpy(listaConcluidas->elemento[listaConcluidas->tamanho - 1].conclusao, lista->elemento[i].conclusao); // Copia a data de conclusão
         }
-        lista->elemento[j + 1] = chave;
     }
+
+    // Agora, ordene a lista de tarefas concluídas
+    for (int i = 1; i < listaConcluidas->tamanho; i++) {
+        tarefa_t chave = listaConcluidas->elemento[i];
+        int j = i - 1;
+        while (j >= 0 && (crescente ? strcmp(listaConcluidas->elemento[j].conclusao, chave.conclusao) > 0
+                                    : strcmp(listaConcluidas->elemento[j].conclusao, chave.conclusao) < 0)) {
+            listaConcluidas->elemento[j + 1] = listaConcluidas->elemento[j];
+            j--;
+                                    }
+        listaConcluidas->elemento[j + 1] = chave;
+    }
+
+    // Imprima ou substitua a lista original pelas tarefas ordenadas (dependendo do comportamento desejado)
+    printf("\nTarefas Concluídas Ordenadas:\n");
+
 }
+
 void salvar_binario(lista_t *lista) {
     FILE *arquivo = fopen("tarefa.dat", "wb");
     if (arquivo == NULL) {
