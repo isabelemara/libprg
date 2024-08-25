@@ -59,6 +59,7 @@ void carregar_binario(lista_t *lista);
 void imprimirListaTarefas(lista_t *lista);
 int excluirPorID(lista_t *lista, int id);
 void concluirTarefa(lista_t *lista, int ID, char dataConclusao[tempo_max_prazo]);
+void imprimirTarefasConcluidas(lista_t *lista);
 ///==============================///
 
 ////arvore

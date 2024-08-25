@@ -207,33 +207,56 @@ void insertionSortPrazo(lista_t* lista, bool crescente) {
     }
 }
 void insertionSortConclusao(lista_t* lista, bool crescente) {
-    //  lista temporária que conterá apenas as tarefas concluídas
-    lista_t* listaConcluidas = criarListaTarefas();
+    int i, j;
+    tarefa_t chave;
 
-    // Filtre as tarefas concluídas
-    for (int i = 0; i < lista->tamanho; i++) {
+    // Primeira fase: Ordena apenas as tarefas concluídas
+    for (i = 1; i < lista->tamanho; i++) {
         if (strcmp(lista->elemento[i].conclusao, "nao concluida") != 0) {
-            inserirListaTarefas(listaConcluidas, lista->elemento[i].descricao, lista->elemento[i].prioridade, lista->elemento[i].prazo);
-            listaConcluidas->elemento[listaConcluidas->tamanho - 1].ID = lista->elemento[i].ID; // Mantém o ID original
-            strcpy(listaConcluidas->elemento[listaConcluidas->tamanho - 1].conclusao, lista->elemento[i].conclusao); // Copia a data de conclusão
+            chave = lista->elemento[i];
+            j = i - 1;
+            while (j >= 0 && strcmp(lista->elemento[j].conclusao, "nao concluida") != 0 &&
+                  (crescente ? strcmp(lista->elemento[j].conclusao, chave.conclusao) > 0
+                             : strcmp(lista->elemento[j].conclusao, chave.conclusao) < 0)) {
+                lista->elemento[j + 1] = lista->elemento[j];
+                j--;
+                             }
+            lista->elemento[j + 1] = chave;
         }
     }
+}
 
-    // Agora, ordene a lista de tarefas concluídas
-    for (int i = 1; i < listaConcluidas->tamanho; i++) {
-        tarefa_t chave = listaConcluidas->elemento[i];
-        int j = i - 1;
-        while (j >= 0 && (crescente ? strcmp(listaConcluidas->elemento[j].conclusao, chave.conclusao) > 0
-                                    : strcmp(listaConcluidas->elemento[j].conclusao, chave.conclusao) < 0)) {
-            listaConcluidas->elemento[j + 1] = listaConcluidas->elemento[j];
-            j--;
-                                    }
-        listaConcluidas->elemento[j + 1] = chave;
+void imprimirTarefasConcluidas(lista_t *lista) {
+    bool encontrou_concluida = false;
+    for (int i = 0; i < lista->tamanho; i++) {
+        if (strcmp(lista->elemento[i].conclusao, "nao concluida") != 0) {
+            tarefa_t *tarefa = &lista->elemento[i];
+            printf("\nID: %d\n", tarefa->ID);
+            printf("Descricao: %s\n", tarefa->descricao);
+            // Imprimir prioridade com descrição legível
+            printf("Prioridade: ");
+            switch (tarefa->prioridade) {
+                case PRIORIDADE_ALTA:
+                    printf("Alta (3)\n");
+                break;
+                case PRIORIDADE_MEDIA:
+                    printf("Media (2)\n");
+                break;
+                case PRIORIDADE_BAIXA:
+                    printf("Baixa (1)\n");
+                break;
+                default:
+                    printf("Desconhecida\n");
+                break;
+            }
+            printf("Prazo: %s\n", tarefa->prazo);
+            printf("Conclusao: %s\n", tarefa->conclusao);
+            encontrou_concluida = true;
+        }
     }
-
-    // Imprima ou substitua a lista original pelas tarefas ordenadas (dependendo do comportamento desejado)
-    printf("\nTarefas Concluídas Ordenadas:\n");
-
+    if (!encontrou_concluida) {
+        printf("Nenhuma tarefa concluída encontrada.\n");
+    }
 }
 
 void salvar_binario(lista_t *lista) {
